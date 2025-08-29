@@ -407,6 +407,7 @@ input[type=checkbox], input[type=radio] {
       background: transparent; }
 
 /** Button style **/
+
 .theme-btn,
 a.theme-btn {
   color: white;
@@ -417,7 +418,7 @@ a.theme-btn {
   font-weight: 600;
   overflow: hidden;
   text-align: center;
-  padding: 11px 36px;
+  padding: 6px 25px;
   border-radius: 30px;
   position: relative;
   -webkit-box-align: center;

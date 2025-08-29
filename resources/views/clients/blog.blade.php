@@ -49,11 +49,11 @@
         <section class="page-banner-area pt-50 pb-35 rel z-1 bgs-cover" style="background-image: url({{ asset('clients/images/banner/banner.jpg')}});">
             <div class="container">
                 <div class="banner-inner text-white">
-                    <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">Blog List View</h2>
+                    <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">Danh sách blog</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1500" data-aos-offset="50">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Blog List</li>
+                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Danh sách blog</li>
                         </ol>
                     </nav>
                 </div>
@@ -181,13 +181,13 @@
                             
                             <div class="widget widget-search" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <form action="#" class="default-search-form">
-                                    <input type="text" placeholder="Search" required="">
+                                    <input type="text" placeholder="Tìm kiếm" required="">
                                     <button type="submit" class="searchbutton far fa-search"></button>
                                 </form>
                             </div>
                             
                             <div class="widget widget-category" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                                <h5 class="widget-title">Category</h5>
+                                <h5 class="widget-title">Danh mục</h5>
                                 <ul class="list-style-three">
                                     <li><a href="blog.html">Adventure</a></li>
                                     <li><a href="blog.html">Hiking & Trekking</a></li>
@@ -200,7 +200,7 @@
                             </div>
                             
                             <div class="widget widget-news" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                                <h5 class="widget-title">Recent News</h5>
+                                <h5 class="widget-title">Tin tức gần đây</h5>
                                 <ul>
                                     <li>
                                         <div class="image">
@@ -267,10 +267,10 @@
                             
                             <div class="widget widget-cta" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <div class="content text-white">
-                                    <span class="h6">Explore The World</span>
-                                    <h3>Best Tourist Place</h3>
+                                    <span class="h6">Khám phá thế giới</span>
+                                    <h3>Địa điểm du lịch tốt nhất</h3>
                                     <a href="tour-list.html" class="theme-btn style-two bgc-secondary">
-                                        <span data-hover="Explore Now">Explore Now</span>
+                                        <span data-hover="Khám phá ngay">Khám phá ngay</span>
                                         <i class="fal fa-arrow-right"></i>
                                     </a>
                                 </div>

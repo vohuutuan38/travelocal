@@ -48,11 +48,11 @@
         <section class="page-banner-area pt-50 pb-35 rel z-1 bgs-cover" style="background-image: url({{ asset('clients/images/banner/banner.jpg')}});">
             <div class="container">
                 <div class="banner-inner text-white mb-50">
-                    <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">Destination 02</h2>
+                    <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">Điểm đến</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1500" data-aos-offset="50">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Destination 02</li>
+                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Điểm đến</li>
                         </ol>
                     </nav>
                 </div>
@@ -62,34 +62,34 @@
             <div class="search-filter-inner" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
                 <div class="filter-item clearfix">
                     <div class="icon"><i class="fal fa-map-marker-alt"></i></div>
-                    <span class="title">Destinations</span>
+                    <span class="title">Điểm đến</span>
                     <select name="city" id="city">
-                        <option value="value1">City or Region</option>
-                        <option value="value2">City</option>
-                        <option value="value2">Region</option>
+                        <option value="value1">Thành phố hoặc khu vực</option>
+                        <option value="value2">Thành phố</option>
+                        <option value="value2">Khu vực</option>
                     </select>
                 </div>
                 <div class="filter-item clearfix">
                     <div class="icon"><i class="fal fa-flag"></i></div>
-                    <span class="title">All Activity</span>
+                    <span class="title">Tất cả hoạt động</span>
                     <select name="activity" id="activity">
-                        <option value="value1">Choose Activity</option>
-                        <option value="value2">Daily</option>
-                        <option value="value2">Monthly</option>
+                        <option value="value1">Chọn hoạt động</option>
+                        <option value="value2">Hằng ngày</option>
+                        <option value="value2">Hằng tháng</option>
                     </select>
                 </div>
                 <div class="filter-item clearfix">
                     <div class="icon"><i class="fal fa-calendar-alt"></i></div>
-                    <span class="title">Departure Date</span>
+                    <span class="title">Ngày khởi hành</span>
                     <select name="date" id="date">
-                        <option value="value1">Date from</option>
+                        <option value="value1">Ngày từ</option>
                         <option value="value2">10</option>
                         <option value="value2">20</option>
                     </select>
                 </div>
                 <div class="filter-item clearfix">
                     <div class="icon"><i class="fal fa-users"></i></div>
-                    <span class="title">Guests</span>
+                    <span class="title">Người</span>
                     <select name="cuests" id="cuests">
                         <option value="value1">0</option>
                         <option value="value2">1</option>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="search-button">
                     <button class="theme-btn">
-                        <span data-hover="Search">Search</span>
+                        <span data-hover="Tìm kiếm">Tìm kiếm</span>
                         <i class="far fa-search"></i>
                     </button>
                 </div>
@@ -113,14 +113,14 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="section-title text-center counter-text-wrap mb-40" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                            <h2>Explore Popular Destinations</h2>
-                            <p>One site <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> most popular experience</p>
+                            <h2>Khám phá các điểm đến phổ biến</h2>
+                            <p>Một trang web<span class="count-text plus" data-speed="3000" data-stop="34500">0</span> trải nghiệm phổ biến nhất</p>
                             <ul class="destinations-nav mt-30">
-                                <li data-filter="*" class="active">Show All</li>
-                                <li data-filter=".features">Features</li>
-                                <li data-filter=".recent">Recent</li>
-                                <li data-filter=".city">City</li>
-                                <li data-filter=".rating">Rating</li>
+                                <li data-filter="*" class="active">Hiển thị tất cả</li>
+                                <li data-filter=".features">Đặc trưng</li>
+                                <li data-filter=".recent">Gần đây</li>
+                                <li data-filter=".city">Thành phố</li>
+                                <li data-filter=".rating">Đánh giá</li>
                             </ul>
                         </div>
                     </div>
@@ -219,11 +219,11 @@
                     <div class="col-xl-4">
                         <div class="destination-left-content mb-35">
                             <div class="section-title text-white counter-text-wrap mb-45" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                                <h2>Discover the World's Class Top Hotel</h2>
-                                <p>One site <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> most popular <br> experience you’ll remember</p>
+                                <h2>Khám phá Khách sạn hàng đầu thế giới</h2>
+                                <p>Một trang web <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> phổ biến nhất <br> trải nghiệm bạn sẽ nhớ</p>
                             </div>
                             <a href="destination1.html" class="theme-btn style-four mb-15">
-                                <span data-hover="Explore More Hotel">Explore More Hotel</span>
+                                <span data-hover="Khám phá thêm khách sạn">Khám phá thêm khách sạn</span>
                                 <i class="fal fa-arrow-right"></i>
                             </a>
                         </div>
@@ -326,8 +326,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="section-title text-center counter-text-wrap mb-50" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                            <h2>Discover Hot Deals</h2>
-                            <p>One site <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> most popular experience you’ll remember</p>
+                            <h2>Khám phá các ưu đãi hấp dẫn</h2>
+                            <p>Một trang web <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> trải nghiệm phổ biến nhất mà bạn sẽ nhớ</p>
                         </div>
                     </div>
                 </div>
@@ -426,17 +426,17 @@
                     <div class="col-lg-6">
                         <div class="newsletter-content-part text-white rmb-55" data-aos="zoom-in-right" data-aos-duration="1500" data-aos-offset="50">
                             <div class="section-title counter-text-wrap mb-45">
-                                <h2>Subscribe Our Newsletter to Get more offer & Tips</h2>
-                                <p>One site <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> most popular experience you’ll remember</p>
+                                <h2>Đăng ký nhận bản tin của chúng tôi để nhận thêm ưu đãi và mẹo</h2>
+                                <p>Một trang web <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> trải nghiệm phổ biến nhất mà bạn sẽ nhớ</p>
                             </div>
                             <form class="newsletter-form mb-15" action="#">
                                 <input id="news-email" type="email" placeholder="Email Address" required>
                                 <button type="submit" class="theme-btn bgc-secondary style-two">
-                                    <span data-hover="Subscribe">Subscribe</span>
+                                    <span data-hover="Đăng ký">Đăng ký</span>
                                     <i class="fal fa-arrow-right"></i>
                                 </button>
                             </form>
-                            <p>No credit card requirement. No commitments</p>
+                            <p>Không yêu cầu thẻ tín dụng. Không cam kết</p>
                         </div>
                         <div class="newsletter-bg-image" data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="1500" data-aos-offset="50">
                             <img src="{{ asset('clients/images/newsletter/newsletter-bg-image.png')}}" alt="Newsletter">

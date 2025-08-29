@@ -9,7 +9,7 @@
                                 <div class="footer-logo mb-25">
                                     <a href="index.html"><img src="{{ asset('clients/images/logos/logo.png')}}" alt="Logo"></a>
                                 </div>
-                                <p>We curate bespoke itineraries tailored to your preferences, ensuring every trip is seamless and enriching hidden gems beaten</p>
+                                <p>Chúng tôi thiết kế các hành trình riêng biệt phù hợp với sở thích của bạn, đảm bảo mọi chuyến đi đều liền mạch và khám phá những viên ngọc ẩn giấu</p>
                                 <div class="social-style-one mt-15">
                                     <a href="contact.html"><i class="fab fa-facebook-f"></i></a>
                                     <a href="contact.html"><i class="fab fa-youtube"></i></a>
@@ -20,13 +20,13 @@
                         </div>
                         <div class="col-xl-5 col-lg-6" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1500" data-aos-offset="50">
                             <div class="section-title counter-text-wrap mb-35">
-                                <h2>Subscribe Newsletter</h2>
-                                <p>One site <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> most popular experience you’ll remember</p>
+                                <h2>Đăng ký nhận bản tin</h2>
+                                <p>Một trang web  <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> trải nghiệm phổ biến nhất mà bạn sẽ nhớ</p>
                             </div>
                             <form class="newsletter-form mb-50" action="#">
                                 <input id="news-email" type="email" placeholder="Email Address" required>
                                 <button type="submit" class="theme-btn bgc-secondary style-two">
-                                    <span data-hover="Subscribe">Subscribe</span>
+                                    <span data-hover="Đăng ký">Đăng ký</span>
                                     <i class="fal fa-arrow-right"></i>
                                 </button>
                             </form>
@@ -96,13 +96,13 @@
                         <div class="col col-md-6 col-10 col-small" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1500" data-aos-offset="50">
                             <div class="footer-widget footer-contact">
                                 <div class="footer-title">
-                                    <h5>Get In Touch</h5>
+                                    <h5>Liên hệ</h5>
                                 </div>
                                 <ul class="list-style-one">
-                                    <li><i class="fal fa-map-marked-alt"></i> 578 Level, D-block 45 Street Melbourne, Australia</li>
-                                    <li><i class="fal fa-envelope"></i> <a href="mailto:supportrevelo@gmail.com">supportrevelo@gmail.com</a></li>
-                                    <li><i class="fal fa-clock"></i> Mon - Fri, 08am - 05pm</li>
-                                    <li><i class="fal fa-phone-volume"></i> <a href="callto:+88012334588">+880 (123) 345 88</a></li>
+                                    <li><i class="fal fa-map-marked-alt"></i>Số 8/11/36/7 , đường Lê Quang Đạo , Phú Đô , Hà Nội</li>
+                                    <li><i class="fal fa-envelope"></i> <a href="mailto:supportrevelo@gmail.com">vohuutuan04@gmail.com</a></li>
+                                    <li><i class="fal fa-clock"></i> Thứ 2 - 6 , 8h sáng - 18h chiều</li>
+                                    <li><i class="fal fa-phone-volume"></i> <a href="callto:+88012334588">+0799123089</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -114,17 +114,10 @@
                     <div class="row">
                        <div class="col-lg-5">
                             <div class="copyright-text text-center text-lg-start">
-                                <p>@Copy 2024 <a href="index.html">Ravelo</a>, All rights reserved</p>
+                                <p>@Copy 2024 <a href="index.html">Traveloka</a>, By VoTuanIs Heree</p>
                             </div>
                        </div>
-                       <div class="col-lg-7 text-center text-lg-end">
-                           <ul class="footer-bottom-nav">
-                               <li><a href="about.html">Terms</a></li>
-                               <li><a href="about.html">Privacy Policy</a></li>
-                               <li><a href="about.html">Legal notice</a></li>
-                               <li><a href="about.html">Accessibility</a></li>
-                           </ul>
-                       </div>
+                      
                     </div>
                     <!-- Scroll Top Button -->
                     <button class="scroll-top scroll-to-target" data-target="html"><img src="{{ asset('clients/images/icons/scroll-up.png')}}" alt="Scroll  Up"></button>
@@ -155,6 +148,9 @@
     <script src="{{ asset('clients/js/skill.bars.jquery.min.js')}}"></script>
     <!-- Isotope -->
     <script src="{{ asset('clients/js/isotope.pkgd.min.js')}}"></script>
+     <!-- Jquery UI -->
+    <script src="{{ asset('clients/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope -->
     <!--  AOS Animation -->
     <script src="{{ asset('clients/js/aos.js')}}"></script>
     <!-- Custom script -->

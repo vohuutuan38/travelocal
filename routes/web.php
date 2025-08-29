@@ -1,19 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\clients\HomeController;
-use App\Http\Controllers\clients\AboutController;
 use App\Http\Controllers\clients\BlogController;
-use App\Http\Controllers\clients\ContactController;
-use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\clients\FaqsController;
-use App\Http\Controllers\clients\GelleryController;
+use App\Http\Controllers\clients\HomeController;
 use App\Http\Controllers\clients\TourController;
+use App\Http\Controllers\clients\AboutController;
+use App\Http\Controllers\clients\LoginController;
+use App\Http\Controllers\clients\ContactController;
+use App\Http\Controllers\clients\GelleryController;
+use App\Http\Controllers\clients\DestinationController;
 
 // Route::get('/', function () {
 //     return view('clients.blocks.home');
 // });
 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tour',[TourController::class, 'index'])->name('tour');
