@@ -45,65 +45,7 @@
        
         
         <!-- Page Banner Start -->
-        <section class="page-banner-area pt-50 pb-35 rel z-1 bgs-cover" style="background-image: url({{ asset('clients/images/banner/banner.jpg')}});">
-            <div class="container">
-                <div class="banner-inner text-white mb-50">
-                    <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">Điểm đến</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1500" data-aos-offset="50">
-                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Điểm đến</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </section>
-        <div class="container container-1400">
-            <div class="search-filter-inner" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
-                <div class="filter-item clearfix">
-                    <div class="icon"><i class="fal fa-map-marker-alt"></i></div>
-                    <span class="title">Điểm đến</span>
-                    <select name="city" id="city">
-                        <option value="value1">Thành phố hoặc khu vực</option>
-                        <option value="value2">Thành phố</option>
-                        <option value="value2">Khu vực</option>
-                    </select>
-                </div>
-                <div class="filter-item clearfix">
-                    <div class="icon"><i class="fal fa-flag"></i></div>
-                    <span class="title">Tất cả hoạt động</span>
-                    <select name="activity" id="activity">
-                        <option value="value1">Chọn hoạt động</option>
-                        <option value="value2">Hằng ngày</option>
-                        <option value="value2">Hằng tháng</option>
-                    </select>
-                </div>
-                <div class="filter-item clearfix">
-                    <div class="icon"><i class="fal fa-calendar-alt"></i></div>
-                    <span class="title">Ngày khởi hành</span>
-                    <select name="date" id="date">
-                        <option value="value1">Ngày từ</option>
-                        <option value="value2">10</option>
-                        <option value="value2">20</option>
-                    </select>
-                </div>
-                <div class="filter-item clearfix">
-                    <div class="icon"><i class="fal fa-users"></i></div>
-                    <span class="title">Người</span>
-                    <select name="cuests" id="cuests">
-                        <option value="value1">0</option>
-                        <option value="value2">1</option>
-                        <option value="value2">2</option>
-                    </select>
-                </div>
-                <div class="search-button">
-                    <button class="theme-btn">
-                        <span data-hover="Tìm kiếm">Tìm kiếm</span>
-                        <i class="far fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+       @include('clients.blocks.banner_home')
         <!-- Page Banner End -->
         
         

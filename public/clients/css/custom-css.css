@@ -1,0 +1,12 @@
+.datetimepicker-custom{
+    padding: 0;
+
+}
+
+.datetimepicker-custom:focus{
+ border: none;
+
+}
+    .main-header.header-one .main-menu .navbar-collapse .navigation .active {
+        background: var(--primary-color);
+    }
