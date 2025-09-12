@@ -34,14 +34,14 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-      public function show()
-    {
-        return view('clients.blog-detail');
-    }
-    // public function show(string $id)
+    //   public function show()
     // {
     //     return view('clients.blog-detail');
     // }
+    public function show(string $id)
+    {
+        return view('clients.blog-detail');
+    }
 
     /**
      * Show the form for editing the specified resource.

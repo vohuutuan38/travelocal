@@ -12,7 +12,8 @@ class TourController extends Controller
      */
     public function index()
     {
-        return view('clients.tour');
+          $title = "Tour";
+        return view('clients.tour',compact('title'));
     }
 
     /**
@@ -34,9 +35,10 @@ class TourController extends Controller
     /**
      * Display the specified resource.
      */
-     public function show()
-    {
-        return view('clients.tour-detail');
+     public function show(string $id)
+    { 
+          $title = "Chi tiết tour";
+        return view('clients.tour-detail',compact('title'));
     }
     // public function show(string $id)
     // {
@@ -66,8 +68,5 @@ class TourController extends Controller
     {
         //
     }
-    public function tourGuide()
-    {
-        return view('clients.tour-guide');
-    }
+  
 }

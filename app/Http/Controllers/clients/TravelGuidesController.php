@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\clients;
+namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class TravelGuidesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $title = "Trang chủ";
-        return view('clients.home',compact('title'));
+         $title = "Hướng dẫn viên du lịch";
+        return view('clients.tour-guide',compact('title'));
     }
 
     /**

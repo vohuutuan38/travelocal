@@ -20,5 +20,9 @@ $(document).ready(function(){
         
         timepicker: false,
     });
+
+    $('#userDropdown').click(function(){
+        $('#dropdownMenu').toggle(500);
+    })
 });
 

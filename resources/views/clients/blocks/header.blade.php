@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Ravelo - Travel & Tour Booking HTML Template</title>
+    <title>Ravelo - {{ $title }}</title>
     <!-- Favicon Icon -->
     <link rel="shortcut icon" href="{{ asset('clients/images/logos/favicon.png') }}" type="image/x-icon">
     <!-- Google Fonts -->
@@ -38,9 +38,10 @@
     <link rel="stylesheet" href="{{ asset('clients/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('clients/css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('clients/css/custom-css.css') }}">
-    
+
     <!-- Font Icon -->
-    <link rel="stylesheet" href="{{ asset('clients/css/css-login/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet"
+        href="{{ asset('clients/css/css-login/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
 
     <!-- Main css -->
     <link rel="stylesheet" href="{{ asset('clients/css/css-login/style.css') }}">
@@ -90,18 +91,25 @@
 
                                 <div class="navbar-collapse collapse clearfix">
                                     <ul class="navigation clearfix">
-                                        <li class="current {{ Request::url() == route('home') ? 'active' : '' }}"><a href="{{ route('home') }}">Trang chủ</a></li>
-                                        <li class="{{ Request::url() == route('about') ? 'active' : '' }}"><a href="{{ route('about') }}">Giới thiệu</a></li>
-                                        <li class="dropdown {{ (Request::url() == route('tour') || Request::url() == route('tour-guide')) ? 'active' : '' }}"><a href="{{ route('tour') }}">Tours</a>
+                                        <li class="current {{ Request::url() == route('home') ? 'active' : '' }}"><a
+                                                href="{{ route('home') }}">Trang chủ</a></li>
+                                        <li class="{{ Request::url() == route('about') ? 'active' : '' }}"><a
+                                                href="{{ route('about') }}">Giới thiệu</a></li>
+                                        <li
+                                            class="dropdown {{ Request::url() == route('tour') || Request::url() == route('tour-guide') ? 'active' : '' }}">
+                                            <a href="{{ route('tour') }}">Tours</a>
                                             <ul>
                                                 <li><a href="{{ route('tour') }}">Tour</a></li>
                                                 <li><a href="{{ route('tour-guide') }}">Hướng dẫn viên</a></li>
                                             </ul>
                                         </li>
-                                        <li class="{{ Request::url() == route('destination') ? 'active' : '' }}"><a href="{{ route('destination') }}">Điểm đến</a></li>
-                                        <li class="{{ Request::url() == route('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Liên hệ</a></li>
-                                       
-                                        <li class="{{ Request::url() == route('blog') ? 'active' : '' }}"><a href="{{ route('blog') }}">blog</a></li>
+                                        <li class="{{ Request::url() == route('destination') ? 'active' : '' }}"><a
+                                                href="{{ route('destination') }}">Điểm đến</a></li>
+                                        <li class="{{ Request::url() == route('contact') ? 'active' : '' }}"><a
+                                                href="{{ route('contact') }}">Liên hệ</a></li>
+
+                                        <li class="{{ Request::url() == route('blog') ? 'active' : '' }}"><a
+                                                href="{{ route('blog') }}">blog</a></li>
                                         {{-- <a href="contact.html" class="theme-btn  bgc-secondary">
                                             <span data-hover="Register">Register</span>
                                         </a> --}}
@@ -128,9 +136,21 @@
                                 <i class="fal fa-arrow-right"></i>
                             </a>
                             <!-- menu sidbar -->
-                            <a href="{{ route('login') }}" class="theme-btn  bgc-secondary">
-                                            <span data-hover="Register">Register</span>
-                            </a>
+                            <div class="menu-sidebar">
+
+                                <li class="drop-down">
+                                    <button class="dropdown-toggle bg-transparent" id="userDropdown">
+                                        <i class="fad fa-user-circle" style="font-size: 40px; color:#f7921e; border: 2px solid white; border-radius: 30px;"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" id="dropdownMenu">
+                                        <li><a href="{{ route('login') }}">Đăng nhập</a></li>
+                                        <li><a href="{{ route('tour-guide') }}">Thông tin cá nhân</a></li>
+                                    </ul>
+
+                                </li>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
