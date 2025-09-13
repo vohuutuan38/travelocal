@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\clients;
 
-use App\Http\Controllers\Controller;
+use App\Models\Tour;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\clients\Tour as ClientsTour;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,9 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Trang chủ";
-        return view('clients.home',compact('title'));
+        $tours = Tour::with(['images','thumbnail', 'timelines'])->get();
+        // dd($tours);
+        return view('clients.home',compact('title','tours'));
     }
 
     /**
