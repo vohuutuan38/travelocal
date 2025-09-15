@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\clients;
 
-use App\Http\Controllers\Controller;
+use App\Models\Tour;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TourController extends Controller
 {
@@ -13,7 +14,8 @@ class TourController extends Controller
     public function index()
     {
           $title = "Tour";
-        return view('clients.tour',compact('title'));
+          $tours = Tour::with(['images','thumbnail'])->get();
+        return view('clients.tour',compact('title','tours'));
     }
 
     /**
@@ -37,8 +39,10 @@ class TourController extends Controller
      */
      public function show(string $id)
     { 
-          $title = "Chi tiết tour";
-        return view('clients.tour-detail',compact('title'));
+        $tour = Tour::with(['images','thumbnail', 'timelines'])->where('tourId', $id)->first();
+          $title = $tour->title;
+        //   dd($tour->timelines);
+        return view('clients.tour-detail',compact('title','tour'));
     }
     // public function show(string $id)
     // {

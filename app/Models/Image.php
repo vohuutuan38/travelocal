@@ -13,7 +13,9 @@ class Image extends Model
     protected $fillable =
     [
         'tourId',
-         'url'
+         'imageURL',
+         'description',
+         'uploadDate'
     ];
 
     public function tour()

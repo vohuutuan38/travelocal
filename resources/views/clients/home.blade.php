@@ -31,16 +31,16 @@
                             <div class="image">
                                 <div class="ratting"><i class="fas fa-star"></i> 4.8</div>
                                 <a href="#" class="heart"><i class="fas fa-heart"></i></a>
-                                <img src="{{ asset('clients/images/gallery-tours/'.$tour->thumbnail->imageURL.'')}}" alt="Destination">
+                                <img class="img-home" src="{{ asset('clients/images/gallery-tours/'.$tour->thumbnail->imageURL.'')}}" alt="Destination">
                             </div>
                             <div class="content">
                                 <span class="location"><i class="fal fa-map-marker-alt"></i>{{ $tour->destination }}</span>
-                                <h5><a href="destination-details.html">{{ $tour->title }}</a></h5>
-                                <span class="time">{{ $tour->description }}</span>
+                                <h5 class="text-tour-home"><a href="{{ route('tour-detail',$tour->tourId) }}">{{ $tour->title }}</a></h5>
+                                <span class="time">{{ $tour->time }}</span>
                             </div>
                             <div class="destination-footer">
                                 <span class="price"><span>{{ number_format($tour->priceAdult) }}</span> VND / Người</span>
-                                <a href="#" class="read-more">Book Now <i class="fal fa-angle-right"></i></a>
+                                <a href="{{ route('tour-detail',$tour->tourId) }}" class="read-more">Book Now <i class="fal fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>

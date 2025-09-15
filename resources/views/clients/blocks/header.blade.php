@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Ravelo - {{ $title }}</title>
+    <title>Traveloka - {{ $title }}</title>
     <!-- Favicon Icon -->
     <link rel="shortcut icon" href="{{ asset('clients/images/logos/favicon.png') }}" type="image/x-icon">
     <!-- Google Fonts -->
@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('clients/css/magnific-popup.min.css') }}">
     <!-- Nice Select -->
     <link rel="stylesheet" href="{{ asset('clients/css/nice-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('clients/css/jquery-ui.min.css') }}">
     <!-- Animate -->
     <link rel="stylesheet" href="{{ asset('clients/css/aos.css') }}">
     <!-- Slick -->
@@ -57,9 +58,9 @@
         </div>
 
         <!-- main header -->
-        <header class="main-header header-one white-menu menu-absolute">
+        <header class="main-header header-one white-menu menu-absolute {{ Request::is('tour-detail/*') || Request::is('login') ? 'header-login' : '' }}" >
             <!--Header-Upper-->
-            <div class="header-upper py-30 rpy-0">
+            <div class="header-upper py-15 rpy-0">
                 <div class="container-fluid clearfix">
 
                     <div class="header-inner rel d-flex align-items-center">

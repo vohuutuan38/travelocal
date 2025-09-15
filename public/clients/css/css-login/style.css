@@ -400,7 +400,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   display: inline-block;
   width: auto; }
 
-label {
+.lable-login {
   position: absolute;
   left: 0;
   top: 50%;
@@ -414,7 +414,7 @@ label {
 .label-has-error {
   top: 22%; }
 
-label.error {
+.label-login.error {
   position: relative;
   background: url("../images/unchecked.gif") no-repeat;
   background-position-y: 3px;
@@ -422,7 +422,7 @@ label.error {
   display: block;
   margin-top: 20px; }
 
-label.valid {
+.label-login.valid {
   display: block;
   position: absolute;
   right: 0;
@@ -431,7 +431,7 @@ label.valid {
   width: 20px;
   height: 20px;
   background: transparent; }
-  label.valid:after {
+  .label-login.valid:after {
     font-family: 'Material-Design-Iconic-Font';
     content: '\f269';
     width: 100%;

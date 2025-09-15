@@ -11,8 +11,10 @@ class BlogController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
-        return view('clients.blog');
+            $title = "Blog";
+        return view('clients.blog',compact('title'));
     }
 
     /**

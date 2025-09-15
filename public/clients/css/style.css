@@ -47,6 +47,8 @@
 /*******************************************************/
 /******************* ## Default Style ******************/
 /*******************************************************/
+
+
 * {
   margin: 0;
   padding: 0;
@@ -4361,11 +4363,11 @@ h6, .h6, blockquote {
   -ms-flex-pack: justify;
   justify-content: space-between; }
   .banner-inner .page-title {
-    max-width: 800px;
+    max-width: 660px;
     margin-right: 15px; }
     @media only screen and (min-width: 1200px) {
       .banner-inner .page-title {
-        font-size: 65px; } }
+        font-size: 42px; } }
     @media only screen and (max-width: 767px) {
       .banner-inner .page-title {
         font-size: 35px; } }
@@ -4479,7 +4481,7 @@ h6, .h6, blockquote {
     position: relative;
     border-radius: 10px; }
     .destination-item .image img {
-      width: 100%;
+  
       -webkit-transition: 0.5s;
       -o-transition: 0.5s;
       transition: 0.5s; }
@@ -4512,7 +4514,7 @@ h6, .h6, blockquote {
       text-align: center;
       color: var(--secondary-color); }
   .destination-item .content {
-    padding: 18px 40px 40px; }
+    padding: 18px 40px 25px; }
     @media only screen and (max-width: 1599px) {
       .destination-item .content {
         padding-left: 22px;
@@ -4993,8 +4995,8 @@ h6, .h6, blockquote {
     .tour-grid-wrap .tour-grid.destination-item .content .blog-meta li:not(:last-child) {
       margin-right: 10px; }
   .tour-grid-wrap .tour-grid.destination-item .content .destination-footer {
-    margin-top: 25px;
-    padding-top: 25px;
+    margin-top: 15px;
+    padding-top: 20px;
     border-top: 1px solid var(--border-color); }
     .tour-grid-wrap .tour-grid.destination-item .content .destination-footer .theme-btn.style-three {
       width: 35px;
@@ -6703,7 +6705,9 @@ h6, .h6, blockquote {
 .gallery-item {
   margin-bottom: 10px; }
   .gallery-item img {
-    width: 100%; }
+    width: 100%; 
+  height: 100%;
+}
 
 .destination-map iframe {
   height: 500px;
