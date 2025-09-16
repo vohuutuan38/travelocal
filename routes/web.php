@@ -17,6 +17,12 @@ use App\Http\Controllers\Clients\TravelGuidesController;
 // });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/register', [LoginController::class, 'register'])->name('register');
+
+
+
+
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tour',[TourController::class, 'index'])->name('tour');

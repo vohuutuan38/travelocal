@@ -88,6 +88,13 @@ padding: 0;
 .header-login.main-header.menu-absolute .header-upper{
         background: #222222;
 }
-.flex-center-tourdetail{
-    
+.invalid-feedback-login{
+    width: 100%;
+    font-size: 14px;
+    color: #dc3545;
+}
+
+.invalid-feedback-register {
+    color: red;
+    font-size: 14px;
 }

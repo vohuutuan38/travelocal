@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    protected $table = 'tbl_users';
+    protected $primaryKey = 'userId';
+    public $incrementing = true; // hoặc false nếu không tự tăng
+    protected $keyType = 'int'; // hoặc 'string' nếu là varchar
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +22,16 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'userName',
+        'passWord',
         'email',
-        'password',
+        'phoneNumber',
+        'address',
+        'ipAddress',
+        'isActive',
+        'status',
+        'created_at',
+        'updated_at	',
     ];
 
     /**
@@ -29,7 +40,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'passWord',
         'remember_token',
     ];
 
@@ -42,7 +53,11 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'passWord' => 'hashed',
         ];
     }
+    public function getAuthPassword()
+{
+    return $this->passWord;
+}
 }

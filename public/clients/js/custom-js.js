@@ -24,5 +24,117 @@ $(document).ready(function(){
     $('#userDropdown').click(function(){
         $('#dropdownMenu').toggle(500);
     })
+
+
+// validate đăng nhập
+    $("#login-form").on("submit", function (e) {
+        e.preventDefault(); // chặn gửi form mặc định
+
+        let isValid = true;
+        console.log(1);
+        
+        let username = $("#username_login").val().trim();
+        let password = $("#password_login").val().trim();
+
+        // Reset lỗi
+        $("#username_login").removeClass("is-invalid");
+        $("#password_login").removeClass("is-invalid");
+        $("#validate_username").text("");
+        $("#validate_password").text("");
+
+        // Validate username
+        if (username === "") {
+            $("#username_login").addClass("is-invalid");
+            $("#validate_username").text("Vui lòng nhập tên đăng nhập!");
+            isValid = false;
+        }
+
+        // Validate password
+        if (password === "") {
+            $("#password_login").addClass("is-invalid");
+            $("#validate_password").text("Vui lòng nhập mật khẩu!");
+            isValid = false;
+        } else if (password.length < 6) {
+            $("#password_login").addClass("is-invalid");
+            $("#validate_password").text("Mật khẩu phải có ít nhất 6 ký tự!");
+            isValid = false;
+        }
+
+        // Nếu hợp lệ thì submit form
+        if (isValid) {
+            this.submit();
+        }
+    });
+
+
+
+    // validate đăng ký
+
+
+    $("#register-form").on("submit", function (e) {
+        e.preventDefault(); // Ngăn submit mặc định
+
+        let isValid = true;
+
+        // Reset lỗi cũ
+        $(".invalid-feedback-register").text("");
+        $("input").removeClass("is-invalid");
+
+        // Lấy giá trị
+        let username = $("#user_name").val().trim();
+        let email = $("#email").val().trim();
+        let password = $("#password").val();
+        let re_password = $("#re_password").val();
+
+        // Validate username
+        if (username === "") {
+            $("#validate_username_register").text("Vui lòng nhập tên đăng nhập");
+            $("#user_name").addClass("is-invalid");
+            isValid = false;
+        } else if (username.length < 3) {
+            $("#validate_username_register").text("Tên đăng nhập phải >= 3 ký tự");
+            $("#user_name").addClass("is-invalid");
+            isValid = false;
+        }
+
+        // Validate email
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") {
+            $("#validate_email_register").text("Vui lòng nhập email");
+            $("#email").addClass("is-invalid");
+            isValid = false;
+        } else if (!emailPattern.test(email)) {
+            $("#validate_email_register").text("Email không hợp lệ");
+            $("#email").addClass("is-invalid");
+            isValid = false;
+        }
+
+        // Validate password
+        if (password === "") {
+            $("#validate_password_register").text("Vui lòng nhập mật khẩu");
+            $("#password").addClass("is-invalid");
+            isValid = false;
+        } else if (password.length < 6) {
+            $("#validate_password_register").text("Mật khẩu phải >= 6 ký tự");
+            $("#password").addClass("is-invalid");
+            isValid = false;
+        }
+
+        // Validate repeat password
+        if (re_password === "") {
+            $("#validate_re_password_register").text("Vui lòng nhập lại mật khẩu");
+            $("#re_password").addClass("is-invalid");
+            isValid = false;
+        } else if (re_password !== password) {
+            $("#validate_re_password_register").text("Mật khẩu nhập lại không khớp");
+            $("#re_password").addClass("is-invalid");
+            isValid = false;
+        }
+
+        // Nếu hợp lệ thì submit
+        if (isValid) {
+            this.submit();
+        }
+    });
 });
 
