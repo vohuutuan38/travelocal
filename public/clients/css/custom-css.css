@@ -98,3 +98,65 @@ padding: 0;
     color: red;
     font-size: 14px;
 }
+.flex-center-message{
+    display: flex;
+    align-items: center;
+}
+#flash-message {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    z-index: 1055;
+    min-width: 300px;
+    min-height: 53px;
+
+    /* trạng thái ban đầu: ẩn ngoài màn hình */
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+/* khi thêm class .showing thì chạy hiệu ứng slideIn */
+#flash-message.showing {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* khi thêm class .hiding thì chạy hiệu ứng slideOut */
+#flash-message.hiding {
+    animation: slideOut 0.5s ease-in forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+.fad.fa-check-circle{
+    font-size: 20px;
+    color: #006d00;
+    margin-right: 15px;
+}
+
+.fad.fa-times-circle{
+    font-size: 20px;
+    color: red;
+    margin-right: 15px;
+}
+
+

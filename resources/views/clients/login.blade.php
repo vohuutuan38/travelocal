@@ -56,26 +56,34 @@
                                     class="zmdi zmdi-account material-icons-name"></i></label>
                             <input type="text" name="user_name" id="user_name" placeholder="Your Name" />
                         </div>
-                        <div class="invalid-feedback-register" style="margin-top: -15px" id="validate_username_register"></div>
-
+                        <div class="invalid-feedback-register" style="margin-top: -15px"
+                            id="validate_username_register"></div>
+                        @error('email')
+                            <div class="invalid-feedback-register" style="color: red; margin-top: -15px;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         <div class="form-group">
                             <label class="lable-login" for="email"><i class="zmdi zmdi-email"></i></label>
                             <input type="email" name="email" id="email" placeholder="Your Email" />
                         </div>
-                        <div class="invalid-feedback-register" style="margin-top: -15px" id="validate_email_register"></div>
+                        <div class="invalid-feedback-register" style="margin-top: -15px" id="validate_email_register">
+                        </div>
 
                         <div class="form-group">
                             <label class="lable-login" for="pass"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="password" id="password" placeholder="Password" />
                         </div>
-                        <div class="invalid-feedback-register" style="margin-top: -15px" id="validate_password_register"></div>
+                        <div class="invalid-feedback-register" style="margin-top: -15px"
+                            id="validate_password_register"></div>
 
                         <div class="form-group">
                             <label class="lable-login" for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input type="password" name="re_password" id="re_password"
                                 placeholder="Repeat your password" />
                         </div>
-                        <div class="invalid-feedback-register" style="margin-top: -15px" id="validate_re_password_register">
+                        <div class="invalid-feedback-register" style="margin-top: -15px"
+                            id="validate_re_password_register">
                         </div>
 
 
@@ -97,5 +105,9 @@
 
 
 </div>
+<script>
+    const checkEmailUrl = "{{ route('check.email') }}";
+    const csrfToken = "{{ csrf_token() }}";
+</script>
 
 @include('clients.blocks.footer')

@@ -14,8 +14,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-          $title = "Đăng nhập";
-        return view('clients.login',compact('title'));
+        $title = "Đăng nhập";
+        return view('clients.login', compact('title'));
     }
 
     /**
@@ -24,17 +24,28 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
+        $request->validate([
+            'email'       => 'required|email|unique:tbl_users,email',
+        ], [
+            'email.unique' => 'Email đã tồn tại trong hệ thống',
+        ]);
         // dd($request->all());
-         $user = User::create([
+        $user = User::create([
             'userName'   => $request->user_name,
             'email'      => $request->email,
             'passWord'   => Hash::make($request->password),
             'isActive'   => 1,
-            'status'     => 1,
             'ipAddress'  => $request->ip()
         ]);
 
         return redirect()->back()->with('success', 'Đăng ký thành công!');
+       
     }
-   
+
+    public function checkEmail(Request $request)
+{
+    $exists = User::where('email', $request->email)->exists();
+    return response()->json(['exists' => $exists]);
+}
+
 }

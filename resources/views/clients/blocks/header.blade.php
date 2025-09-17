@@ -58,7 +58,8 @@
         </div>
 
         <!-- main header -->
-        <header class="main-header header-one white-menu menu-absolute {{ Request::is('tour-detail/*') || Request::is('login') ? 'header-login' : '' }}" >
+        <header
+            class="main-header header-one white-menu menu-absolute {{ Request::is('tour-detail/*') || Request::is('login') ? 'header-login' : '' }}">
             <!--Header-Upper-->
             <div class="header-upper py-15 rpy-0">
                 <div class="container-fluid clearfix">
@@ -141,7 +142,8 @@
 
                                 <li class="drop-down">
                                     <button class="dropdown-toggle bg-transparent" id="userDropdown">
-                                        <i class="fad fa-user-circle" style="font-size: 40px; color:#f7921e; border: 2px solid white; border-radius: 30px;"></i>
+                                        <i class="fad fa-user-circle"
+                                            style="font-size: 40px; color:#f7921e; border: 2px solid white; border-radius: 30px;"></i>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdownMenu">
                                         <li><a href="{{ route('login') }}">Đăng nhập</a></li>
@@ -157,4 +159,20 @@
                 </div>
             </div>
             <!--End Header Upper-->
+
+            {{-- thông báo --}}
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show flex-center-message" role="alert" id="flash-message">
+                    <i class="fad fa-check-circle"></i> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show flex-center-message" role="alert" id="flash-message">
+                  <i class="fad fa-times-circle"></i>  {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
         </header>
