@@ -26,19 +26,19 @@ $(document).ready(function () {
         let isValid = true;
         console.log(1);
 
-        let username = $("#username_login").val().trim();
+        let username = $("#email_login").val().trim();
         let password = $("#password_login").val().trim();
 
         // Reset lỗi
-        $("#username_login").removeClass("is-invalid");
+        $("#email_login").removeClass("is-invalid");
         $("#password_login").removeClass("is-invalid");
-        $("#validate_username").text("");
+        $("#validate_email").text("");
         $("#validate_password").text("");
 
         // Validate username
         if (username === "") {
-            $("#username_login").addClass("is-invalid");
-            $("#validate_username").text("Vui lòng nhập tên đăng nhập!");
+            $("#email_login").addClass("is-invalid");
+            $("#validate_email").text("Vui lòng nhập tên đăng nhập!");
             isValid = false;
         }
 

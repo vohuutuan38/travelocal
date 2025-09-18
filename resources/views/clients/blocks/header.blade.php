@@ -139,20 +139,41 @@
                             </a>
                             <!-- menu sidbar -->
                             <div class="menu-sidebar">
-
                                 <li class="drop-down">
-                                    <button class="dropdown-toggle bg-transparent" id="userDropdown">
-                                        <i class="fad fa-user-circle"
-                                            style="font-size: 40px; color:#f7921e; border: 2px solid white; border-radius: 30px;"></i>
+                                    <button class="dropdown-toggle bg-transparent" id="userDropdown"
+                                        style="border: none;">
+                                        @auth
+                                            <img src="{{ Auth::user()->avatar ? asset('clients/images/' . Auth::user()->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
+                                                alt="Avatar"
+                                                style="width:40px; height:40px; border-radius:50%; border:2px solid white; object-fit:cover;">
+                                        @endauth
+
+                                        @guest
+                                          <i class="fad fa-user-circle" style="font-size: 40px; color:#f7921e; border: 2px solid white; border-radius: 30px;"></i>
+                                        @endguest
                                     </button>
+
                                     <ul class="dropdown-menu" id="dropdownMenu">
-                                        <li><a href="{{ route('login') }}">Đăng nhập</a></li>
-                                        <li><a href="{{ route('tour-guide') }}">Thông tin cá nhân</a></li>
+                                        @guest
+                                            <li><a href="{{ route('login') }}">Đăng nhập</a></li>
+                                        @endguest
+
+                                        @auth
+                                            <li><a href="">Thông tin cá nhân</a></li>
+                                            <li>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        style="background:none; border:none; padding:0; color:red;">
+                                                        Đăng xuất
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endauth
                                     </ul>
-
                                 </li>
-
                             </div>
+
 
                         </div>
                     </div>
@@ -162,15 +183,17 @@
 
             {{-- thông báo --}}
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show flex-center-message" role="alert" id="flash-message">
+                <div class="alert alert-success alert-dismissible fade show flex-center-message" role="alert"
+                    id="flash-message">
                     <i class="fad fa-check-circle"></i> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show flex-center-message" role="alert" id="flash-message">
-                  <i class="fad fa-times-circle"></i>  {{ session('error') }}
+                <div class="alert alert-danger alert-dismissible fade show flex-center-message" role="alert"
+                    id="flash-message">
+                    <i class="fad fa-times-circle"></i> {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
