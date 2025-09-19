@@ -13,15 +13,50 @@ class TourController extends Controller
      */
     public function index()
     {
-          $title = "Tour";
-          $tours = Tour::with(['images','thumbnail'])->get();
-        return view('clients.tour',compact('title','tours'));
+        $title = "Tour";
+        $tours = Tour::with(['images', 'thumbnail'])->paginate(9);
+        return view('clients.tour', compact('title', 'tours'));
     }
-    
-    public function search(){
+
+    public function search()
+    {
         $title = "TÌm kiếm";
-        return view('clients.search',compact('title'));
+        return view('clients.search', compact('title'));
     }
+    public function filter(Request $request)
+    {
+        $title = "Tour";
+
+        $query = Tour::with(['images', 'thumbnail']);
+
+        // Lọc theo giá
+        if ($request->min_price && $request->max_price) {
+            $query->whereBetween('priceAdult', [$request->min_price, $request->max_price]);
+        }
+
+        // Lọc theo điểm đến (b, t, n)
+       // Lọc theo domain
+if ($request->domain) {
+    $query->where('domain', $request->domain);
+}
+
+
+        // Lọc theo sao (review >= x)
+        if ($request->star) {
+            $query->where('review', '>=', $request->star);
+        }
+
+        // Lọc theo thời gian (ví dụ: 3n2d, 4n3d, …)
+        if ($request->time) {
+            $query->where('time', $request->time);
+        }
+
+        $tours = $query->paginate(9);
+
+        return view('clients.tour', compact('title', 'tours'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -41,12 +76,12 @@ class TourController extends Controller
     /**
      * Display the specified resource.
      */
-     public function show(string $id)
-    { 
-        $tour = Tour::with(['images','thumbnail', 'timelines'])->where('tourId', $id)->first();
-          $title = $tour->title;
+    public function show(string $id)
+    {
+        $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
+        $title = $tour->title;
         //   dd($tour->timelines);
-        return view('clients.tour-detail',compact('title','tour'));
+        return view('clients.tour-detail', compact('title', 'tour'));
     }
     // public function show(string $id)
     // {
@@ -76,5 +111,4 @@ class TourController extends Controller
     {
         //
     }
-  
 }

@@ -448,17 +448,24 @@
         
         // ## Price Range Fliter jQuery UI
         if ($('.price-slider-range').length) {
-            $(".price-slider-range").slider({
-                range: true,
-                min: 5,
-                max: 1000,
-                values: [100, 750],
-                slide: function (event, ui) {
-                    $("#price").val("$ " + ui.values[0] + " - $ " + ui.values[1]);
-                }
-            });
-            $("#price").val("$ " + $(".price-slider-range").slider("values", 0) +
-                " - $ " + $(".price-slider-range").slider("values", 1));
+           $(".price-slider-range").slider({
+            range: true,
+            min: 1000000,
+            max: 20000000,
+            values: [1000000, 20000000],
+            slide: function (event, ui) {
+                $("#price").val(ui.values[0].toLocaleString('vi-VN') +" VND - " + ui.values[1].toLocaleString('vi-VN') +" VND");
+
+        // gán vào hidden input
+        $("#min_price").val(ui.values[0]);
+        $("#max_price").val(ui.values[1]);
+    }
+                                          });
+                $("#price").val( $(".price-slider-range").slider("values", 0).toLocaleString('vi-VN')  +" VND" +
+                " -  " + $(".price-slider-range").slider("values", 1).toLocaleString('vi-VN') +" VND");
+
+                $("#min_price").val($(".price-slider-range").slider("values", 0));
+                $("#max_price").val($(".price-slider-range").slider("values", 1));
         }
         
         

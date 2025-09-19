@@ -58,6 +58,7 @@ Route::get('/destination-detail', [DestinationController::class, 'show'])->name(
 Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs');
 Route::get('/gellery', [GelleryController::class, 'index'])->name('gellery');
 Route::get('/search', [TourController::class, 'search'])->name('search');
+Route::get('/tours/filter', [TourController::class, 'filter'])->name('tour.filter');
 
 
 route::get('/404', function () {

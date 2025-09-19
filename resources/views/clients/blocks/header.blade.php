@@ -59,7 +59,7 @@
 
         <!-- main header -->
         <header
-            class="main-header header-one white-menu menu-absolute {{ Request::is('tour-detail/*') || Request::is('login') ? 'header-login' : '' }}">
+            class="main-header header-one white-menu menu-absolute {{ Request::is('tour-detail/*') || Request::is('login') || Request::is('tour') ? 'header-login' : '' }}">
             <!--Header-Upper-->
             <div class="header-upper py-15 rpy-0">
                 <div class="container-fluid clearfix">
