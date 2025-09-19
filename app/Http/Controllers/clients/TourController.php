@@ -17,7 +17,11 @@ class TourController extends Controller
           $tours = Tour::with(['images','thumbnail'])->get();
         return view('clients.tour',compact('title','tours'));
     }
-
+    
+    public function search(){
+        $title = "TÌm kiếm";
+        return view('clients.search',compact('title'));
+    }
     /**
      * Show the form for creating a new resource.
      */

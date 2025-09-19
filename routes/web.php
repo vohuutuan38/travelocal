@@ -17,16 +17,12 @@ use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
 
-// Route::get('/', function () {
-//     return view('clients.blocks.home');
-// });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/check-email', [LoginController::class, 'checkEmail'])->name('check.email');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 // Login with Google
 Route::controller(GoogleController::class)->group(function(){
     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
@@ -48,10 +44,6 @@ Route::controller(GoogleController::class)->group(function(){
 //     }
 // });
 
-Route::get('view-mail', function () {
-    return view('emails.welcome', ['user' => 'vohuutuan', 'email' => 'Chào mừng bạn đến với hệ thống!']);
-});
-
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tour', [TourController::class, 'index'])->name('tour');
@@ -65,6 +57,8 @@ Route::get('/destination', [DestinationController::class, 'index'])->name('desti
 Route::get('/destination-detail', [DestinationController::class, 'show'])->name('destination-detail');
 Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs');
 Route::get('/gellery', [GelleryController::class, 'index'])->name('gellery');
+Route::get('/search', [TourController::class, 'search'])->name('search');
+
 
 route::get('/404', function () {
     return view('clients.404');

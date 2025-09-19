@@ -3,6 +3,8 @@
                 <h1 class="hero-title" data-aos="flip-up" data-aos-delay="50" data-aos-duration="1500" data-aos-offset="50">tour du lịch</h1>
                 <div class="main-hero-image bgs-cover" style="background-image: url({{ asset('clients/images/hero/hero.jpg);')}}"></div>
             </div>
+            <form action="">
+                @csrf
             <div class="container container-1400">
                 <div class="search-filter-inner" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
                     <div class="filter-item clearfix">
@@ -28,11 +30,14 @@
                     
                     </div>
                     <div class="search-button">
+                        <a href="{{ route('search') }}">
                         <button class="theme-btn">
                             <span data-hover="Search">Tìm kiếm</span>
                             <i class="far fa-search"></i>
                         </button>
+                        </a>
                     </div>
                 </div>
             </div>
+            </form>
         </section>
