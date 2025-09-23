@@ -9,18 +9,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-    protected $table = 'tbl_users';
-    protected $primaryKey = 'userId';
-    public $incrementing = true; // hoặc false nếu không tự tăng
-    protected $keyType = 'int'; // hoặc 'string' nếu là varchar
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'tbl_users';     // ✅ Bảng trong DB
+    protected $primaryKey = 'userId';   // ✅ Khóa chính
+    public $incrementing = true;        // Khóa chính auto increment
+    protected $keyType = 'int';         // Kiểu dữ liệu của khóa chính
+
     protected $fillable = [
         'userName',
         'passWord',
@@ -33,24 +28,14 @@ class User extends Authenticatable
         'isActive',
         'status',
         'created_at',
-        'updated_at	',
+        'updated_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'passWord',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -58,8 +43,11 @@ class User extends Authenticatable
             'passWord' => 'hashed',
         ];
     }
+
+    // ✅ Quan trọng: để Laravel Auth lấy đúng cột mật khẩu
     public function getAuthPassword()
-{
-    return $this->passWord;
+    {
+        return $this->passWord;
+    }
 }
-}
+

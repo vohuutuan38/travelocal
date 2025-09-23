@@ -142,7 +142,7 @@ textarea,
   font-size: 16px;
   padding: 15px 30px;
   background-color: #fff;
-  border: 1px solid white;
+  border: 1px solid #c8c8c8;
   font-family: var(--heading-font);
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -3684,7 +3684,7 @@ h6, .h6, blockquote {
     height: 50px;
     border-radius: 50%;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1); }
+    border: 1px solid #f7921e; }
   .nav-search form {
     position: absolute;
     width: 320px;
@@ -3767,10 +3767,13 @@ h6, .h6, blockquote {
 
 .main-header.white-menu .header-number,
 .main-header.white-menu .header-number a,
-.main-header.white-menu .menu-btns > button,
-.main-header.white-menu .nav-search > button {
+.main-header.white-menu .menu-btns > button
+ {
   color: white; }
-
+  
+.main-header.white-menu .nav-search > button{
+  color: #f7921e;
+}
 .main-header.white-menu .menu-sidebar > button {
   border-color: rgba(255, 255, 255, 0.1); }
   .main-header.white-menu .menu-sidebar > button .icon-bar {
@@ -4581,7 +4584,7 @@ h6, .h6, blockquote {
   .destination-item .destination-footer {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding: 20px 40px 15px;
+    padding: 20px 30px 15px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

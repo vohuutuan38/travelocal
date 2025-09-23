@@ -10,6 +10,7 @@ use App\Http\Controllers\clients\FaqsController;
 use App\Http\Controllers\clients\HomeController;
 use App\Http\Controllers\clients\TourController;
 use App\Http\Controllers\clients\AboutController;
+use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
 use App\Http\Controllers\clients\ContactController;
@@ -59,6 +60,12 @@ Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs');
 Route::get('/gellery', [GelleryController::class, 'index'])->name('gellery');
 Route::get('/search', [TourController::class, 'search'])->name('search');
 Route::get('/tours/filter', [TourController::class, 'filter'])->name('tour.filter');
+
+// Thông tin cá nhân
+Route::get('/profile', [AuthClientController::class, 'index'])->name('profile');
+Route::post('/profile/update-avatar', [AuthClientController::class, 'updateAvatar'])->name('user.updateAvatar');
+Route::put('/profile/update-detail/{id}', [AuthClientController::class, 'updateDetail'])->name('user.updateDetail');
+Route::post('/profile/change-password', [AuthClientController::class, 'changePassword'])->name('user.changePassword');
 
 
 route::get('/404', function () {

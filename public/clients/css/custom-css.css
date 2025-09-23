@@ -159,4 +159,8 @@ padding: 0;
     margin-right: 15px;
 }
 
-
+.img-account-profile{
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+}

@@ -143,7 +143,7 @@
                                     <button class="dropdown-toggle bg-transparent" id="userDropdown"
                                         style="border: none;">
                                         @auth
-                                            <img src="{{ Auth::user()->avatar ? asset('clients/images/' . Auth::user()->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
+                                            <img src="{{ Auth::user()->avatar ? asset('clients/images/avatar/' . Auth::user()->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
                                                 alt="Avatar"
                                                 style="width:40px; height:40px; border-radius:50%; border:2px solid white; object-fit:cover;">
                                         @endauth
@@ -159,7 +159,7 @@
                                         @endguest
 
                                         @auth
-                                            <li><a href="">Thông tin cá nhân</a></li>
+                                            <li><a href="{{ route('profile') }}">Thông tin cá nhân</a></li>
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf
