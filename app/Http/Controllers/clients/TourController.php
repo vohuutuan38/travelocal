@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\clients;
 
 use App\Models\Tour;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
 {
@@ -56,6 +58,16 @@ if ($request->domain) {
         return view('clients.tour', compact('title', 'tours'));
     }
 
+    public function booking( string $id)
+    { 
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để đặt tour.');
+        }
+        $user = Auth::user();
+        $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
+        $title = "Booking - " . $tour->title;
+        return view('clients.booking', compact('title', 'tour','user'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -78,15 +90,19 @@ if ($request->domain) {
      */
     public function show(string $id)
     {
+        $user = Auth::user();
+        $hasPendingBooking = false;
+        if ($user) {
+            $hasPendingBooking =Booking::where('userId', $user->userId)
+                ->where('tourId', $id)
+                ->where('bookingStatus', 'pending')
+                ->exists();
+        }
         $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
         $title = $tour->title;
-        //   dd($tour->timelines);
-        return view('clients.tour-detail', compact('title', 'tour'));
+        return view('clients.tour-detail', compact('title', 'tour','hasPendingBooking'));
     }
-    // public function show(string $id)
-    // {
-    //     //
-    // }
+
 
     /**
      * Show the form for editing the specified resource.

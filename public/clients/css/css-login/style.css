@@ -317,8 +317,8 @@ figure {
   position: relative;
   margin-bottom: 25px;
   overflow: hidden; }
-  .form-group:last-child {
-    margin-bottom: 0px; }
+  /* .form-group:last-child {
+    margin-bottom: 0px; } */
 
 input {
   width: 100%;
@@ -347,12 +347,12 @@ input {
     input:focus:-moz-placeholder {
       color: #222; }
 
-input[type=checkbox]:not(old) {
+/* input[type=checkbox]:not(old) {
   width: 2em;
   margin: 0;
   padding: 0;
   font-size: 1em;
-  display: none; }
+  display: none; } */
 
 input[type=checkbox]:not(old) + label {
   display: inline-block;

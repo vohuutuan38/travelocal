@@ -536,14 +536,15 @@
                     <div class="widget widget-booking" data-aos="fade-up" data-aos-duration="1500"
                         data-aos-offset="50">
                         <h5 class="widget-title">Đặt tour</h5>
-                        <form action="#">
+                        <form action="{{ route('booking',$tour->tourId) }}" method="GET">
+                            @csrf
                             <div class="date mb-25">
                                 <b>Ngày bắt đầu</b>
-                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->startDate)) }}" disabled>
+                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->startDate)) }}" name="starDate" disabled>
                             </div>
                              <div class="date mb-25">
                                 <b>Ngày kết thúc</b>
-                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->endDate)) }}" disabled>
+                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->endDate)) }}" name="endDate" disabled>
                             </div>
                             <hr>
                             <div class="time py-5">
@@ -561,27 +562,35 @@
                                     </li>
                                 </ul> --}}
                                 <p>{{ $tour->time }}</p>
+                                <input type="hidden" name="time" value="{{ $tour->time }}">
                             </div>
                             <hr class="mb-25">
                             <h6>Vé:</h6>
                             <ul class="tickets clearfix">
                                 <li>
                                     Người lớn (trên 18 tuổi) <span class="price">{{  number_format($tour->priceAdult, 0,',','.') }} VND</span>
-                                   
                                 </li>
                                 <li>
                                     Trẻ em <span class="price">{{  number_format($tour->priceChild, 0,',','.')  }} VND</span>
-                                    
                                 </li>
                             </ul>
-                           
-                            
                             <hr>
-                            <h6>Tổng tiền: <span class="price">$74</span></h6>
-                            <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
+                            @if (Auth::check())
+                                @if (isset($hasPendingBooking) && $hasPendingBooking)
+                                   <a href="" class="theme-btn bgc-secondary style-two w-100 mt-15 mb-5">
+                                      <span data-hover="Hủy tour">Hủy tour</span>
+                                <i class="fal fa-arrow-right"></i>
+                            </a>
+                                @else
+                                     <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
                                 <span data-hover="Đặt ngay">Đặt ngay</span>
                                 <i class="fal fa-arrow-right"></i>
                             </button>
+                                @endif
+                                
+                            @endif
+                           
+                           
                             <div class="text-center">
                                 <a href="{{ route('contact') }}">Cần trợ giúp?</a>
                             </div>

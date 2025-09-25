@@ -52,6 +52,7 @@ class AuthClientController extends Controller
 
         $request->validate([
             'userName'    => 'required|string|max:255',
+            'fullname'    => 'required|string|max:255',
             'address'     => 'nullable|string|max:255',
             'email'       => 'required|email|unique:tbl_users,email,' . $id . ',userId',
             'phoneNumber' => 'nullable|string|max:20',
@@ -61,6 +62,7 @@ class AuthClientController extends Controller
         $user = User::findOrFail($id);
 
         $user->userName    = $request->userName;
+        $user->fullname    = $request->fullname;
         $user->address     = $request->address;
         $user->email       = $request->email;
         $user->phoneNumber = $request->phoneNumber;

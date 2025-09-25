@@ -11,6 +11,7 @@ use App\Http\Controllers\clients\HomeController;
 use App\Http\Controllers\clients\TourController;
 use App\Http\Controllers\clients\AboutController;
 use App\Http\Controllers\clients\AuthClientController;
+use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
 use App\Http\Controllers\clients\ContactController;
@@ -66,6 +67,15 @@ Route::get('/profile', [AuthClientController::class, 'index'])->name('profile');
 Route::post('/profile/update-avatar', [AuthClientController::class, 'updateAvatar'])->name('user.updateAvatar');
 Route::put('/profile/update-detail/{id}', [AuthClientController::class, 'updateDetail'])->name('user.updateDetail');
 Route::post('/profile/change-password', [AuthClientController::class, 'changePassword'])->name('user.changePassword');
+
+// Checkout
+Route::get('/booking/{id}', [BookingController::class, 'create'])->name('booking');
+Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+
+
+Route::get('/booking/details/{bookingId}', [BookingController::class, 'show'])->name('booking.show');
+
+
 
 
 route::get('/404', function () {

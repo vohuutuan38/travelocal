@@ -77,6 +77,11 @@
                             <input class="form-control" id="inputUsername" type="text" name="userName"
                                 placeholder="Điền tên người dùng" value="{{ $user->userName }}">
                         </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Tên đầy đủ</label>
+                            <input class="form-control" id="inputUsername" type="text" name="fullname"
+                                placeholder="Điền tên người dùng" value="{{ $user->fullname }}">
+                        </div>
 
                         <div class="mb-3">
                             <label class="small mb-1" for="inputLocation">Địa chỉ</label>
