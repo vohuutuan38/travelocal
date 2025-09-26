@@ -10,7 +10,8 @@
         <hr class="mt-0">
         <div class="container">
             <div class="banner-inner flex-center-tourdetail pt-15 pb-25">
-                <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">{{ $tour->title }}</h2>
+                <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
+                    {{ $tour->title }}</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200"
                         data-aos-duration="1500" data-aos-offset="50">
@@ -34,7 +35,7 @@
     <div class="container-fluid">
         <div class="row gap-10 justify-content-center rel">
             <div class="col-lg-4 col-md-6">
-                <div class="gallery-item anh-trai" >
+                <div class="gallery-item anh-trai">
                     <img src="{{ asset('clients/images/gallery-tours/' . ($imageUrls[0] ?? 'default.jpg')) }}"
                         alt="Destination">
                 </div>
@@ -70,10 +71,11 @@
 <section class="tour-header-area pt-70 rel z-1">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-xl-6 col-lg-7">
+            <div class="col-xl-12 col-lg-12">
                 <div class="tour-header-content mb-15" data-aos="fade-left" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <span class="location d-inline-block mb-10"><i class="fal fa-map-marker-alt"></i> {{ $tour->destination }}</span>
+                    <span class="location d-inline-block mb-10"><i class="fal fa-map-marker-alt"></i>
+                        {{ $tour->destination }}</span>
                     <div class="section-title pb-5">
                         <h2>{{ $tour->title }}</h2>
                     </div>
@@ -86,13 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-5 text-lg-end" data-aos="fade-right" data-aos-duration="1500"
-                data-aos-offset="50">
-                <div class="tour-header-social mb-10">
-                    <a href="#"><i class="far fa-share-alt"></i>Chia sẻ tours</a>
-                    <a href="#"><i class="fas fa-heart bgc-secondary"></i>danh sách mong muốn</a>
-                </div>
-            </div>
+           
         </div>
         <hr class="mt-50 mb-70">
     </div>
@@ -177,23 +173,22 @@
                 <h3>Hành trình</h3>
                 <div class="accordion-two mt-25 mb-60" id="faq-accordion-two">
                     @foreach ($tour->timelines as $key => $timeline)
-                        
-                    <div class="accordion-item">
-                        <h5 class="accordion-header">
-                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwoOne-{{ $key }}">
-                                Ngày {{ $key+1 }} - {{ $timeline->title }}
-                            </button>
-                        </h5>
-                        <div id="collapseTwoOne-{{ $key }}" class="accordion-collapse collapse"
-                            data-bs-parent="#faq-accordion-two">
-                            <div class="accordion-body">
-                                <p>{{ $timeline->description }}</p>
+                        <div class="accordion-item">
+                            <h5 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwoOne-{{ $key }}">
+                                    Ngày {{ $key + 1 }} - {{ $timeline->title }}
+                                </button>
+                            </h5>
+                            <div id="collapseTwoOne-{{ $key }}" class="accordion-collapse collapse"
+                                data-bs-parent="#faq-accordion-two">
+                                <div class="accordion-body">
+                                    <p>{{ $timeline->description }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
-                   
+
                 </div>
 
                 <h3>Câu hỏi thường gặp</h3>
@@ -536,15 +531,17 @@
                     <div class="widget widget-booking" data-aos="fade-up" data-aos-duration="1500"
                         data-aos-offset="50">
                         <h5 class="widget-title">Đặt tour</h5>
-                        <form action="{{ route('booking',$tour->tourId) }}" method="GET">
+                        <form action="{{ route('booking', $tour->tourId) }}" method="GET">
                             @csrf
                             <div class="date mb-25">
                                 <b>Ngày bắt đầu</b>
-                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->startDate)) }}" name="starDate" disabled>
+                                <input type="text" value="{{ date('d-m-Y', strtotime($tour->startDate)) }}"
+                                    name="starDate" disabled>
                             </div>
-                             <div class="date mb-25">
+                            <div class="date mb-25">
                                 <b>Ngày kết thúc</b>
-                                <input type="text" value="{{ date ('d-m-Y',strtotime($tour->endDate)) }}" name="endDate" disabled>
+                                <input type="text" value="{{ date('d-m-Y', strtotime($tour->endDate)) }}"
+                                    name="endDate" disabled>
                             </div>
                             <hr>
                             <div class="time py-5">
@@ -568,29 +565,37 @@
                             <h6>Vé:</h6>
                             <ul class="tickets clearfix">
                                 <li>
-                                    Người lớn (trên 18 tuổi) <span class="price">{{  number_format($tour->priceAdult, 0,',','.') }} VND</span>
+                                    Người lớn (trên 18 tuổi) <span
+                                        class="price">{{ number_format($tour->priceAdult, 0, ',', '.') }} VND</span>
                                 </li>
                                 <li>
-                                    Trẻ em <span class="price">{{  number_format($tour->priceChild, 0,',','.')  }} VND</span>
+                                    Trẻ em <span class="price">{{ number_format($tour->priceChild, 0, ',', '.') }}
+                                        VND</span>
                                 </li>
                             </ul>
                             <hr>
                             @if (Auth::check())
-                                @if (isset($hasPendingBooking) && $hasPendingBooking)
-                                   <a href="" class="theme-btn bgc-secondary style-two w-100 mt-15 mb-5">
-                                      <span data-hover="Hủy tour">Hủy tour</span>
-                                <i class="fal fa-arrow-right"></i>
-                            </a>
+                                @if ($hasPendingBooking)
+                                    <a href="" class="theme-btn bgc-secondary style-two w-100 mt-15 mb-5">
+                                        <span data-hover="Hủy tour">Hủy tour</span>
+                                        <i class="fal fa-arrow-right"></i>
+                                    </a>
                                 @else
-                                     <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
-                                <span data-hover="Đặt ngay">Đặt ngay</span>
-                                <i class="fal fa-arrow-right"></i>
-                            </button>
+                                    <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
+                                        <span data-hover="Đặt ngay">Đặt ngay</span>
+                                        <i class="fal fa-arrow-right"></i>
+                                    </button>
                                 @endif
-                                
+                            @else
+                                {{-- Trường hợp chưa đăng nhập, cũng hiển thị "Đặt ngay" --}}
+                                <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
+                                    <span data-hover="Đặt ngay">Đặt ngay</span>
+                                    <i class="fal fa-arrow-right"></i>
+                                </button>
                             @endif
-                           
-                           
+
+
+
                             <div class="text-center">
                                 <a href="{{ route('contact') }}">Cần trợ giúp?</a>
                             </div>

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tour extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
-     protected $table = 'tbl_tour';
-     protected $fillable=[
+    protected $table = 'tbl_tour';
+    protected $primaryKey = 'tourId';
+    protected $fillable = [
         'title',
         'description',
         'images',
@@ -23,8 +24,8 @@ class Tour extends Model
         'startDate',
         'endDate',
         'review',
-     ];
- // Quan hệ 1 tour có nhiều ảnh
+    ];
+    // Quan hệ 1 tour có nhiều ảnh
     public function images()
     {
         return $this->hasMany(Image::class, 'tourId', 'tourId');
@@ -35,10 +36,14 @@ class Tour extends Model
     {
         return $this->hasMany(Timeline::class, 'tourId', 'tourId');
     }
-// Lấy ảnh đại diện (thumbnail) của tour
+    // Lấy ảnh đại diện (thumbnail) của tour
     public function thumbnail()
-{
-    return $this->hasOne(Image::class, 'tourId', 'tourId')->orderBy('imageId', 'asc');
-}
-
+    {
+        return $this->hasOne(Image::class, 'tourId', 'tourId')->orderBy('imageId', 'asc');
+    }
+    // 1 Tour có nhiều Booking
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'tourId', 'tourId');
+    }
 }

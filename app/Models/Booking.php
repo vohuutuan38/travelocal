@@ -28,4 +28,22 @@ class Booking extends Model
           'created_at',
         'updated_at',
     ];
+
+     // Booking thuộc về 1 User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId', 'userId');
+    }
+
+    // Booking thuộc về 1 Tour
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class, 'tourId', 'tourId');
+    }
+
+    // Booking có 1 Checkout
+    public function checkout()
+    {
+        return $this->hasOne(CheckOut::class, 'bookingId', 'bookingId');
+    }
 }

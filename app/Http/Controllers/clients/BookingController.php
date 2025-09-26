@@ -15,7 +15,7 @@ class BookingController extends Controller
        public function create(string $id)
     {
            if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để đặt tour.');
+            return redirect()->back()->with('error', 'Bạn cần đăng nhập để đặt tour.');
         }
         $user = Auth::user();
         $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
@@ -26,7 +26,6 @@ class BookingController extends Controller
     
     public function store(Request $request)
     {
-       
         $request->validate([
             'tourId' => 'required|exists:tbl_tour,tourId',
             'userId' => 'required|exists:tbl_users,userId',
@@ -56,7 +55,13 @@ class BookingController extends Controller
                 'bookingStatus' => 'pending',
                 
             ]);
-
+            // Cập nhật số lượng tour còn lại
+            $tour = Tour::where('tourId', $request->tourId)->first();
+            if ($tour) {
+                $totalBooked = $request->numAdults + $request->numChildren;
+                $tour->quantity = $tour->quantity - $totalBooked;
+                $tour->save();
+            }
             $bookingId = $booking->bookingId;
             // Tạo checkout record cho thanh toán tại văn phòng         
                 CheckOut::create([
@@ -85,5 +90,16 @@ class BookingController extends Controller
         $checkout = CheckOut::where('bookingId', $bookingId)->first();
         
         return view('booking.success', compact('booking', 'tour', 'checkout'));
+    }
+
+
+    public function history(){
+        $title = "Lịch sử đặt tour";
+        $user = Auth::user();
+        $historys = Booking::with(['tour','checkout'])
+                   ->where('userId',$user->userId)
+                   ->orderBy('bookingDate','desc')->get();
+                   
+        return view('clients.history-booking',compact('title','historys'));
     }
 }

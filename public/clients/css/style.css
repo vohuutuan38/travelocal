@@ -3528,7 +3528,8 @@ h6, .h6, blockquote {
         background: var(--primary-color); }
         .main-header.header-one .main-menu .navbar-collapse .navigation > li:hover > a,
         .main-header.header-one .main-menu .navbar-collapse .navigation > li:hover > .dropdown-btn {
-          color: white; }
+          color: white;
+        text-decoration: none; }
   .main-header.header-one.fixed-header .header-upper {
     padding-top: 10px;
     padding-bottom: 10px; } }

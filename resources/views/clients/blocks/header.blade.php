@@ -160,6 +160,7 @@
 
                                         @auth
                                             <li><a href="{{ route('profile') }}">Thông tin cá nhân</a></li>
+                                             <li><a href="{{ route('history.booking') }}">Lịch sử đặt tour</a></li>
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf

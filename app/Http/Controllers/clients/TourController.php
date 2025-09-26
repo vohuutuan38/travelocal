@@ -93,7 +93,7 @@ if ($request->domain) {
         $user = Auth::user();
         $hasPendingBooking = false;
         if ($user) {
-            $hasPendingBooking =Booking::where('userId', $user->userId)
+            $hasPendingBooking = Booking::where('userId', $user->userId)
                 ->where('tourId', $id)
                 ->where('bookingStatus', 'pending')
                 ->exists();

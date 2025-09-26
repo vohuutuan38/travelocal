@@ -21,4 +21,10 @@ class CheckOut extends Model
          'transactionId',
         
     ];
+
+      // Checkout thuộc về 1 Booking
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class, 'bookingId', 'bookingId');
+    }
 }

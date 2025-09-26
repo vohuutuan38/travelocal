@@ -12,6 +12,7 @@ use App\Http\Controllers\clients\TourController;
 use App\Http\Controllers\clients\AboutController;
 use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\BookingController;
+use App\Http\Controllers\clients\CheckOutController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
 use App\Http\Controllers\clients\ContactController;
@@ -72,8 +73,9 @@ Route::post('/profile/change-password', [AuthClientController::class, 'changePas
 Route::get('/booking/{id}', [BookingController::class, 'create'])->name('booking');
 Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
 
+// history booking
+Route::get('/history', [BookingController::class, 'history'])->name('history.booking');
 
-Route::get('/booking/details/{bookingId}', [BookingController::class, 'show'])->name('booking.show');
 
 
 
