@@ -10,6 +10,7 @@ class CheckOut extends Model
          use HasFactory;
 
     protected $table = 'tbl_checkout';
+     protected $primaryKey = 'checkoutId';
     protected $fillable =
     [
         'checkoutId',

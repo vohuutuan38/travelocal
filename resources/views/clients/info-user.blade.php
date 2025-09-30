@@ -1,4 +1,7 @@
-@include('clients.blocks.header')
+@extends('layouts.client')
+@section('title', 'Thông tin người dùng')
+@section('content')
+
 <div class="container-xl px-4 my-115">
     <div class="row">
         <div class="col-xl-4">
@@ -109,4 +112,5 @@
         </div>
     </div>
 </div>
-@include('clients.blocks.footer')
+@endsection
+

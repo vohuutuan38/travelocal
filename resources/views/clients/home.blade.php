@@ -1,11 +1,7 @@
-
-@include('clients.blocks.header')
-   
-       
-
-     
-        
-      
+@extends('layouts.client')
+@section('title', 'Home')
+@section('content')
+ 
         
         <!-- Banner home-->
         @include('clients.blocks.banner_home')
@@ -603,6 +599,17 @@
             </div>
         </section>
         <!-- Blog Area end -->
-          
-@include('clients.blocks.footer')
+    
+@endsection
+
+
+
+
+
+   
+       
+
+     
+      
+
      

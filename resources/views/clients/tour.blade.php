@@ -1,10 +1,7 @@
-@include('clients.blocks.header')
+@extends('layouts.client')
+@section('title', 'Tour List')
+@section('content')
 
-
-<!--Form Back Drop-->
-
-
-<!-- Page Banner Start -->
 
 <!-- Page Banner Start -->
 <section class="page-banner-tour pt-50 pb-35 rel z-1 bgs-cover"
@@ -24,8 +21,6 @@
     </div>
 </section>
 <!-- Page Banner End -->
-<!-- Page Banner End -->
-
 
 <!-- Tour Grid Area start -->
 <section class="tour-grid-page py-100 rel z-1 pt-10">
@@ -332,8 +327,5 @@
         </div>
     </div>
 </section>
-<!-- Newsletter Area end -->
+@endsection
 
-<!-- Newsletter Area end -->
-
-@include('clients.blocks.footer')

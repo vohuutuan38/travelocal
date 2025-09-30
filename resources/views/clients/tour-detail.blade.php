@@ -1,7 +1,6 @@
-@include('clients.blocks.header')
-
-<!--Form Back Drop-->
-
+@extends('layouts.client')
+@section('title', 'tour-detail')
+@section('content')
 
 
 <!-- Page Banner Start -->
@@ -636,4 +635,5 @@
 </section>
 <!-- Tour Details Area end -->
 
-@include('clients.blocks.footer')
+@endsection
+

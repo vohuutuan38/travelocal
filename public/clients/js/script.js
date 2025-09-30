@@ -559,3 +559,23 @@
     });
 
 })(window.jQuery);
+
+
+
+// modal hủy tour
+function openModal(id) {
+  document.getElementById(id).style.display = "flex";
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+// Đóng modal khi bấm ra ngoài nội dung
+window.addEventListener("click", function(e) {
+  document.querySelectorAll(".custom-modal").forEach(modal => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});

@@ -20,10 +20,12 @@ class TourController extends Controller
         return view('clients.tour', compact('title', 'tours'));
     }
 
-    public function search()
+    public function search(Request $request)
     {
         $title = "TÌm kiếm";
-        return view('clients.search', compact('title'));
+        $tourSearch= $request->title;
+        $tours = Tour::with(['images', 'thumbnail'])->where('title', 'like', '%' . $tourSearch . '%')->paginate(9);
+                return view('clients.tour', compact('title', 'tours'));
     }
     public function filter(Request $request)
     {

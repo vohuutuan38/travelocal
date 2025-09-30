@@ -1,10 +1,13 @@
-@include('clients.blocks.header')
+@extends('layouts.client')
+@section('title', 'History Booking')
+@section('content')
+
 <section class="page-banner-tour pt-50 pb-35 rel z-1 bgs-cover"
     style="background-image: url({{ asset('clients/images/banner/banner.jpg') }});">
     <div class="container">
         <div class="banner-inner text-white">
             <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
-                Danh sách đặt Tour</h2>
+                Lịch sử Giao dịch đặt Tour</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200"
                     data-aos-duration="1500" data-aos-offset="50">
@@ -16,52 +19,47 @@
     </div>
 </section>
 <div class="container  container-1400 py-4">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1"><i class="fas fa-history text-primary"></i> Lịch sử Giao dịch</h2>
-            <p class="text-muted mb-0">Quản lý và theo dõi các giao dịch tour du lịch</p>
-        </div>
-
-    </div>
 
     <!-- Filter Section -->
     <div class="filter-section mb-10">
-        <div class="row g-3 d-flex justify-content-between align-items-center">
-            <div class="col-md-2">
+        <form action="" method="get" class="row g-3 d-flex justify-content-between align-items-center">
+            @csrf
+            <div class="col-md-3">
                 <label class="form-label">Từ ngày</label>
-                <input type="date" class="form-control" id="fromDate">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">Đến ngày</label>
-                <input type="date" class="form-control" id="toDate">
+                <input type="date" name="startDate" class="form-control" value="{{ request('startDate') }}">
             </div>
             <div class="col-md-3">
+                <label class="form-label">Đến ngày</label>
+                <input type="date" name="endDate" class="form-control" value="{{ request('endDate') }}">
+            </div>
+
+            <div class="col-md-3">
                 <label class="form-label">Trạng thái</label>
-                <select name="city" id="city">
-                    <option value="value1">Hoàn thành</option>
-                    <option value="value2">Chờ xử lý</option>
-                    <option value="value2">Đã hủy</option>
+                <select name="status" class="form-select">
+                    <option value="">---Chọn trạng thái---</option>
+                    @foreach ($bookingStatus as $status)
+                        <option value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>
+                            {{ ucfirst($status) }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
+
             <div class="col-md-3">
                 <label class="form-label">Tìm kiếm</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Mã giao dịch, tour..." id="searchInput">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
+                    <input type="text" name="title" class="form-control"value="{{ request('title') }}" placeholder="Tour..." id="searchInput">
                 </div>
             </div>
-            <div class="col-md-2">
-                <button class="btn btn-primary me-2">
+            <div class="">
+                <button type="submit" class="btn btn-primary me-2">
                     <i class="fas fa-filter"></i> Lọc
                 </button>
-                <button class="btn btn-outline-secondary">
+                <a href="{{ route('history.booking') }}" class="btn btn-outline-secondary">
                     <i class="fas fa-undo"></i> Đặt lại
-                </button>
+                </a>
             </div>
-        </div>
+        </form>
 
     </div>
 
@@ -83,7 +81,9 @@
                                 alt="Tour Đà Lạt" class="tour-image">
                         </div>
                         <div class="col-md-3">
-                            <h6 class="mb-1">{{ $history->tour->title }}</h6>
+                            <h6 class="mb-1"><a
+                                    href="{{ route('tour-detail', $history->tourId) }}">{{ $history->tour->title }}</a>
+                            </h6>
                             <p class="mb-1 text-muted small">Mã: TDL001</p>
                             <p class="mb-0 date-text">{{ $history->tour->startDate }}</p>
                         </div>
@@ -93,23 +93,58 @@
                             <p class="mb-0 small text-muted">{{ $history->phone }}</p>
                         </div>
                         <div class="col-md-2 text-center">
-                            <p class="mb-1 amount-text text-success">{{ $history->totalPrice }}</p>
+                            <p class="mb-1 amount-text text-success">{{ number_format($history->totalPrice) }} VND</p>
                             <p class="mb-0 small text-muted">Người lớn:{{ $history->numAdults }} </p>
                             <p class="mb-0 small text-muted">Trẻ em:{{ $history->numChildren }}</p>
 
                         </div>
                         <div class="col-md-1 text-center">
                             <span
-                                class="badge {{ $history->bookingStatus == 'completed' ? 'bg-success'  : ($history->bookingStatus == 'pending'  ? 'bg-warning' : 'bg-danger') }} status-badge">
+                                class="badge 
+                                @if ($history->bookingStatus == 'pending') bg-warning
+                                @elseif ($history->bookingStatus == 'confirmed')
+                                    bg-info
+                                @elseif ($history->bookingStatus == 'completed')
+                                    bg-success
+                                @else
+                                    bg-danger @endif status-badge">
                                 {{ ucfirst($history->bookingStatus) }}
                             </span>
                             <p class="mb-0 date-text mt-1">
                                 {{ $history->checkout?->paymentDate ?? 'Chưa thanh toán' }}
                             </p>
                         </div>
+                        <!-- Nút mở modal -->
                         <div class="col-md-2 text-end">
-                            <a class="btn btn-danger">Hủy tour</a>
+                            @if ($history->bookingStatus == 'pending')
+                                <button class="btn btn-danger"
+                                    onclick="openModal('confirmCancelModal{{ $history->bookingId }}')">
+                                    Hủy tour
+                                </button>
+                            @endif
                         </div>
+
+                        <!-- Modal xác nhận -->
+                        <div id="confirmCancelModal{{ $history->bookingId }}" class="custom-modal">
+                            <div class="custom-modal-content">
+                                <div class="custom-modal-header">
+                                    <h5>Xác nhận hủy tour</h5>
+                                    <span class="close-btn"
+                                        onclick="closeModal('confirmCancelModal{{ $history->bookingId }}')">&times;</span>
+                                </div>
+                                <div class="custom-modal-body">
+                                    Bạn có chắc chắn muốn hủy tour này không?
+                                </div>
+                                <div class="custom-modal-footer">
+                                    <button class="btn btn-secondary"
+                                        onclick="closeModal('confirmCancelModal{{ $history->bookingId }}')">Đóng</button>
+                                    <a href="{{ route('cancel.booking', $history->bookingId) }}"
+                                        class="btn btn-danger">Xác nhận</a>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             @endforeach
@@ -138,92 +173,6 @@
     </nav>
 </div>
 
-<!-- Detail Modal -->
-<div class="modal fade" id="detailModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chi tiết giao dịch #TDL001</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6>Thông tin tour</h6>
-                        <table class="table table-borderless table-sm">
-                            <tr>
-                                <td>Tên tour:</td>
-                                <td>Tour Đà Lạt 3N2Đ</td>
-                            </tr>
-                            <tr>
-                                <td>Mã tour:</td>
-                                <td>TDL001</td>
-                            </tr>
-                            <tr>
-                                <td>Ngày khởi hành:</td>
-                                <td>15/11/2025</td>
-                            </tr>
-                            <tr>
-                                <td>Số người:</td>
-                                <td>2 người</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Thông tin khách hàng</h6>
-                        <table class="table table-borderless table-sm">
-                            <tr>
-                                <td>Họ tên:</td>
-                                <td>Nguyễn Văn A</td>
-                            </tr>
-                            <tr>
-                                <td>Điện thoại:</td>
-                                <td>0987654321</td>
-                            </tr>
-                            <tr>
-                                <td>Email:</td>
-                                <td>nguyenvana@email.com</td>
-                            </tr>
-                            <tr>
-                                <td>Địa chỉ:</td>
-                                <td>Hà Nội</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-12">
-                        <h6>Thông tin thanh toán</h6>
-                        <table class="table table-sm">
-                            <tr>
-                                <td>Giá tour (2 người):</td>
-                                <td class="text-end">5,000,000 VND</td>
-                            </tr>
-                            <tr>
-                                <td>Phí dịch vụ:</td>
-                                <td class="text-end">300,000 VND</td>
-                            </tr>
-                            <tr>
-                                <td>Thuế VAT (10%):</td>
-                                <td class="text-end">200,000 VND</td>
-                            </tr>
-                            <tr class="table-info fw-bold">
-                                <td>Tổng cộng:</td>
-                                <td class="text-end">5,500,000 VND</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary">
-                    <i class="fas fa-print"></i> In hóa đơn
-                </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
+@endsection
 
-@include('clients.blocks.footer')
+

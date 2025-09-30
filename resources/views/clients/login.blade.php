@@ -1,4 +1,6 @@
-@include('clients.blocks.header')
+@extends('layouts.client')
+@section('title', 'Login')
+@section('content')
 
 <div class="main">
 
@@ -115,5 +117,7 @@
     const checkEmailUrl = "{{ route('check.email') }}";
     const csrfToken = "{{ csrf_token() }}";
 </script>
+@endsection
 
-@include('clients.blocks.footer')
+
+

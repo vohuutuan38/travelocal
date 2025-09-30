@@ -1,4 +1,7 @@
-@include('clients.blocks.header')
+@extends('layouts.client')
+@section('title', 'booking')
+@section('content')
+
 
 <div class="container py-110">
     <div style="display: none;" data-price-adult="{{ $tour->priceAdult }}" data-price-child="{{ $tour->priceChild }}">
@@ -139,4 +142,5 @@
         </div>
     </form>
 </div>
-@include('clients.blocks.footer')
+@endsection
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admins\AdminController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -19,8 +20,10 @@ use App\Http\Controllers\clients\ContactController;
 use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
+use App\Models\Tour;
 
 
+// Authentication Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/register', [LoginController::class, 'register'])->name('register');
@@ -75,11 +78,18 @@ Route::post('/booking/store', [BookingController::class, 'store'])->name('bookin
 
 // history booking
 Route::get('/history', [BookingController::class, 'history'])->name('history.booking');
+Route::get('/cancel-booking/{id}', [BookingController::class, 'cancelBooking'])->name('cancel.booking');
 
-
+// tìm kiếm tour
+Route::post('search-tour',[TourController::class,'search'])->name('search.tour');
 
 
 
 route::get('/404', function () {
-    return view('clients.404');
+    return view('layouts.client');
 });
+
+
+// ADMIN =====================================================
+
+Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');

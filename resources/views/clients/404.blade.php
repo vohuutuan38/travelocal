@@ -1,14 +1,7 @@
-@include('clients.blocks.header')
-
-
-
-        <!--Form Back Drop-->
-
-        
-        
-       
-        
-        <!-- 404 Error Area start -->
+@extends('layouts.client')
+@section('title', 'Home')
+@section('content')
+   <!-- 404 Error Area start -->
         <section class="error-area pt-130 pb-100 rel z-1">
             <div class="container">
                 <div class="row align-items-center justify-content-between">
@@ -46,5 +39,5 @@
             </div>
         </section>
         <!-- 404 Error Area end -->
-        
-@include('clients.blocks.footer')
+@endsection
+
