@@ -22740,9 +22740,9 @@ fieldset:disabled .btn {
 }
 
 .oblique {
-  transform: skewX(-10deg);
+  transform: skewX(349deg);
   overflow: hidden;
-  width: 60%;
+  width: 69%;
   right: -10rem;
   border-bottom-left-radius: 0.75rem;
 }
