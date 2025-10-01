@@ -23134,7 +23134,7 @@ label,
 }
 
 .icon-shape i {
-  color: #fff;
+  color: #515153;
   opacity: 0.8;
   top: 11px;
   position: relative;
@@ -23171,7 +23171,7 @@ label,
 
 .icon-sm i {
   top: 2px;
-  font-size: 0.65rem;
+  font-size: 15px;
 }
 
 .icon-md {
@@ -23882,8 +23882,7 @@ html {
 
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
   display: block;
-  overflow: auto;
-  height: calc(100vh - 360px);
+
 }
 
 .navbar-vertical.navbar-expand-xs>[class*=container] {

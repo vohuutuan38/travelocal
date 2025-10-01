@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admins\AdminController;
+use App\Http\Controllers\admins\ListUserController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,7 +22,6 @@ use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
 use App\Models\Tour;
-
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -90,14 +90,16 @@ route::get('/404', function () {
 });
 
 
-// ADMIN =====================================================
-// login admin
+// LOGIN ADMIN =====================================================
 Route::middleware(['admin'])->group(function () {
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+Route::get('admin/users',[ListUserController::class,'index'])->name('admin.listUser');
 });
-
 
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('loginadmin.post');
+
+
+// ADMIN =====================================================
 
