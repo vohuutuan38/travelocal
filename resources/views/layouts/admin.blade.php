@@ -33,6 +33,7 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('admins/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('clients/css/fontawesome-5.14.0.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/css/custom-css.css') }}">
 
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
@@ -236,6 +237,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('admins/js/soft-ui-dashboard.min.js?v=1.1.0') }}"></script>
+    <script src="{{ asset('admins/js/custom-js.js') }}"></script>
 </body>
 
 </html>

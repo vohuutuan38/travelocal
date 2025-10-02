@@ -20,7 +20,7 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link  {{ request()->routeIs('admin.listUser') ? 'active' : '' }} " href="{{ route('admin.listUser') }}">
+        <a class="nav-link {{ request()->routeIs('admin.listUser') || request()->routeIs('admin.editUser') ? 'active' : '' }}" href="{{ route('admin.listUser') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
              <i class="far fa-users"></i>
             </div>
@@ -28,7 +28,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/billing.html">
+          <a class="nav-link {{ request()->routeIs('admin.listTour') || request()->routeIs('admin.editTour') ? 'active' : '' }}" href="{{ route('admin.listTour') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="far fa-plane-departure"></i>
             </div>

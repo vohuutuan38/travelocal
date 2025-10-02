@@ -8329,14 +8329,7 @@ fieldset:disabled .btn {
   box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0) var(--bs-focus-ring-blur, 0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 }
 
-.icon-link {
-  display: inline-flex;
-  gap: 0.375rem;
-  align-items: center;
-  text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 0.5));
-  text-underline-offset: 0.25em;
-  backface-visibility: hidden;
-}
+
 
 .icon-link>.bi {
   flex-shrink: 0;
@@ -11032,7 +11025,7 @@ fieldset:disabled .btn {
 }
 
 .text-success {
-  color: #22c55e !important;
+  color: #00f75b !important;
 }
 
 .text-info {

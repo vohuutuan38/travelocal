@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\admins;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 
-class ListUserController extends Controller
+class ListTourController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::paginate(9);
-        return view('admins.users.index',compact('users'));
+        $tours = Tour::with(['images', 'thumbnail'])->paginate(6);
+        return view('admins.tour.index',compact('tours'));
     }
 
     /**
@@ -46,8 +46,8 @@ class ListUserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
-        return view('admins.users.edit',compact('user'));
+        //
+        return view('admins.tour.edit');
     }
 
     /**
@@ -55,14 +55,7 @@ class ListUserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       
-        $user = User::find($id);
-        $user->userName = $request->input('userName');
-        $user->email = $request->input('email');
-        $user->isActive = $request->has('isActive') ? 'y' : 'n';
-        $user->save();
-
-        return redirect()->route('admin.listUser')->with('success', 'User updated successfully.');
+        //
     }
 
     /**

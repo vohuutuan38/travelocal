@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admins\AdminController;
+use App\Http\Controllers\admins\ListTourController;
 use App\Http\Controllers\admins\ListUserController;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,7 +95,15 @@ route::get('/404', function () {
 Route::middleware(['admin'])->group(function () {
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+// users
 Route::get('admin/users',[ListUserController::class,'index'])->name('admin.listUser');
+Route::get('admin/users/edit/{id}',[ListUserController::class,'edit'])->name('admin.editUser');
+Route::post('admin/users/edit/{id}',[ListUserController::class,'update'])->name('admin.updateUser');
+// tour
+Route::get('admin/tours',[ListTourController::class,'index'])->name('admin.listTour');
+Route::get('admin/tours/edit/{id}',[ListTourController::class,'edit'])->name('admin.editTour');
+
+
 });
 
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');

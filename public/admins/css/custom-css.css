@@ -1,0 +1,78 @@
+.flex-center-message {
+    display: flex;
+    align-items: center;
+}
+#flash-message {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    z-index: 1055;
+    min-width: 300px;
+    min-height: 53px;
+
+    /* trạng thái ban đầu: ẩn ngoài màn hình */
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+/* khi thêm class .showing thì chạy hiệu ứng slideIn */
+#flash-message.showing {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* khi thêm class .hiding thì chạy hiệu ứng slideOut */
+#flash-message.hiding {
+    animation: slideOut 0.5s ease-in forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+/* danh sách tour */
+.tour-card {
+    position: relative;
+    height: 250px; /* chỉnh chiều cao theo ý bạn */
+    background-size: cover;       /* cho ảnh phủ hết */
+    background-position: center;  /* căn giữa ảnh */
+    background-repeat: no-repeat; /* không lặp lại ảnh */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Lớp phủ mờ để chữ dễ nhìn */
+.tour-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5); /* màu đen mờ */
+    z-index: 1;
+    border-radius: 12px;
+}
+
+/* Nội dung tour hiển thị nổi trên lớp phủ */
+.tour-card > .d-flex {
+    position: relative;
+    z-index: 2;
+    color: #fff; /* chữ trắng cho nổi bật */
+}
+
+
