@@ -46,4 +46,29 @@ class Tour extends Model
     {
         return $this->hasMany(Booking::class, 'tourId', 'tourId');
     }
+    public function includes()
+{
+    return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'include');
+}
+
+public function excludes()
+{
+    return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'exclude');
+}
+
+public function locationMap()
+{
+    return $this->hasOne(TourLocationMap::class, 'tourId', 'tourId');
+}
+
+public function activities()
+{
+    return $this->hasMany(TourActivity::class, 'tourId', 'tourId');
+}
+
+public function guides()
+{
+    return $this->belongsToMany(Guide::class, 'tbl_tour_guide', 'tourId', 'guideId');
+}
+
 }

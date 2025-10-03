@@ -6,6 +6,7 @@ use App\Models\Tour;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Faqs;
 use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
@@ -17,6 +18,7 @@ class TourController extends Controller
     {
         $title = "Tour";
         $tours = Tour::with(['images', 'thumbnail'])->paginate(9);
+       
         return view('clients.tour', compact('title', 'tours'));
     }
 
@@ -100,9 +102,10 @@ if ($request->domain) {
                 ->where('bookingStatus', 'pending')
                 ->exists();
         }
-        $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
+        $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap'])->where('tourId', $id)->first();
         $title = $tour->title;
-        return view('clients.tour-detail', compact('title', 'tour','hasPendingBooking'));
+         $faqs = Faqs::all();
+        return view('clients.tour-detail', compact('title', 'tour','hasPendingBooking','faqs'));
     }
 
 

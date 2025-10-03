@@ -488,3 +488,8 @@
   cursor: pointer;
 }
 
+/* map chi tiêt tour */
+.tour-map iframe {
+ border:0;
+  width: 100%;
+}
