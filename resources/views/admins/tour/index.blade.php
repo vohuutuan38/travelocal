@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 @section('title', 'Tour')
 @section('content')
-    <div class="container-fluid py-4">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header pb-0 px-3">
                         <h6 class="mb-0">Danh sách tour</h6>
+                        <a href="{{ route('admin.createTour') }}" class="btn btn-primary">Thêm Tour</a>
                     </div>
                     <div class="card-body pt-4 p-3">
                         <ul class="list-group">
@@ -33,7 +34,7 @@
                                     </div>
 
                                     <div class="ms-auto text-end">
-                                        <a class="btn btn-link text-success  text-sm text-gradient px-3 mb-0" href="javascript:;">
+                                        <a href="{{ route('admin.editTour',$tour->tourId) }}" class="btn btn-link text-success  text-sm text-gradient px-3 mb-0" href="javascript:;">
                                             <i class="fas fa-pencil-alt me-2" aria-hidden="true"></i>Edit
                                         </a>
                                         <a class="btn btn-link text-danger text-sm text-gradient px-3 mb-0"

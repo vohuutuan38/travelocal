@@ -101,6 +101,7 @@ Route::get('admin/users/edit/{id}',[ListUserController::class,'edit'])->name('ad
 Route::post('admin/users/edit/{id}',[ListUserController::class,'update'])->name('admin.updateUser');
 // tour
 Route::get('admin/tours',[ListTourController::class,'index'])->name('admin.listTour');
+  Route::get('/tour/create', [ListTourController::class, 'create'])->name('admin.createTour');
 Route::get('admin/tours/edit/{id}',[ListTourController::class,'edit'])->name('admin.editTour');
 
 

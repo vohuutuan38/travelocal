@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\admins;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tour;
+use App\Models\Guide;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ListTourController extends Controller
 {
@@ -22,7 +23,8 @@ class ListTourController extends Controller
      */
     public function create()
     {
-        //
+          $guides = Guide::all();
+        return view('admins.tour.add', compact('guides'));
     }
 
     /**
@@ -46,8 +48,8 @@ class ListTourController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        return view('admins.tour.edit');
+         $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap'])->where('tourId', $id)->first();
+        return view('admins.tour.edit',compact('tour'));
     }
 
     /**
