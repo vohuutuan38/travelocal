@@ -18,13 +18,18 @@ class Tour extends Model
         'quantity',
         'priceAdult',
         'priceChild',
-        'destination',
+        'cityId',
         'availability',
         'itinerary',
         'startDate',
         'endDate',
         'review',
     ];
+    // Relationship với City
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'cityId', 'cityId');
+    }
     // Quan hệ 1 tour có nhiều ảnh
     public function images()
     {
@@ -47,28 +52,27 @@ class Tour extends Model
         return $this->hasMany(Booking::class, 'tourId', 'tourId');
     }
     public function includes()
-{
-    return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'include');
-}
+    {
+        return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'include');
+    }
 
-public function excludes()
-{
-    return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'exclude');
-}
+    public function excludes()
+    {
+        return $this->hasMany(TourIncludeExclude::class, 'tourId', 'tourId')->where('type', 'exclude');
+    }
 
-public function locationMap()
-{
-    return $this->hasOne(TourLocationMap::class, 'tourId', 'tourId');
-}
+    public function locationMap()
+    {
+        return $this->hasOne(TourLocationMap::class, 'tourId', 'tourId');
+    }
 
-public function activities()
-{
-    return $this->hasMany(TourActivity::class, 'tourId', 'tourId');
-}
+    public function activities()
+    {
+        return $this->hasMany(TourActivity::class, 'tourId', 'tourId');
+    }
 
-public function guides()
-{
-    return $this->belongsToMany(Guide::class, 'tbl_tour_guide', 'tourId', 'guideId');
-}
-
+    public function guides()
+    {
+        return $this->belongsToMany(Guide::class, 'tbl_tour_guide', 'tourId', 'guideId');
+    }
 }

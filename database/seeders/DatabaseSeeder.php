@@ -17,10 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Admin::create([
-            'userName' => 'tuấn quản trị viên',
-            'email' => 'vohuutuan222004@gmail.com',
-             'passWord' => Hash::make('123456'), 
-        ]);
+        $this->call(CitySeeder::class);
     }
 }

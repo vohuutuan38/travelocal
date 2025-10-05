@@ -102,7 +102,7 @@ if ($request->domain) {
                 ->where('bookingStatus', 'pending')
                 ->exists();
         }
-        $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap'])->where('tourId', $id)->first();
+        $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap','city'])->where('tourId', $id)->first();
         $title = $tour->title;
          $faqs = Faqs::all();
         return view('clients.tour-detail', compact('title', 'tour','hasPendingBooking','faqs'));

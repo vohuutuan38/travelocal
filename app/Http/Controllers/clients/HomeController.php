@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Trang chủ";
-        $tours = Tour::with(['images','thumbnail', 'timelines'])->get();
+        $tours = Tour::with(['images','thumbnail', 'timelines','city'])->get();
         // dd($tours);
         return view('clients.home',compact('title','tours'));
     }

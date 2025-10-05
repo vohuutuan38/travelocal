@@ -30,7 +30,7 @@
                                 <img class="img-home" src="{{ asset('clients/images/gallery-tours/'.$tour->thumbnail->imageURL.'')}}" alt="Destination">
                             </div>
                             <div class="content">
-                                <span class="location"><i class="fal fa-map-marker-alt"></i>{{ $tour->destination }}</span>
+                                <span class="location"><i class="fal fa-map-marker-alt"></i>{{ $tour->city->name }}</span>
                                 <h5 class="text-tour-home"><a href="{{ route('tour-detail',$tour->tourId) }}">{{ $tour->title }}</a></h5>
                                 <span class="time">{{ $tour->time }}</span>
                             </div>

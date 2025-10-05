@@ -247,7 +247,7 @@
                                     <div class="content">
                                         <div class="destination-header">
                                             <span class="location"><i class="fal fa-map-marker-alt"></i>
-                                                {{ $tour->destination }}</span>
+                                                {{ $tour->city->name }}</span>
                                             <div class="ratting">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>

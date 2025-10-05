@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\admins\AdminController;
-use App\Http\Controllers\admins\ListTourController;
-use App\Http\Controllers\admins\ListUserController;
+use App\Models\Tour;
 use Illuminate\Support\Facades\Auth;
-
-
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
+
+use App\Http\Controllers\admins\CityController;
+use App\Http\Controllers\admins\AdminController;
 use App\Http\Controllers\clients\BlogController;
 use App\Http\Controllers\clients\FaqsController;
 use App\Http\Controllers\clients\HomeController;
 use App\Http\Controllers\clients\TourController;
 use App\Http\Controllers\clients\AboutController;
-use App\Http\Controllers\clients\AuthClientController;
-use App\Http\Controllers\clients\BookingController;
-use App\Http\Controllers\clients\CheckOutController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
+use App\Http\Controllers\admins\ListTourController;
+use App\Http\Controllers\admins\ListUserController;
+use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\ContactController;
 use App\Http\Controllers\clients\GelleryController;
+use App\Http\Controllers\clients\CheckOutController;
+use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
-use App\Models\Tour;
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -102,6 +103,7 @@ Route::post('admin/users/edit/{id}',[ListUserController::class,'update'])->name(
 // tour
 Route::get('admin/tours',[ListTourController::class,'index'])->name('admin.listTour');
   Route::get('/tour/create', [ListTourController::class, 'create'])->name('admin.createTour');
+  Route::post('/tour/store', [ListTourController::class, 'store'])->name('admin.storeTour');
 Route::get('admin/tours/edit/{id}',[ListTourController::class,'edit'])->name('admin.editTour');
 
 
@@ -110,6 +112,11 @@ Route::get('admin/tours/edit/{id}',[ListTourController::class,'edit'])->name('ad
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('loginadmin.post');
 
+// API ROUTES lấy tỉnh miền add tour =====================================================
+Route::prefix('api')->name('api.')->group(function () {
+    Route::get('/cities', [CityController::class, 'getCitiesByDomain'])->name('cities.by-domain');
+    Route::get('/cities/{id}', [CityController::class, 'show'])->name('cities.show');
+});
 
 // ADMIN =====================================================
 

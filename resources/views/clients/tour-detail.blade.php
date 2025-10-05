@@ -74,7 +74,7 @@
                     <div class="tour-header-content mb-15" data-aos="fade-left" data-aos-duration="1500"
                         data-aos-offset="50">
                         <span class="location d-inline-block mb-10"><i class="fal fa-map-marker-alt"></i>
-                            {{ $tour->destination }}</span>
+                            {{ $tour->city->name }}</span>
                         <div class="section-title pb-5">
                             <h2>{{ $tour->title }}</h2>
                         </div>
