@@ -19,7 +19,7 @@
                                     <div class="d-flex flex-column">
                                       <a href=""> <h6 class="mb-3 text-lg text-primary">{{ $tour->title }}</h6></a> 
                                         <span class="mb-2 text-sm">Địa điểm:
-                                            <span class="font-weight-bold ms-sm-2">{{ $tour->destination }}</span>
+                                            <span class="font-weight-bold ms-sm-2">{{ $tour->city->name }}</span>
                                         </span>
                                         <span class="mb-2 text-sm">Giá:
                                             <span class="font-weight-bold ms-sm-2">{{ number_format($tour->priceAdult) }}

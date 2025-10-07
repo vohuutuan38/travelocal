@@ -102,7 +102,7 @@
                 <div class="col-lg-8">
                     <div class="tour-details-content">
                         <h3>Khám phá các chuyến tham quan</h3>
-                        <p>{{ $tour->descripton }}</p>
+                        <p>{{ $tour->description }}</p>
                         <div class="row pb-55">
                             <!-- Bao gồm -->
                             <div class="col-md-6">
@@ -137,7 +137,7 @@
                         @foreach ($tour->activities as $activity)
                             
                         <div class="tour-activity-item">
-                            <i class="{{ $activity->icon }}"></i>
+                            {!! $activity->icon !!}
                             <b>{{ $activity->name }}</b>
                         </div>
                         @endforeach

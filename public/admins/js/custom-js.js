@@ -23,34 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// custom form thêm tour
-document.addEventListener('DOMContentLoaded', function() {
-    let activityIndex = 1;
-
-    document.querySelector('#activities-wrapper').addEventListener('click', function(e) {
-        if (e.target.closest('.add-activity')) {
-            e.preventDefault();
-
-            const wrapper = document.getElementById('activities-wrapper');
-
-            const newRow = document.createElement('div');
-            newRow.classList.add('d-flex', 'mb-2', 'activity-item');
-            newRow.innerHTML = `
-                <input type="text" name="activities[${activityIndex}][name]" placeholder="Tên hoạt động" class="form-control me-2">
-                <input type="text" name="activities[${activityIndex}][icon]" placeholder="Icon flaticon" class="form-control me-2">
-                <button type="button" class="btn btn-danger remove-activity"><i class="fas fa-minus"></i></button>
-            `;
-            wrapper.appendChild(newRow);
-            activityIndex++;
-        }
-
-        // Xóa hoạt động
-        if (e.target.closest('.remove-activity')) {
-            e.preventDefault();
-            e.target.closest('.activity-item').remove();
-        }
-    });
-});
 
 // thêm ảnh
 
@@ -121,34 +93,87 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add activity
-    let activityIndex = 1;
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.add-activity')) {
+});
+
+// custom timeline
+
+document.addEventListener('DOMContentLoaded', function () {
+    let timelineIndex = 1;
+
+    // Khi nhấn nút thêm timeline
+    document.querySelector('#timeline-wrapper').addEventListener('click', function (e) {
+        if (e.target.closest('.add-timeline')) {
             e.preventDefault();
-            const wrapper = document.getElementById('activities-wrapper');
-            const newActivity = `
-                <div class="d-flex mb-2 activity-item">
-                    <input type="text" 
-                           name="activities[${activityIndex}][name]" 
-                           placeholder="Tên hoạt động" 
-                           class="form-control me-2">
-                    <input type="text" 
-                           name="activities[${activityIndex}][icon]" 
-                           placeholder="Icon flaticon" 
-                           class="form-control me-2">
-                    <button type="button" class="btn btn-danger remove-activity">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
+
+            const wrapper = document.getElementById('timeline-wrapper');
+            const newItem = document.createElement('div');
+            newItem.classList.add('d-flex', 'mb-2', 'timeline-item');
+
+            newItem.innerHTML = `
+                <input type="text" name="timelines[${timelineIndex}][title]" 
+                       placeholder="Ngày... :" 
+                       class="form-control me-2 w-25">
+
+                <textarea name="timelines[${timelineIndex}][description]" 
+                          placeholder="Mô tả chi tiết" 
+                          class="form-control me-2"></textarea>
+
+                <button type="button" class="btn btn-danger remove-timeline">
+                    <i class="fas fa-minus"></i>
+                </button>
             `;
-            wrapper.insertAdjacentHTML('beforeend', newActivity);
-            activityIndex++;
+
+            wrapper.appendChild(newItem);
+            timelineIndex++;
         }
-        
-        if (e.target.closest('.remove-activity')) {
+
+        // Xóa timeline
+        if (e.target.closest('.remove-timeline')) {
             e.preventDefault();
-            e.target.closest('.activity-item').remove();
+            e.target.closest('.timeline-item').remove();
         }
     });
 });
+
+// image guide
+ document.querySelectorAll('.guide-image-input').forEach(input => {
+        input.addEventListener('change', function() {
+            const previewId = this.getAttribute('data-preview');
+            const previewContainer = document.getElementById(previewId);
+            const img = previewContainer.querySelector('img');
+
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+// image edir guide
+document.querySelectorAll('.guide-edit-image').forEach(input => {
+        input.addEventListener('change', function() {
+            const previewId = this.getAttribute('data-preview');
+            const preview = document.getElementById(previewId);
+            let img = preview.querySelector('img');
+
+            if (!img) {
+                img = document.createElement('img');
+                img.className = 'img-fluid rounded border mt-2';
+                img.style.maxWidth = '200px';
+                preview.appendChild(img);
+            }
+
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });

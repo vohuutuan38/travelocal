@@ -13,12 +13,12 @@ class Tour extends Model
     protected $primaryKey = 'tourId';
     protected $fillable = [
         'title',
+        'time',
         'description',
-        'images',
         'quantity',
+        'cityId',
         'priceAdult',
         'priceChild',
-        'cityId',
         'availability',
         'itinerary',
         'startDate',
@@ -66,10 +66,11 @@ class Tour extends Model
         return $this->hasOne(TourLocationMap::class, 'tourId', 'tourId');
     }
 
-    public function activities()
-    {
-        return $this->hasMany(TourActivity::class, 'tourId', 'tourId');
-    }
+   public function activities()
+{
+    return $this->belongsToMany(ActivityIcon::class, 'tbl_tour_activity', 'tourId', 'activityIconId');
+}
+
 
     public function guides()
     {

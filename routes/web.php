@@ -16,6 +16,7 @@ use App\Http\Controllers\clients\AboutController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
 use App\Http\Controllers\admins\ListTourController;
+use App\Http\Controllers\admins\ListTourGuide;
 use App\Http\Controllers\admins\ListUserController;
 use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\ContactController;
@@ -102,9 +103,18 @@ Route::get('admin/users/edit/{id}',[ListUserController::class,'edit'])->name('ad
 Route::post('admin/users/edit/{id}',[ListUserController::class,'update'])->name('admin.updateUser');
 // tour
 Route::get('admin/tours',[ListTourController::class,'index'])->name('admin.listTour');
-  Route::get('/tour/create', [ListTourController::class, 'create'])->name('admin.createTour');
-  Route::post('/tour/store', [ListTourController::class, 'store'])->name('admin.storeTour');
-Route::get('admin/tours/edit/{id}',[ListTourController::class,'edit'])->name('admin.editTour');
+  Route::get('admin/tour/create', [ListTourController::class, 'create'])->name('admin.createTour');
+  Route::post('admin/tour/store', [ListTourController::class, 'store'])->name('admin.storeTour');
+Route::get('/admin/tours/{id}/edit', [ListTourController::class, 'edit'])->name('admin.editTour');
+Route::put('/admin/tours/{id}/update', [ListTourController::class, 'update'])->name('admin.updateTour');
+
+// tour guide
+Route::get('admin/guides',[ListTourGuide::class,'index'])->name('admin.listGuide');
+Route::get('admin/guide/create', [ListTourGuide::class, 'create'])->name('admin.createGuide');
+Route::post('admin/guide/store', [ListTourGuide::class, 'store'])->name('admin.storeGuide');
+Route::get('admin/guide/{guide}/edit', [ListTourGuide::class, 'edit'])->name('admin.editGuide');
+Route::post('admin/guide/{guide}/update', [ListTourGuide::class, 'update'])->name('admin.updateGuide');
+
 
 
 });

@@ -7,7 +7,7 @@
                 <h3 class="font-weight-bolder text-info text-gradient">Thêm tour</h3>
 
             </div>
-            <form action="{{ route('admin.storeTour') }}" method="POST" class="p-4">
+            <form action="{{ route('admin.storeTour') }}" method="POST" class="p-4" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -18,7 +18,7 @@
                         <label class="text-sm">Tổng thời gian tour</label>
                         <input type="text" name="time" class="form-control" required>
                     </div>
-                   <div class="col-md-4 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="text-sm fw-bold">Vùng miền <span class="text-danger">*</span></label>
                         <select name="domain_filter" id="domain-select" class="form-select">
                             <option value="">-- Chọn vùng miền --</option>
@@ -32,15 +32,12 @@
                     <!-- Thành phố/Tỉnh -->
                     <div class="col-md-4 mb-3">
                         <label class="text-sm fw-bold">Thành phố/Tỉnh <span class="text-danger">*</span></label>
-                        <select name="cityId" 
-                                id="city-select" 
-                                class="form-select @error('cityId') is-invalid @enderror"
-                                required>
+                        <select name="cityId" id="city-select" class="form-select @error('cityId') is-invalid @enderror"
+                            required>
                             <option value="">-- Chọn thành phố --</option>
-                            @foreach($cities as $city)
-                                <option value="{{ $city->cityId }}" 
-                                        data-domain="{{ $city->domain }}"
-                                        {{ old('cityId') == $city->cityId ? 'selected' : '' }}>
+                            @foreach ($cities as $city)
+                                <option value="{{ $city->cityId }}" data-domain="{{ $city->domain }}"
+                                    {{ old('cityId') == $city->cityId ? 'selected' : '' }}>
                                     {{ $city->name }} ({{ $city->domainName }})
                                 </option>
                             @endforeach
@@ -49,7 +46,8 @@
 
                     <div class="col-md-6 mb-3">
                         <label class="text-sm">Ngày bắt đầu</label>
-                        <input type="date" name="startDate " class="form-control" required>
+                        <input type="date" name="startDate" class="form-control" required>
+
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="text-sm">Ngày kết thúc</label>
@@ -87,6 +85,23 @@
                     <label class="text-sm">Mô tả</label>
                     <textarea name="description" class="form-control"></textarea>
                 </div>
+                <div class="mt-3">
+                    <label class="text-sm fw-semibold">📅 Lịch trình (Timeline)</label>
+
+                    <div id="timeline-wrapper">
+                        <div class="d-flex mb-2 timeline-item">
+                            <input type="text" name="timelines[0][title]" placeholder="Ngày 1: Khởi hành đến Đà Nẵng"
+                                class="form-control me-2 w-25">
+
+                            <textarea name="timelines[0][description]" placeholder="Mô tả chi tiết lịch trình cho ngày này"
+                                class="form-control me-2"></textarea>
+
+                            <button type="button" class="btn btn-success add-timeline">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="mt-3">
                     <label class="text-sm">Link Google Map (iframe)</label>
@@ -105,25 +120,32 @@
                 </div>
 
                 <div class="mt-4">
-                    <label class=" text-sm fw-semibold">🎯 Hoạt động ( <a href="https://www.flaticon.com/">Lấy icon tại
-                            đây</a> )</label>
-
-                    <div id="activities-wrapper">
-                        <div class="d-flex mb-2 activity-item">
-                            <input type="text" name="activities[0][name]" placeholder="Tên hoạt động (vd: Leo núi)"
-                                class="form-control me-2">
-                            <input type="text" name="activities[0][icon]"
-                                placeholder="Icon flaticon (vd: flaticon-hiking)" class="form-control me-2">
-                            <button type="button" class="btn btn-success add-activity"><i class="fas fa-plus"></i></button>
-                        </div>
+                    <label class="text-sm fw-semibold">🎯 Chọn hoạt động cho tour</label>
+                    <div class="row">
+                        @foreach ($activityIcons as $activity)
+                            <div class="col-md-3 mb-2">
+                                <div class="form-check">
+                                    <input type="checkbox" name="activity_icons[]"
+                                        value="{{ $activity->activityIconId }}" class="form-check-input"
+                                        id="act{{ $activity->activityIconId }}">
+                                    <label for="act{{ $activity->activityIconId }}" class="form-check-label">
+                                        <i class="{{ $activity->icon }}"></i> {{ $activity->name }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+
 
                 <div class="mt-3">
                     <label class="text-sm">Chọn hướng dẫn viên</label>
                     <select name="guides[]" class="form-select">
                         @foreach ($guides as $guide)
-                            <option value="{{ $guide->guideId }}">{{ $guide->name }}</option>
+                            <option value="{{ $guide->guideId }}">
+                                <img src="{{ $guide->avatar ? asset('clients/images/guide/'.$guide->avatar) : asset('clients/images/avatar/avatar-default.png') }}" class="add-tour-guide" alt="">
+                                {{ $guide->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>

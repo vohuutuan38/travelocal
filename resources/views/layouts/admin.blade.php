@@ -29,7 +29,7 @@
     <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> --}}
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('admins/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('clients/css/fontawesome-5.14.0.min.css') }}">

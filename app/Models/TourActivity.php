@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TourActivity extends Model
 {
-    use HasFactory;
+     use HasFactory;
     protected $table = 'tbl_tour_activity';
-    protected $fillable = ['tourId', 'name', 'icon'];
+    protected $fillable = ['tourId', 'activityIconId'];
 
     public function tour()
     {
         return $this->belongsTo(Tour::class, 'tourId', 'tourId');
+    }
+
+    public function activityIcon()
+    {
+        return $this->belongsTo(ActivityIcon::class, 'activityIconId', 'activityIconId');
     }
 }

@@ -28,7 +28,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('admin.listTour') || request()->routeIs('admin.editTour') ? 'active' : '' }}" href="{{ route('admin.listTour') }}">
+          <a class="nav-link {{ request()->routeIs('admin.listTour') || request()->routeIs('admin.editTour') || request()->routeIs('admin.createTour') ? 'active' : '' }}" href="{{ route('admin.listTour') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="far fa-plane-departure"></i>
             </div>
@@ -44,11 +44,27 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/rtl.html">
+          <a class="nav-link  {{ request()->routeIs('admin.listGuide') ||request()->routeIs('admin.createGuide') || request()->routeIs('admin.editGuide') ? 'active' : '' }} " href="{{ route('admin.listGuide') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-user-headset"></i>
             </div>
             <span class="nav-link-text ms-1">tour-guid</span>
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link  " href="../pages/rtl.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="far fa-question-square"></i>
+            </div>
+            <span class="nav-link-text ms-1">Faqs</span>
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link  " href="../pages/rtl.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="far fa-question-square"></i>
+            </div>
+            <span class="nav-link-text ms-1">Faqs</span>
           </a>
         </li>
          <li class="nav-item">

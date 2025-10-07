@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Tour;
 use App\Models\Guide;
 use App\Models\Image;
+use App\Models\TimeLine;
 use Illuminate\Support\Str;
 use App\Models\TourActivity;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Models\TourLocationMap;
 use App\Models\TourIncludeExclude;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityIcon;
 
 class ListTourController extends Controller
 {
@@ -21,8 +23,8 @@ class ListTourController extends Controller
      */
     public function index()
     {
-        $tours = Tour::with(['images', 'thumbnail'])->paginate(6);
-        return view('admins.tour.index',compact('tours'));
+        $tours = Tour::with(['images', 'thumbnail'])->paginate(9);
+        return view('admins.tour.index', compact('tours'));
     }
 
     /**
@@ -30,9 +32,10 @@ class ListTourController extends Controller
      */
     public function create()
     {
-         $guides = Guide::all();
+        $guides = Guide::all();
         $cities = City::active()->orderBy('name')->get();
-        return view('admins.tour.add', compact('guides', 'cities'));
+        $activityIcons = ActivityIcon::all();
+        return view('admins.tour.add', compact('guides', 'cities', 'activityIcons'));
     }
 
     /**
@@ -40,32 +43,48 @@ class ListTourController extends Controller
      */
     public function store(Request $request)
     {
-    dd($request->all());
-         DB::beginTransaction();
+        DB::beginTransaction();
+        // dd($request->all());
         try {
             // Tạo tour mới
             $tour = Tour::create([
                 'title' => $request->title,
-                'cityId' => $request->cityId,
-                'startDate' => $request->startDate,
-                'endDate' => $request->endDate,
+                'time' => $request->time,
+                'description' => $request->description,
                 'quantity' => $request->quantity,
+                'cityId' => $request->cityId,
                 'priceAdult' => $request->priceAdult,
                 'priceChild' => $request->priceChild,
-                'description' => $request->description,
-                'availability' => true, // Mặc định tour có sẵn
+                'availability' => '0', // Mặc định tour có sẵn
+                'startDate' => $request->startDate,
+                'endDate' => $request->endDate,
             ]);
 
             // Xử lý upload ảnh
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     if ($image) {
-                        $imageName = time() . '_' . Str::random(10) . '.' . $image->extension();
-                        $image->move(public_path('uploads/tours'), $imageName);
-                        
+                        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); // tên file gốc (không kèm .jpg)
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = $originalName . '.' . $extension;
+                        $image->move(public_path('clients/images/gallery-tours'), $imageName);
+
                         Image::create([
                             'tourId' => $tour->tourId,
-                            'url' => 'uploads/tours/' . $imageName,
+                            'imageURL' => $imageName,
+                            'description' => $request->title,
+                        ]);
+                    }
+                }
+            }
+            // Lưu timeline
+            if ($request->timelines) {
+                foreach ($request->timelines as $timeline) {
+                    if (!empty($timeline['title'])) {
+                        TimeLine::create([
+                            'tourId' => $tour->tourId,
+                            'title' => $timeline['title'],
+                            'description' => $timeline['description'] ?? '',
                         ]);
                     }
                 }
@@ -75,7 +94,7 @@ class ListTourController extends Controller
             if ($request->map_link) {
                 TourLocationMap::create([
                     'tourId' => $tour->tourId,
-                    'iframe_code' => $request->map_link,
+                    'map_link' => $request->map_link,
                 ]);
             }
 
@@ -110,17 +129,10 @@ class ListTourController extends Controller
             }
 
             // Lưu các hoạt động
-            if ($request->activities) {
-                foreach ($request->activities as $activity) {
-                    if (!empty($activity['name'])) {
-                        TourActivity::create([
-                            'tourId' => $tour->tourId,
-                            'name' => $activity['name'],
-                            'icon' => $activity['icon'] ?? null,
-                        ]);
-                    }
-                }
+            if ($request->activity_icons) {
+                $tour->activities()->sync($request->activity_icons);
             }
+
 
             // Gán hướng dẫn viên cho tour
             if ($request->guides) {
@@ -128,14 +140,11 @@ class ListTourController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.tours.index')
+            return redirect()->route('admin.listTour')
                 ->with('success', 'Tour đã được tạo thành công!');
-
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()
-                ->withErrors(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()])
-                ->withInput();
+            return dd($e->getMessage());
         }
     }
 
@@ -150,19 +159,143 @@ class ListTourController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-         $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap'])->where('tourId', $id)->first();
-        return view('admins.tour.edit',compact('tour'));
+        $tour = Tour::with([
+            'city',
+            'images',
+            'timelines',
+            'includes',
+            'excludes',
+            'activities',
+            'guides',
+            'locationMap'
+        ])->findOrFail($id);
+
+        $cities = City::all();
+        $activityIcons = ActivityIcon::all();
+        $guides = Guide::all();
+
+        return view('admins.tour.edit', compact('tour', 'cities', 'activityIcons', 'guides'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            // Lấy tour cần cập nhật
+            $tour = Tour::findOrFail($id);
+
+            // Cập nhật thông tin cơ bản
+            $tour->update([
+                'title' => $request->title,
+                'time' => $request->time,
+                'description' => $request->description,
+                'quantity' => $request->quantity,
+                'cityId' => $request->cityId,
+                'priceAdult' => $request->priceAdult,
+                'priceChild' => $request->priceChild,
+                'startDate' => $request->startDate,
+                'endDate' => $request->endDate,
+            ]);
+
+            /* ------------------ CẬP NHẬT ẢNH ------------------ */
+            if ($request->hasFile('images')) {
+                // Xóa ảnh cũ
+                foreach ($tour->images as $img) {
+                    $filePath = public_path('clients/images/gallery-tours/' . $img->imageURL);
+                    if (file_exists($filePath)) unlink($filePath);
+                    $img->delete();
+                }
+
+                // Upload ảnh mới
+                foreach ($request->file('images') as $image) {
+                    if ($image) {
+                        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = $originalName . '.' . $extension;
+                        $image->move(public_path('clients/images/gallery-tours'), $imageName);
+
+                        Image::create([
+                            'tourId' => $tour->tourId,
+                            'imageURL' => $imageName,
+                            'description' => $request->title,
+                        ]);
+                    }
+                }
+            }
+
+            /* ------------------ CẬP NHẬT TIMELINE ------------------ */
+            TimeLine::where('tourId', $tour->tourId)->delete();
+            if ($request->timelines) {
+                foreach ($request->timelines as $timeline) {
+                    if (!empty($timeline['title'])) {
+                        TimeLine::create([
+                            'tourId' => $tour->tourId,
+                            'title' => $timeline['title'],
+                            'description' => $timeline['description'] ?? '',
+                        ]);
+                    }
+                }
+            }
+
+            /* ------------------ CẬP NHẬT GOOGLE MAP ------------------ */
+            $tour->locationMap()->updateOrCreate(
+                ['tourId' => $tour->tourId],
+                ['map_link' => $request->map_link]
+            );
+
+            /* ------------------ CẬP NHẬT BAO GỒM / LOẠI TRỪ ------------------ */
+            TourIncludeExclude::where('tourId', $tour->tourId)->delete();
+
+            if ($request->includes && !empty($request->includes[0])) {
+                $includeItems = explode("\n", $request->includes[0]);
+                foreach ($includeItems as $item) {
+                    $item = trim($item);
+                    if (!empty($item)) {
+                        TourIncludeExclude::create([
+                            'tourId' => $tour->tourId,
+                            'type' => 'include',
+                            'content' => $item,
+                        ]);
+                    }
+                }
+            }
+
+            if ($request->excludes && !empty($request->excludes[0])) {
+                $excludeItems = explode("\n", $request->excludes[0]);
+                foreach ($excludeItems as $item) {
+                    $item = trim($item);
+                    if (!empty($item)) {
+                        TourIncludeExclude::create([
+                            'tourId' => $tour->tourId,
+                            'type' => 'exclude',
+                            'content' => $item,
+                        ]);
+                    }
+                }
+            }
+
+            /* ------------------ CẬP NHẬT HOẠT ĐỘNG ------------------ */
+            $tour->activities()->sync($request->activity_icons ?? []);
+
+            /* ------------------ CẬP NHẬT HƯỚNG DẪN VIÊN ------------------ */
+            $tour->guides()->sync($request->guides ?? []);
+
+            DB::commit();
+
+            return redirect()->route('admin.listTour')->with('success', 'Cập nhật tour thành công!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return dd($e->getMessage());
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
