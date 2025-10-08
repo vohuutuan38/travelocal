@@ -25857,11 +25857,11 @@ html {
   width: 120px;
   margin: 0;
 }
-
+/* 
 .table td,
 .table th {
   white-space: nowrap;
-}
+} */
 
 .table.align-items-center td,
 .table.align-items-center th {

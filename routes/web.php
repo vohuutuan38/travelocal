@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\admins\CityController;
 use App\Http\Controllers\admins\AdminController;
+use App\Http\Controllers\admins\ListFaqs;
 use App\Http\Controllers\clients\BlogController;
 use App\Http\Controllers\clients\FaqsController;
 use App\Http\Controllers\clients\HomeController;
@@ -115,6 +116,17 @@ Route::post('admin/guide/store', [ListTourGuide::class, 'store'])->name('admin.s
 Route::get('admin/guide/{guide}/edit', [ListTourGuide::class, 'edit'])->name('admin.editGuide');
 Route::post('admin/guide/{guide}/update', [ListTourGuide::class, 'update'])->name('admin.updateGuide');
 
+
+// Danh sách câu hỏi
+Route::get('admin/faqs', [ListFaqs::class, 'index'])->name('admin.listFaqs');
+Route::get('admin/faqs/create', [ListFaqs::class, 'create'])->name('admin.createFaqs');
+Route::post('admin/faqs/store', [ListFaqs::class, 'store'])->name('admin.storeFaqs');
+Route::get('admin/faqs/{faq}/edit', [ListFaqs::class, 'edit'])->name('admin.editFaqs');
+Route::put('admin/faqs/{faq}/update', [ListFaqs::class, 'update'])->name('admin.updateFaqs');
+Route::delete('admin/faqs/{faq}/delete', [ListFaqs::class, 'destroy'])->name('admin.deleteFaqs');
+Route::get('admin/faqs/trash', [ListFaqs::class, 'trash'])->name('admin.trashFaqs');
+Route::post('admin/faqs/{faq}/restore', [ListFaqs::class, 'restore'])->name('admin.restoreFaqs');
+Route::delete('admin/faqs/{faq}/force-delete', [ListFaqs::class, 'forceDelete'])->name('admin.forceDeleteFaqs');
 
 
 });

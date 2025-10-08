@@ -23,5 +23,5 @@ class Faqs extends Model
         
     ];
     public $timestamps = true;
-    
+    protected $dates = ['deleted_at'];
 }
