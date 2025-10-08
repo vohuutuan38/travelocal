@@ -111,3 +111,45 @@
     border: 4px solid #fff;
    
 }
+
+/* css list booking admin */
+ .stat-card {
+        border-left: 5px solid;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    .stat-card.border-primary { border-color: #0d6efd; }
+    .stat-card.border-warning { border-color: #ffc107; }
+    .stat-card.border-info { border-color: #0dcaf0; }
+    .stat-card.border-success { border-color: #198754; }
+
+    .table-custom .customer-info {
+        display: flex;
+        align-items: center;
+    }
+    .table-custom .customer-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 12px;
+        background-color: #e9ecef;
+    }
+    .table-custom .customer-name {
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+    .table-custom .customer-email {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    .table-custom tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    .badge.badge-dot {
+        padding: 0.5em 0.8em;
+        font-weight: 600;
+    }

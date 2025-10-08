@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/virtual-reality.html">
+          <a class="nav-link {{ request()->routeIs('admin.listBooking') ||request()->routeIs('admin.showBooking') || request()->routeIs('admin.trashBooking') ? 'active' : '' }} " href="{{ route('admin.listBooking') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-ticket-alt"></i>
             </div>
@@ -44,7 +44,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  {{ request()->routeIs('admin.listGuide') ||request()->routeIs('admin.createGuide') || request()->routeIs('admin.editGuide') ? 'active' : '' }} " href="{{ route('admin.listGuide') }}">
+          <a class="nav-link {{ request()->routeIs('admin.listGuide') ||request()->routeIs('admin.createGuide') || request()->routeIs('admin.editGuide') ? 'active' : '' }} " href="{{ route('admin.listGuide') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-user-headset"></i>
             </div>
@@ -60,9 +60,9 @@
           </a>
         </li>
          <li class="nav-item">
-          <a class="nav-link  " href="../pages/rtl.html">
+          <a class="nav-link {{ request()->routeIs('admin.listIcon') ||request()->routeIs('admin.createIcon') || request()->routeIs('admin.editIcon') || request()->routeIs('admin.trashIcon') ? 'active' : ''  }} " href="{{ route('admin.listIcon') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="far fa-question-square"></i>
+            <i class="fas fa-hiking"></i>
             </div>
             <span class="nav-link-text ms-1">Acitvity</span>
           </a>

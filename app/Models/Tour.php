@@ -25,6 +25,7 @@ class Tour extends Model
         'endDate',
         'review',
     ];
+    
     // Relationship với City
     public function city()
     {
@@ -44,7 +45,7 @@ class Tour extends Model
     // Lấy ảnh đại diện (thumbnail) của tour
     public function thumbnail()
     {
-        return $this->hasOne(Image::class, 'tourId', 'tourId')->orderBy('imageId', 'asc');
+        return $this->hasOne(Image::class, 'tourId', 'tourId')->orderBy('imageId', 'asc')->withDefault(['imageURL' => 'default-tours.jpg', ]);
     }
     // 1 Tour có nhiều Booking
     public function bookings()
@@ -66,10 +67,10 @@ class Tour extends Model
         return $this->hasOne(TourLocationMap::class, 'tourId', 'tourId');
     }
 
-   public function activities()
-{
-    return $this->belongsToMany(ActivityIcon::class, 'tbl_tour_activity', 'tourId', 'activityIconId');
-}
+    public function activities()
+    {
+        return $this->belongsToMany(ActivityIcon::class, 'tbl_tour_activity', 'tourId', 'activityIconId');
+    }
 
 
     public function guides()

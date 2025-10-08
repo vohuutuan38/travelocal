@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
-       use HasFactory;
+       use HasFactory,SoftDeletes;
 
     protected $table = 'tbl_booking';
     protected $primaryKey = 'bookingId';
@@ -27,7 +28,9 @@ class Booking extends Model
          'bookingStatus',
           'created_at',
         'updated_at',
+        'deleted_at',
     ];
+    protected $dates = ['deleted_at'];
 
      // Booking thuộc về 1 User
     public function user()
