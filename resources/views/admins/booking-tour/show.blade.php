@@ -70,10 +70,10 @@
                             <div class="mb-3">
                                 <label for="bookingStatus" class="form-label">Cập nhật trạng thái</label>
                                 <select class="form-select" id="bookingStatus" name="bookingStatus">
-                                    <option value="Pending" @selected($booking->bookingStatus == 'Pending')>Đang chờ</option>
-                                    <option value="Confirmed" @selected($booking->bookingStatus == 'Confirmed')>Đã xác nhận</option>
-                                    <option value="Completed" @selected($booking->bookingStatus == 'Completed')>Đã hoàn thành</option>
-                                    <option value="Cancelled" @selected($booking->bookingStatus == 'Cancelled')>Đã hủy</option>
+                                    <option value="Pending" @selected($booking->bookingStatus == 'pending')>Đang chờ</option>
+                                    <option value="Confirmed" @selected($booking->bookingStatus == 'confirmed')>Đã xác nhận</option>
+                                    <option value="Completed" @selected($booking->bookingStatus == 'completed')>Đã hoàn thành</option>
+                                    <option value="Cancelled" @selected($booking->bookingStatus == 'cancelled')>Đã hủy</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Cập nhật</button>

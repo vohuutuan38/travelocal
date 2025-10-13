@@ -21,12 +21,12 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
+        // dd('hahaaaa');
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.dashboard');
         }
-
         return back()->withErrors(['email' => 'Sai thông tin đăng nhập']);
     }
 

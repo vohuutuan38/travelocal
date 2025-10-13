@@ -24,7 +24,6 @@ use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\ContactController;
 use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\admins\ListBookingCheckout;
-use App\Http\Controllers\clients\CheckOutController;
 use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
@@ -40,21 +39,6 @@ Route::controller(GoogleController::class)->group(function () {
     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
     Route::get('auth/google/callback', 'handleGoogleCallback');
 });
-
-
-
-// routes/web.php
-// Route::get('/test-mail', function () {
-//     try {
-//         Mail::raw('Test email content', function ($message) {
-//             $message->to('vo581380@gmail.com')
-//                     ->subject('Test Email Laravel');
-//         });
-//         return 'Email sent successfully!';
-//     } catch (\Exception $e) {
-//         return 'Error: ' . $e->getMessage();
-//     }
-// });
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -97,6 +81,10 @@ route::get('/404', function () {
 
 
 // LOGIN ADMIN =====================================================
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('loginadmin.post');
+
+
 Route::middleware(['admin'])->group(function () {
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -153,8 +141,6 @@ Route::middleware(['admin'])->group(function () {
     Route::put('admin/booking/{booking}/restore', [ListBookingCheckout::class, 'restore'])->name('admin.restoreBooking')->withTrashed();
 });
 
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('loginadmin.post');
 
 // API ROUTES lấy tỉnh miền add tour =====================================================
 Route::prefix('api')->name('api.')->group(function () {
