@@ -56,7 +56,7 @@ class Dashboard extends Component
         $startDate = match ($this->period) {
             'last_7_days' => $endDate->copy()->subDays(6),
             'last_30_days' => $endDate->copy()->subDays(29),
-            'last_90_days' => $endDate->copy()->subDays(89),
+            'last_60_days' => $endDate->copy()->subDays(59),
             default => $endDate->copy()->subDays(29),
         };
 
@@ -87,24 +87,46 @@ class Dashboard extends Component
             'series' => $totals,
         ];
     }
-   private function getBookingStatusDistribution()
+    private function getBookingStatusDistribution()
     {
         return Cache::remember('dashboard_booking_status', 600, function () {
-            $statuses = Booking::query()
+            // Bước 1: Định nghĩa "bảng màu" và nhãn cố định
+            $statusMap = [
+                'pending'   => ['label' => 'Đang chờ',    'color' => '#ffc107'],
+                'confirmed' => ['label' => 'Đã xác nhận', 'color' => '#0dcaf0'],
+                'completed' => ['label' => 'Hoàn thành',  'color' => '#22c55e'],
+                'cancelled' => ['label' => 'Đã hủy',      'color' => '#dc3545'],
+            ];
+
+            // Bước 2: Lấy dữ liệu thực tế từ database
+            $statusesFromDB = Booking::query()
                 ->select('bookingStatus', DB::raw('count(*) as count'))
+                ->whereNotNull('bookingStatus') // Bỏ qua các booking không có trạng thái
                 ->groupBy('bookingStatus')
                 ->pluck('count', 'bookingStatus');
 
-            $labels = $statuses->keys()->map(function ($status) {
-                return match (strtolower(trim($status))) {
-                    'pending' => 'Đang chờ',
-                    'confirmed' => 'Đã xác nhận',
-                    'completed' => 'Hoàn thành',
-                    'cancelled' => 'Đã hủy',
-                    default => $status,
-                };
-            });
-            return ['labels' => $labels->values()->all(), 'series' => $statuses->values()->all()];
+            // Bước 3: Chuẩn bị các mảng cuối cùng để gửi cho biểu đồ
+            $finalLabels = [];
+            $finalSeries = [];
+            $finalColors = [];
+
+            // Bước 4: Lặp qua "bảng màu" cố định để đảm bảo đúng thứ tự
+            foreach ($statusMap as $statusKey => $details) {
+                // Chỉ lấy những trạng thái có tồn tại trong kết quả DB
+                if ($statusesFromDB->has($statusKey)) {
+                    $finalLabels[] = $details['label'];
+                    $finalSeries[] = $statusesFromDB[$statusKey];
+                    $finalColors[] = $details['color'];
+                }
+            }
+
+            // Trả về cả 3 mảng đã được sắp xếp đồng bộ
+            
+            return [
+                'labels' => $finalLabels,
+                'series' => $finalSeries,
+                'colors' => $finalColors,
+            ];
         });
     }
 
@@ -132,11 +154,11 @@ class Dashboard extends Component
             ->take(5)
             ->get();
 
-            // dd($this->getBookingStatusDistribution());
+        // dd($this->getBookingStatusDistribution());
         return view('livewire.admin.dashboard', [
             'stats' => $this->getStats(),
             'topTours' => $topTours,
-             'bookingStatusDistribution' => $this->getBookingStatusDistribution(),
+            'bookingStatusDistribution' => $this->getBookingStatusDistribution(),
             'topGuides' => $this->getTopGuides(),
             'recentBookings' => $recentBookings,
         ]);

@@ -44,11 +44,18 @@ class User extends Authenticatable
             'passWord' => 'hashed',
         ];
     }
-
+public function reviews()
+{
+    return $this->hasMany(Review::class, 'userId', 'userId');
+}
     // ✅ Quan trọng: để Laravel Auth lấy đúng cột mật khẩu
     public function getAuthPassword()
     {
         return $this->passWord;
+    }
+      public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'userId', 'userId');
     }
 }
 

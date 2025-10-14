@@ -12,8 +12,8 @@
                     <h2 class="page-title mb-10" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
                         {{ $tour->title }}</h2>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center mb-20" data-aos="fade-right" data-aos-delay="200"
-                            data-aos-duration="1500" data-aos-offset="50">
+                        <ol class="breadcrumb mb-20" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1500"
+                            data-aos-offset="50">
                             <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
                             <li class="breadcrumb-item active breadcrumb-tour-detail">{{ $tour->title }}</li>
                         </ol>
@@ -67,7 +67,7 @@
 
 
     <!-- Tour Header Area start -->
-    <section class="tour-header-area pt-70 rel z-1">
+    <section class="tour-header-area pt-40 rel z-1">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-xl-12 col-lg-12">
@@ -89,7 +89,7 @@
                 </div>
 
             </div>
-            <hr class="mt-50 mb-70">
+            <hr class="mt-20 mb-32">
         </div>
     </section>
     <!-- Tour Header Area end -->
@@ -135,13 +135,12 @@
                     <h3>Các hoạt động</h3>
                     <div class="tour-activities mt-30 mb-45">
                         @foreach ($tour->activities as $activity)
-                            
-                        <div class="tour-activity-item">
-                            {!! $activity->icon !!}
-                            <b>{{ $activity->name }}</b>
-                        </div>
+                            <div class="tour-activity-item">
+                                {!! $activity->icon !!}
+                                <b>{{ $activity->name }}</b>
+                            </div>
                         @endforeach
-                       
+
                     </div>
 
                     <h3>Hành trình</h3>
@@ -188,256 +187,108 @@
 
                     <h3>Bản đồ</h3>
                     <div class="tour-map mt-30 mb-50">
-                      {!! $tour->locationMap ? $tour->locationMap->map_link : '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15743934.179627616!2d95.17553889747548!3d15.55238780190194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2zVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1759505957134!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
-                           
+                        {!! $tour->locationMap
+                            ? $tour->locationMap->map_link
+                            : '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15743934.179627616!2d95.17553889747548!3d15.55238780190194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2zVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1759505957134!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
+
                     </div>
 
                     <h3>Đánh giá của khách hàng</h3>
-                    <div class="clients-reviews bgc-black mt-30 mb-60">
-                        <div class="left">
-                            <b>4.8</b>
-                            <span>(586 Lượt xem)</span>
-                            <div class="ratting">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                    @if ($reviewStats)
+                        <div class="clients-reviews bgc-black mt-30 mb-60">
+                            <div class="left">
+                                <b>{{ $reviewStats['overall_avg'] }}</b>
+                                <span>({{ $reviewStats['total'] }} Lượt xem)</span>
+                                <div class="ratting">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i
+                                            class="fas fa-star{{ $i <= $reviewStats['overall_avg'] ? '' : '-outline' }}"></i>
+                                    @endfor
+                                </div>
+                            </div>
+                            <div class="right">
+                                @php $criteriaStats = ['service' => 'Dịch vụ', 'food' => 'Đồ ăn', 'price' => 'Giá', 'hotel' => 'Khách sạn']; @endphp
+                                @foreach ($criteriaStats as $key => $label)
+                                    <div class="ratting-item">
+                                        <span class="title">{{ $label }}</span>
+                                        <span class="line"><span
+                                                style="width: {{ $reviewStats[$key . '_avg'] * 20 }}%;"></span></span>
+                                        <div class="ratting">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i
+                                                    class="fas fa-star{{ $i <= $reviewStats[$key . '_avg'] ? '' : '-outline' }}"></i>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                        <div class="right">
-                            <div class="ratting-item">
-                                <span class="title">Dịch vụ</span>
-                                <span class="line"><span style="width: 80%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="ratting-item">
-                                <span class="title">Hướng dẫn</span>
-                                <span class="line"><span style="width: 70%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="ratting-item">
-                                <span class="title">Giá</span>
-                                <span class="line"><span style="width: 80%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="ratting-item">
-                                <span class="title">Sự an toàn</span>
-                                <span class="line"><span style="width: 80%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="ratting-item">
-                                <span class="title">Đồ ăn</span>
-                                <span class="line"><span style="width: 80%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="ratting-item">
-                                <span class="title">Khách sạn</span>
-                                <span class="line"><span style="width: 80%;"></span></span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @else
+                        <p class="mt-30">Chưa có đánh giá nào cho tour này.</p>
+                    @endif
 
                     <h3>Ý kiến ​​khách hàng</h3>
                     <div class="comments mt-30 mb-60">
-                        <div class="comment-body" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                            <div class="author-thumb">
-                                <img src="{{ asset('clients/images/blog/comment-author1.jpg') }}" alt="Author">
-                            </div>
-                            <div class="content">
-                                <h6>Lonnie B. Horwitz</h6>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                        @forelse ($reviews as $review)
+                            <div class="comment-body">
+                                <div class="author-thumb">
+                                    <img src="{{ Auth::user()->avatar ? asset('clients/images/avatar/' . Auth::user()->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
+                                        alt="Author">
                                 </div>
-                                <span class="time">Venice, Rome and Milan – 9 Days 8 Nights</span>
-                                <p>Tours and travels play a crucial role in enriching lives by offering unique experiences,
-                                    cultural exchanges, and the joy of exploration.</p>
-                                <a class="read-more" href="#">Reply <i class="far fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="comment-body comment-child" data-aos="fade-up" data-aos-duration="1500"
-                            data-aos-offset="50">
-                            <div class="author-thumb">
-                                <img src="{{ asset('clients/images/blog/comment-author2.jpg') }}" alt="Author">
-                            </div>
-                            <div class="content">
-                                <h6>William G. Edwards</h6>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                                <div class="content">
+                                    <h6>{{ $review->user->fullname }}</h6>
+                                    <div class="ratting">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fas fa-star{{ $i <= $review->average ? '' : '-outline' }}"></i>
+                                        @endfor
+                                    </div>
+                                    <span class="time">{{ $review->created_at->format('d/m/Y') }}</span>
+                                    <p>{{ $review->comment }}</p>
                                 </div>
-                                <span class="time">Venice, Rome and Milan – 9 Days 8 Nights</span>
-                                <p>Tours and travels play a crucial role in enriching lives by offering unique experiences,
-                                    cultural exchanges, and the joy of exploration.</p>
-                                <a class="read-more" href="#">Reply <i class="far fa-angle-right"></i></a>
                             </div>
-                        </div>
-                        <div class="comment-body" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                            <div class="author-thumb">
-                                <img src="{{ asset('clients/images/blog/comment-author3.jpg') }}" alt="Author">
-                            </div>
-                            <div class="content">
-                                <h6>Jaime B. Wilson</h6>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="time">Venice, Rome and Milan – 9 Days 8 Nights</span>
-                                <p>Tours and travels play a crucial role in enriching lives by offering unique experiences,
-                                    cultural exchanges, and the joy of exploration.</p>
-                                <a class="read-more" href="#">Reply <i class="far fa-angle-right"></i></a>
-                            </div>
+                        @empty
+                            <p>Hãy là người đầu tiên để lại đánh giá cho tour này!</p>
+                        @endforelse
+
+                        {{-- Hiển thị phân trang --}}
+                        <div class="mt-4">
+                            {{ $reviews->links() }}
                         </div>
                     </div>
 
                     <h3>Thêm đánh giá</h3>
-                    <form id="comment-form" class="comment-form bgc-lighter z-1 rel mt-30" name="review-form"
-                        action="#" method="post" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
+
+                    <form action="{{ route('reviews.store', $tour) }}" method="post">
+                        @csrf
                         <div class="comment-review-wrap">
-                            <div class="comment-ratting-item">
-                                <span class="title">Dịch vụ</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                            @php $criteria = ['service' => 'Dịch vụ', 'food' => 'Đồ ăn', 'price' => 'Giá', 'hotel' => 'Khách sạn']; @endphp
+                            @foreach ($criteria as $key => $label)
+                                <div class="comment-ratting-item">
+                                    <span class="title">{{ $label }}</span>
+                                    <div class="star-rating">
+                                        @for ($i = 5; $i >= 1; $i--)
+                                            <input type="radio" id="{{ $key }}-{{ $i }}"
+                                                name="{{ $key }}" value="{{ $i }}" required>
+                                            <label for="{{ $key }}-{{ $i }}">&#9733;</label>
+                                        @endfor
+                                    </div>
+                                    @error($key)
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
-                            </div>
-                            <div class="comment-ratting-item">
-                                <span class="title">Hướng dẫn</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="comment-ratting-item">
-                                <span class="title">Giá</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="comment-ratting-item">
-                                <span class="title">Sự an toàn</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="comment-ratting-item">
-                                <span class="title">Đồ ăn</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="comment-ratting-item">
-                                <span class="title">Khách sạn</span>
-                                <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <hr class="mt-30 mb-40">
-                        <h5>Để lại phản hồi</h5>
-                        <div class="row gap-20 mt-20">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="full-name">Họ và tên</label>
-                                    <input type="text" id="full-name" name="full-name" class="form-control"
-                                        value="" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phone">Số điện thoại</label>
-                                    <input type="text" id="phone" name="phone" class="form-control"
-                                        value="" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="email-address">Email</label>
-                                    <input type="email" id="email-address" name="email" class="form-control"
-                                        value="" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="message">Bình luận</label>
-                                    <textarea name="message" id="message" class="form-control" rows="5" required=""></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-0">
-                                    <button type="submit" class="theme-btn bgc-secondary style-two">
-                                        <span data-hover="Gửi đánh giá">Gửi đánh giá</span>
-                                        <i class="fal fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="comment">Bình luận của bạn</label>
+                            <textarea name="comment" id="comment" class="form-control" rows="5" required></textarea>
+                            @error('comment')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-0">
+                            <button type="submit" class="theme-btn">Gửi đánh giá <i
+                                    class="far fa-arrow-right"></i></button>
                         </div>
                     </form>
 

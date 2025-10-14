@@ -18,6 +18,7 @@ use App\Http\Controllers\admins\ListActivityIcon;
 use App\Http\Controllers\clients\AboutController;
 use App\Http\Controllers\clients\LoginController;
 use App\Http\Controllers\clients\GoogleController;
+use App\Http\Controllers\clients\ReviewController;
 use App\Http\Controllers\admins\ListTourController;
 use App\Http\Controllers\admins\ListUserController;
 use App\Http\Controllers\clients\BookingController;
@@ -73,6 +74,8 @@ Route::get('/cancel-booking/{id}', [BookingController::class, 'cancelBooking'])-
 // tìm kiếm tour
 Route::post('search-tour', [TourController::class, 'search'])->name('search.tour');
 
+//  đánh giá tour
+Route::post('/tours/{tour}/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
 
 
 route::get('/404', function () {

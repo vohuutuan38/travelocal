@@ -77,4 +77,8 @@ class Tour extends Model
     {
         return $this->belongsToMany(Guide::class, 'tbl_tour_guide', 'tourId', 'guideId');
     }
+    public function reviews()
+{
+    return $this->hasMany(Review::class, 'tourId', 'tourId');
+}
 }

@@ -18,16 +18,16 @@ class TourController extends Controller
     {
         $title = "Tour";
         $tours = Tour::with(['images', 'thumbnail'])->paginate(9);
-       
+
         return view('clients.tour', compact('title', 'tours'));
     }
 
     public function search(Request $request)
     {
         $title = "TÌm kiếm";
-        $tourSearch= $request->title;
+        $tourSearch = $request->title;
         $tours = Tour::with(['images', 'thumbnail'])->where('title', 'like', '%' . $tourSearch . '%')->paginate(9);
-                return view('clients.tour', compact('title', 'tours'));
+        return view('clients.tour', compact('title', 'tours'));
     }
     public function filter(Request $request)
     {
@@ -41,10 +41,10 @@ class TourController extends Controller
         }
 
         // Lọc theo điểm đến (b, t, n)
-       // Lọc theo domain
-if ($request->domain) {
-    $query->where('domain', $request->domain);
-}
+        // Lọc theo domain
+        if ($request->domain) {
+            $query->where('domain', $request->domain);
+        }
 
 
         // Lọc theo sao (review >= x)
@@ -62,15 +62,15 @@ if ($request->domain) {
         return view('clients.tour', compact('title', 'tours'));
     }
 
-    public function booking( string $id)
-    { 
+    public function booking(string $id)
+    {
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để đặt tour.');
         }
         $user = Auth::user();
         $tour = Tour::with(['images', 'thumbnail', 'timelines'])->where('tourId', $id)->first();
         $title = "Booking - " . $tour->title;
-        return view('clients.booking', compact('title', 'tour','user'));
+        return view('clients.booking', compact('title', 'tour', 'user'));
     }
 
     /**
@@ -102,10 +102,26 @@ if ($request->domain) {
                 ->where('bookingStatus', 'pending')
                 ->exists();
         }
-        $tour = Tour::with(['images', 'thumbnail', 'timelines','includes', 'excludes','activities','locationMap','city'])->where('tourId', $id)->first();
+        $tour = Tour::with(['images', 'thumbnail', 'timelines', 'includes', 'excludes', 'activities', 'locationMap', 'city'])->where('tourId', $id)->first();
         $title = $tour->title;
-         $faqs = Faqs::all();
-        return view('clients.tour-detail', compact('title', 'tour','hasPendingBooking','faqs'));
+        $faqs = Faqs::all();
+
+        $reviews = $tour->reviews()->with('user')->latest()->paginate(5);
+
+        // Tính toán các chỉ số thống kê
+        $reviewCount = $tour->reviews()->count();
+        $reviewStats = null;
+        if ($reviewCount > 0) {
+            $reviewStats = [
+                'total' => $reviewCount,
+                'overall_avg' => round($tour->reviews()->avg('average'), 1),
+                'service_avg' => round($tour->reviews()->avg('service')),
+                'food_avg' => round($tour->reviews()->avg('food')),
+                'price_avg' => round($tour->reviews()->avg('price')),
+                'hotel_avg' => round($tour->reviews()->avg('hotel')),
+            ];
+        }
+        return view('clients.tour-detail', compact('title', 'tour', 'hasPendingBooking', 'faqs','reviews', 'reviewStats'));
     }
 
 

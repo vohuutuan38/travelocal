@@ -67,8 +67,8 @@
                         <button wire:click.prevent="$set('period', 'last_30_days')"
                             class="btn btn-outline-secondary {{ $period == 'last_30_days' ? 'active' : '' }}">30
                             ngày</button>
-                        <button wire:click.prevent="$set('period', 'last_90_days')"
-                            class="btn btn-outline-secondary {{ $period == 'last_90_days' ? 'active' : '' }}">90
+                        <button wire:click.prevent="$set('period', 'last_60_days')"
+                            class="btn btn-outline-secondary {{ $period == 'last_60_days' ? 'active' : '' }}">60
                             ngày</button>
                     </div>
                 </div>
@@ -127,34 +127,34 @@
                                         <td>{{ \Carbon\Carbon::parse($booking->bookingDate)->format('d/m/Y') }}</td>
                                         <td>{{ number_format($booking->totalPrice) }} đ</td>
                                         <td>
-                                             @php
-                                            $statusConfig = [
-                                                'pending' => [
-                                                    'class' => 'bg-warning bg-opacity-25 text-dark',
-                                                    'text' => 'Đang chờ',
-                                                ],
-                                                'confirmed' => [
-                                                    'class' => 'bg-info bg-opacity-25 text-dark',
-                                                    'text' => 'Đã xác nhận',
-                                                ],
-                                                'completed' => [
-                                                    'class' => 'bg-success bg-opacity-25 text-white',
-                                                    'text' => 'Hoàn thành',
-                                                ],
-                                                'cancelled' => [
-                                                    'class' => 'bg-danger bg-opacity-25 ',
-                                                    'text' => 'Đã hủy',
-                                                ],
-                                            ][$booking->bookingStatus] ?? [
-                                                'class' => 'bg-secondary bg-opacity-25 text-dark',
-                                                'text' => $booking->bookingStatus,
-                                            ];
-                                        @endphp
-                                        <span
-                                            class="badge rounded-pill fw-semibold px-3 py-2 {{ $statusConfig['class'] }}">
-                                            {{ $statusConfig['text'] }}
-                                        </span>
-                                        </span>
+                                            @php
+                                                $statusConfig = [
+                                                    'pending' => [
+                                                        'class' => 'bg-warning bg-opacity-25 text-dark',
+                                                        'text' => 'Đang chờ',
+                                                    ],
+                                                    'confirmed' => [
+                                                        'class' => 'bg-info bg-opacity-25 text-dark',
+                                                        'text' => 'Đã xác nhận',
+                                                    ],
+                                                    'completed' => [
+                                                        'class' => 'bg-success bg-opacity-25 text-white',
+                                                        'text' => 'Hoàn thành',
+                                                    ],
+                                                    'cancelled' => [
+                                                        'class' => 'bg-danger bg-opacity-25 ',
+                                                        'text' => 'Đã hủy',
+                                                    ],
+                                                ][$booking->bookingStatus] ?? [
+                                                    'class' => 'bg-secondary bg-opacity-25 text-dark',
+                                                    'text' => $booking->bookingStatus,
+                                                ];
+                                            @endphp
+                                            <span
+                                                class="badge rounded-pill fw-semibold px-3 py-2 {{ $statusConfig['class'] }}">
+                                                {{ $statusConfig['text'] }}
+                                            </span>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -173,9 +173,9 @@
                 </div>
                 <div class="card-body">
                     <div class="pt-4 pb-2">
-                    <div wire:ignore id="bookingStatusChart"></div>
-                </div>
-                <div class="mt-4 text-center small" id="bookingStatusChartLabels">
+                        <div wire:ignore id="bookingStatusChart"></div>
+                    </div>
+                    <div class="mt-4 text-center small" id="bookingStatusChartLabels">
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@
                     <ul class="list-group list-group-flush">
                         @forelse($topGuides as $guide)
                             <li class="list-group-item d-flex align-items-center">
-                                <img src="{{ $guide->avatar ? asset('clients/images/guide/'.$guide->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
+                                <img src="{{ $guide->avatar ? asset('clients/images/guide/' . $guide->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
                                     alt="{{ $guide->name }}" class="rounded-circle me-3" width="40"
                                     height="40">
                                 <div class="flex-grow-1">
@@ -272,52 +272,60 @@
             });
 
 
-              const statusChartOptions = {
-            chart: {
-                type: 'donut',
-                height: 300,
-            },
-            // Truyền dữ liệu trực tiếp
-            series: @json($bookingStatusDistribution['series']),
-            labels: @json($bookingStatusDistribution['labels']),
-            dataLabels: { enabled: false },
-            legend: { show: false },
-            colors: ['#ffc107', '#0dcaf0', '#198754', '#dc3545'], // Pending, Confirmed, Completed, Cancelled
-            plotOptions: {
-                pie: {
-                    donut: {
-                        labels: {
-                            show: true,
-                            total: {
+            const statusChartOptions = {
+                chart: {
+                    type: 'donut',
+                    height: 300,
+                },
+                // Truyền dữ liệu trực tiếp từ component
+                series: @json($bookingStatusDistribution['series']),
+                labels: @json($bookingStatusDistribution['labels']),
+                // SỬA LẠI DÒNG NÀY: Dùng mảng màu được truyền từ component
+                colors: @json($bookingStatusDistribution['colors']),
+
+                // ... các tùy chọn khác giữ nguyên
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    show: false
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
                                 show: true,
-                                label: 'Tổng số',
-                                formatter: function (w) {
-                                    return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                                total: {
+                                    show: true,
+                                    label: 'Tổng số',
+                                    formatter: function(w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            };
+
+            const statusChart = new ApexCharts(document.querySelector("#bookingStatusChart"), statusChartOptions);
+            // Kiểm tra xem div có tồn tại không trước khi render
+            if (document.querySelector("#bookingStatusChart")) {
+                statusChart.render();
             }
-        };
-        const statusChart = new ApexCharts(document.querySelector("#bookingStatusChart"), statusChartOptions);
-        // Kiểm tra xem div có tồn tại không trước khi render
-        if (document.querySelector("#bookingStatusChart")) {
-            statusChart.render();
-        }
-        
-        // Tạo labels chú thích cho biểu đồ tròn
-        const chartLabelsContainer = document.getElementById('bookingStatusChartLabels');
-        if (chartLabelsContainer) {
-            chartLabelsContainer.innerHTML = ''; // Xóa label cũ để tránh trùng lặp
-            statusChartOptions.labels.forEach((label, index) => {
-                const color = statusChartOptions.colors[index];
-                const labelSpan = document.createElement('span');
-                labelSpan.className = 'me-2';
-                labelSpan.innerHTML = `<i class="fas fa-circle" style="color:${color};"></i> ${label}`;
-                chartLabelsContainer.appendChild(labelSpan);
-            });
-        }
+
+            // Tạo labels chú thích cho biểu đồ tròn
+            const chartLabelsContainer = document.getElementById('bookingStatusChartLabels');
+            if (chartLabelsContainer) {
+                chartLabelsContainer.innerHTML = ''; // Xóa label cũ để tránh trùng lặp
+                statusChartOptions.labels.forEach((label, index) => {
+                    const color = statusChartOptions.colors[index];
+                    const labelSpan = document.createElement('span');
+                    labelSpan.className = 'me-2';
+                    labelSpan.innerHTML = `<i class="fas fa-circle" style="color:${color};"></i> ${label}`;
+                    chartLabelsContainer.appendChild(labelSpan);
+                });
+            }
         });
     </script>
 @endpush
