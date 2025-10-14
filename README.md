@@ -44,7 +44,7 @@
 
 | Trang chủ                                     | Trang tìm kiếm tour                                 | Trang chi tiết tour                                |
 | --------------------------------------------- | --------------------------------------------------- | -------------------------------------------------- |
-| ![Trang chủ](LINK_ẢNH_TRANG_CHỦ) | ![Trang tìm kiếm](LINK_ẢNH_TRANG_TÌM_KIẾM) | ![Trang chi tiết](LINK_ẢNH_TRANG_CHI_TIẾT) |
+| ![Trang chủ](https://github.com/vohuutuan38/traveloka/blob/master/public/clients/images/readme/home.png) | ![Trang giới thiệu](https://github.com/vohuutuan38/traveloka/blob/master/public/clients/images/readme/about.png) | ![Trang tour](https://github.com/vohuutuan38/traveloka/blob/master/public/clients/images/readme/tour-list.png) |
 
 *Bạn cũng có thể thêm một ảnh GIF để mô tả quá trình đặt tour tại đây.*
 
