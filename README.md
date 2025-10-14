@@ -91,14 +91,9 @@ Dự án được xây dựng trên các công nghệ và nền tảng hàng đ�
     php artisan key:generate
     ```
 
-5.  **Chạy migrations và seeders (để tạo dữ liệu mẫu)**
+5.  **Chạy file travelocal.sql trên xampp (để tạo cơ sở dữ liệu)**
     ```bash
-    php artisan migrate --seed
-    ```
-
-6.  **Biên dịch tài nguyên frontend**
-    ```bash
-    npm run dev
+    travelocal.sql
     ```
 
 7.  **Khởi động server**
@@ -138,5 +133,5 @@ Dự án này được cấp phép theo Giấy phép MIT. Xem file `LICENSE` đ�
 ---
 
 <div align="center">
-  Made with ❤️ by [Tên của bạn]
+  Made with ❤️ by Vohuutuan
 </div>
