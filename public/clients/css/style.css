@@ -5172,7 +5172,9 @@ h6, .h6, blockquote {
     .clients-reviews .left span {
       color: white;
       margin-top: 5px;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+    width: max-content;
+   }
     .clients-reviews .left .ratting {
       margin-bottom: 5px; }
       .clients-reviews .left .ratting i {

@@ -25,6 +25,7 @@ use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\ContactController;
 use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\admins\ListBookingCheckout;
+use App\Http\Controllers\admins\ListReviewController;
 use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\DestinationController;
 use App\Http\Controllers\Clients\TravelGuidesController;
@@ -89,6 +90,8 @@ Route::post('/admin/login', [AdminController::class, 'login'])->name('loginadmin
 
 
 Route::middleware(['admin'])->group(function () {
+
+    
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     // users
@@ -134,6 +137,12 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('admin/icon/{icon}/force-delete', [ListActivityIcon::class, 'forceDelete'])->name('admin.forceDeleteIcon')->withTrashed();
 
 
+ // Đánh giá
+     Route::get('admin/review', [ListReviewController::class, 'index'])->name('admin.listReview');
+    Route::delete('admin/review/{review}', [ListReviewController::class, 'destroy'])->name('admin.deleteReview');
+    Route::get('admin/review/trash', [ListReviewController::class, 'trash'])->name('admin.trashReview');
+    Route::put('admin/review/{review}/restore', [ListReviewController::class, 'restore'])->name('admin.restoreReview')->withTrashed();
+
     // booking
     Route::get('admin/booking', [ListBookingCheckout::class, 'index'])->name('admin.listBooking');
     Route::get('admin/{booking}', [ListBookingCheckout::class, 'show'])->name('admin.showBooking');
@@ -142,6 +151,10 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/booking/trash', [ListBookingCheckout::class, 'trash'])->name('admin.trashBooking');
     Route::delete('admin/{booking}', [ListBookingCheckout::class, 'destroy'])->name('admin.deleteBooking');
     Route::put('admin/booking/{booking}/restore', [ListBookingCheckout::class, 'restore'])->name('admin.restoreBooking')->withTrashed();
+
+   
+
+
 });
 
 

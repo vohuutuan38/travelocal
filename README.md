@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="[LINK_ĐẾN_LOGO_HOẶC_BANNER_CỦA_BẠN]" alt="Travelocal Logo" width="200"/>
+  <img src="https://github.com/vohuutuan38/traveloka/blob/master/public/clients/images/logos/logo.png" alt="Travelocal Logo" width="200"/>
   <h1 align="center">Travelocal - Nền tảng đặt tour du lịch</h1>
   <p align="center">
     Một dự án website đặt tour du lịch được xây dựng bằng Laravel Framework, giúp kết nối du khách với những chuyến đi tuyệt vời.
@@ -7,7 +7,7 @@
   
   <p align="center">
     <img src="https://img.shields.io/badge/PHP-8.2%2B-blue?style=for-the-badge&logo=php" alt="PHP Version">
-    <img src="https://img.shields.io/badge/Laravel-10.x-orange?style=for-the-badge&logo=laravel" alt="Laravel Version">
+    <img src="https://img.shields.io/badge/Laravel-11.x-orange?style=for-the-badge&logo=laravel" alt="Laravel Version">
     <img src="https://img.shields.io/github/license/your-username/your-repo-name?style=for-the-badge" alt="License">
     <img src="https://img.shields.io/github/stars/your-username/your-repo-name?style=for-the-badge" alt="Stars">
   </p>

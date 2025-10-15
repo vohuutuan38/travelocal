@@ -68,11 +68,11 @@
           </a>
         </li>
          <li class="nav-item">
-          <a class="nav-link  " href="../pages/rtl.html">
+          <a class="nav-link  {{ request()->routeIs('admin.listReview') || request()->routeIs('admin.trashReview') ? 'active' : ''  }} " href="{{ route('admin.listReview') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="far fa-question-square"></i>
+           <i class="fas fa-comments"></i>
             </div>
-            <span class="nav-link-text ms-1">Acitvity</span>
+            <span class="nav-link-text ms-1">Reviews</span>
           </a>
         </li>
         <li class="nav-item">

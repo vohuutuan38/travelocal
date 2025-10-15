@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Tour;
 use App\Models\User;
 use App\Models\Guide;
+use App\Models\Review;
 use App\Models\Booking;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -121,7 +122,7 @@ class Dashboard extends Component
             }
 
             // Trả về cả 3 mảng đã được sắp xếp đồng bộ
-            
+
             return [
                 'labels' => $finalLabels,
                 'series' => $finalSeries,
@@ -138,6 +139,29 @@ class Dashboard extends Component
         });
     }
 
+    private function getReviewStats()
+    {
+        // Lấy tất cả đánh giá, eager load quan hệ để tối ưu
+        $allReviews = Review::with(['user', 'tour'])->get();
+
+        // Đếm tổng số và tính trung bình
+        $totalReviews = $allReviews->count();
+        $averageRating = $totalReviews > 0 ? $allReviews->avg('average') : 0;
+
+        // Đếm số lượng cho mỗi mức rating (1 đến 5 sao)
+        $distribution = $allReviews->groupBy('average')->map->count();
+
+        // Lấy 3 đánh giá gần đây nhất
+        $latestReviews = $allReviews->sortByDesc('created_at')->take(3);
+
+        // Trả về một mảng chứa tất cả dữ liệu
+        return [
+            'total' => $totalReviews,
+            'average' => round($averageRating, 1),
+            'distribution' => $distribution,
+            'latest' => $latestReviews
+        ];
+    }
 
     // Render component view với tất cả dữ liệu
     public function render()
@@ -161,6 +185,7 @@ class Dashboard extends Component
             'bookingStatusDistribution' => $this->getBookingStatusDistribution(),
             'topGuides' => $this->getTopGuides(),
             'recentBookings' => $recentBookings,
+            'reviewStats' => $this->getReviewStats(),
         ]);
     }
 }

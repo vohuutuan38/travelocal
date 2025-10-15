@@ -224,7 +224,67 @@
                             </div>
                         </div>
                     @else
-                        <p class="mt-30">Chưa có đánh giá nào cho tour này.</p>
+                        <div class="clients-reviews bgc-black mt-30 mb-60">
+                            <div class="left">
+                                <b>#</b>
+                                <span>Chưa có đánh giá</span>
+
+                                <div class="ratting">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="ratting-item">
+                                    <span class="title">Dịch vụ</span>
+                                    <span class="line"><span style="width: 100%;"></span></span>
+                                    <div class="ratting">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+
+                                    </div>
+                                </div>
+                                <div class="ratting-item">
+                                    <span class="title">Đồ ăn</span>
+                                    <span class="line"><span style="width: 100%;"></span></span>
+                                    <div class="ratting">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="ratting-item">
+                                    <span class="title">Giá</span>
+                                    <span class="line"><span style="width: 100%;"></span></span>
+                                    <div class="ratting">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="ratting-item">
+                                    <span class="title">Khách sạn</span>
+                                    <span class="line"><span style="width: 100%;"></span></span>
+                                    <div class="ratting">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     @endif
 
                     <h3>Ý kiến ​​khách hàng</h3>
@@ -232,7 +292,7 @@
                         @forelse ($reviews as $review)
                             <div class="comment-body">
                                 <div class="author-thumb">
-                                    <img src="{{ Auth::user()->avatar ? asset('clients/images/avatar/' . Auth::user()->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
+                                    <img src="{{ $review->user->avatar ? asset('clients/images/avatar/' . $review->user->avatar) : asset('clients/images/avatar/avatar-default.png') }}"
                                         alt="Author">
                                 </div>
                                 <div class="content">
@@ -247,7 +307,11 @@
                                 </div>
                             </div>
                         @empty
-                            <p>Hãy là người đầu tiên để lại đánh giá cho tour này!</p>
+                            <div class="comment-body">
+
+                                <p>Hãy là người đầu tiên để lại đánh giá cho tour này!</p>
+
+                            </div>
                         @endforelse
 
                         {{-- Hiển thị phân trang --}}
@@ -258,7 +322,7 @@
 
                     <h3>Thêm đánh giá</h3>
 
-                    <form action="{{ route('reviews.store', $tour) }}" method="post">
+                    <form action="{{ route('reviews.store', $tour) }}" method="post" class="card p-20 rounded-b-sm">
                         @csrf
                         <div class="comment-review-wrap">
                             @php $criteria = ['service' => 'Dịch vụ', 'food' => 'Đồ ăn', 'price' => 'Giá', 'hotel' => 'Khách sạn']; @endphp

@@ -153,3 +153,11 @@
         padding: 0.5em 0.8em;
         font-weight: 600;
     }
+
+    /* admin dashboard tour đưuọc đặt nhiều nhất  */
+    .min-height-tours{
+     min-height: 420px;
+    }
+    .min-height-guides{
+        min-height: 420px;
+    }   

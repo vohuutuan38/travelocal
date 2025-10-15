@@ -83,7 +83,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Tour được đặt nhiều nhất</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body min-height-tours">
                     <ul class="list-group list-group-flush">
                         @forelse($topTours as $tour)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -185,7 +185,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Top Hướng dẫn viên</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body min-height-guides">
                     <ul class="list-group list-group-flush">
                         @forelse($topGuides as $guide)
                             <li class="list-group-item d-flex align-items-center">
@@ -208,6 +208,77 @@
         </div>
 
     </div>
+    <div class="row mt-4">
+   
+
+    <div class="col-lg-7 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Phân bổ & Thống kê đánh giá</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5 text-center d-flex flex-column justify-content-center">
+                        <h4 class="font-weight-bold">{{ $reviewStats['average'] }} / 5</h4>
+                        <div class="text-warning mb-2">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fas fa-star{{ $i <= round($reviewStats['average']) ? '' : ' fa-regular' }}"></i>
+                            @endfor
+                        </div>
+                        <span class="text-muted">Dựa trên {{ $reviewStats['total'] }} đánh giá</span>
+                    </div>
+                    <div class="col-md-7">
+                        @for ($i = 5; $i >= 1; $i--)
+                            @php
+                                $count = $reviewStats['distribution']->get($i, 0);
+                                $percent = $reviewStats['total'] > 0 ? ($count / $reviewStats['total']) * 100 : 0;
+                            @endphp
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-nowrap me-2">{{ $i }} sao</span>
+                                <div class="progress" style="width: 100%;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $percent }}%;" aria-valuenow="{{ $percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="text-muted ms-2">{{ $count }}</span>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Đánh giá mới nhất</h6>
+            </div>
+            <div class="card-body">
+                @forelse ($reviewStats['latest'] as $review)
+                    <div class="d-flex {{ !$loop->last ? 'mb-4' : '' }}">
+                        <img src="{{ $review->user->avatar ? asset('clients/images/avatar/' . $review->user->avatar) : asset('clients/images/avatar/avatar-default.png') }}" 
+                             alt="Avatar" class="rounded-circle me-3" width="45" height="45">
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-0">{{ $review->user->fullname ?? 'Anonymous' }}</h6>
+                                <div class="text-warning small">
+                                    @for ($i = 1; $i <= $review->average; $i++) <i class="fas fa-star"></i> @endfor
+                                </div>
+                            </div>
+                            <small class="text-muted">
+                                cho tour: {{ Str::limit($review->tour->title ?? 'N/A', 25) }}
+                            </small>
+                            <p class="mb-0 mt-1 small fst-italic">"{{ Str::limit($review->comment, 80) }}"</p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-4">
+                        <p class="text-muted">Chưa có đánh giá nào.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 @push('scripts')
