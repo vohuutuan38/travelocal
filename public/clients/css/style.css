@@ -4532,7 +4532,7 @@ h6, .h6, blockquote {
     position: relative;
     border-radius: 10px; }
     .destination-item .image img {
-  
+   min-height: 165px;
       -webkit-transition: 0.5s;
       -o-transition: 0.5s;
       transition: 0.5s; }
@@ -5793,7 +5793,7 @@ h6, .h6, blockquote {
       position: absolute;
       right: 0;
       top: -30px;
-      width: calc(50vw - 20%);
+      width: calc(45vw - 20%);
       height: calc(100% + 60px); } }
 
 .testimonial-right-content {

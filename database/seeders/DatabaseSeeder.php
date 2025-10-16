@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $this->call(CitySeeder::class);
+        $this->call(UpdateCityThumbnailSeeder::class);
     }
 }

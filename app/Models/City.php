@@ -26,6 +26,10 @@ class City extends Model
     {
         return $this->hasMany(Tour::class, 'cityId', 'cityId');
     }
+    public function bookings()
+    {
+        return $this->hasManyThrough(Booking::class, Tour::class, 'cityId', 'tourId', 'cityId', 'tourId');
+    }
 
     // Scope để lấy cities đang active
     public function scopeActive($query)

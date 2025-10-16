@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\clients;
 
+use App\Models\City;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,10 +15,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = "Trang chủ";
         $tours = Tour::with(['images','thumbnail', 'timelines','city'])->get();
-        // dd($tours);
-        return view('clients.home',compact('title','tours'));
+        $popularDestinations = City::active() // Chỉ lấy các thành phố đang hoạt động
+            ->withCount(['bookings', 'tours']) // Đếm số booking và số tour
+            ->orderByDesc('bookings_count') // Sắp xếp theo số booking giảm dần
+            ->take(6) // Lấy 6 thành phố
+            ->get();
+        
+        return view('clients.home',compact('tours','popularDestinations'));
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\clients;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryPost;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -10,11 +12,46 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
 
     {
-            $title = "Blog";
-        return view('clients.blog',compact('title'));
+     // --- Lấy dữ liệu cho danh sách bài viết chính (có filter) ---
+        $postsQuery = Post::with(['category', 'author'])
+            ->where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->latest('published_at');
+            
+        // Xử lý tìm kiếm
+        if ($request->filled('search')) {
+            $postsQuery->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        $posts = $postsQuery->paginate(5)->withQueryString();
+
+        // --- Lấy dữ liệu cho SIDEBAR ---
+
+        // 1. Lấy danh sách danh mục có bài viết
+        $categories = CategoryPost::withCount('posts') // Đếm số bài viết trong mỗi danh mục
+            ->having('posts_count', '>', 0) // Chỉ lấy danh mục có bài viết
+            ->orderBy('name', 'asc')
+            ->get();
+
+        // 2. Lấy 3 bài viết gần đây nhất
+        $recentPosts = Post::where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+            
+        // 3. Lấy ảnh cho Gallery (lấy thumbnail từ 9 bài viết mới nhất có ảnh)
+        $galleryImages = Post::where('status', 'published')
+            ->whereNotNull('thumbnail')
+            ->latest()
+            ->take(9)
+            ->pluck('thumbnail');
+
+        // Trả về view với tất cả dữ liệu
+        return view('clients.blog', compact('posts', 'categories', 'recentPosts', 'galleryImages'));
     }
 
     /**

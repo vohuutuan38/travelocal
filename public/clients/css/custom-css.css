@@ -528,3 +528,27 @@
 .star-rating label:hover ~ label {
     color: #f9bf3b;
 }
+/* css ảnh blog trang client */
+.image-fixed-size {
+    width: 100%;             /* Luôn giãnเต็ม chiều rộng của thẻ chứa nó */
+    max-width: 336px;          /* Chiều rộng tối đa là 336px trên màn hình lớn */
+    height: 386px;             /* Giữ chiều cao cố định */
+    object-fit: cover;         /* QUAN TRỌNG: Giúp ảnh lấp đầy khung mà không bị méo (phần thừa sẽ bị cắt đi) */
+    border-radius: 12px;       /* Bo tròn nhẹ 4 góc */
+}
+
+.image-sidebar-fixed-size {
+    width: 100%;             /* Luôn giãnเต็ม chiều rộng của thẻ chứa nó */
+    max-width: 120px;          /* Chiều rộng tối đa là 336px trên màn hình lớn */
+    height: 120px;             /* Giữ chiều cao cố định */
+    object-fit: cover;         /* QUAN TRỌNG: Giúp ảnh lấp đầy khung mà không bị méo (phần thừa sẽ bị cắt đi) */
+    border-radius: 12px;       /* Bo tròn nhẹ 4 góc */
+}
+
+.image-gallery-fixed-size {
+    width: 100%;             /* Luôn giãnเต็ม chiều rộng của thẻ chứa nó */
+    max-width: 110px;          /* Chiều rộng tối đa là 336px trên màn hình lớn */
+    height: 110px;             /* Giữ chiều cao cố định */
+    object-fit: cover;         /* QUAN TRỌNG: Giúp ảnh lấp đầy khung mà không bị méo (phần thừa sẽ bị cắt đi) */
+    border-radius: 12px;       /* Bo tròn nhẹ 4 góc */
+}
