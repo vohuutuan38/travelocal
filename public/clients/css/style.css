@@ -749,6 +749,9 @@ a.theme-btn {
     color: var(--primary-color); }
 
 /* Slick Arrows */
+.text-secondary{
+ color: var(--secondary-color) !important;
+}
 .slick-arrow {
   font-size: 20px;
   -webkit-transition: 0.5s;

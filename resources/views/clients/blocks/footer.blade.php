@@ -1,13 +1,13 @@
       
         <!-- footer area start -->
-        <footer class="main-footer bgs-cover overlay rel z-1 pb-25" style="background-image: url({{ asset('clients/images/backgrounds/footer.jpg')}});">
+        <footer class="main-footer bgs-cover overlay rel z-1 " style="background-image: url({{ asset('clients/images/backgrounds/footer.jpg')}});">
             <div class="container">
                 <div class="footer-top pt-100 pb-30">
                     <div class="row justify-content-between">
                         <div class="col-xl-5 col-lg-6" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                             <div class="footer-widget footer-text">
                                 <div class="footer-logo mb-25">
-                                    <a href="index.html"><img src="{{ asset('clients/images/logos/logo.png')}}" alt="Logo"></a>
+                                    <a href="index.html"><img src="{{ asset('clients/images/logos/logo-1.png')}}" alt="Logo"></a>
                                 </div>
                                 <p>Chúng tôi thiết kế các hành trình riêng biệt phù hợp với sở thích của bạn, đảm bảo mọi chuyến đi đều liền mạch và khám phá những viên ngọc ẩn giấu</p>
                                 <div class="social-style-one mt-15">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom pt-20 pb-5">
+            <div class="footer-bottom pt-20 pb-20 pb-5">
                 <div class="container">
                     <div class="row">
                        <div class="col-lg-5">

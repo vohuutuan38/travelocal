@@ -75,12 +75,21 @@
             <span class="nav-link-text ms-1">Reviews</span>
           </a>
         </li>
-        <li class="nav-item">
+       
+         <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('admin.listPost')|| request()->routeIs('admin.editPost') || request()->routeIs('admin.trashPost') ? 'active' : ''  }}  " href="{{ route('admin.listPost') }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-newspaper"></i>
+            </div>
+            <span class="nav-link-text ms-1">Blog</span>
+          </a>
+        </li>
+         <li class="nav-item">
           <a class="nav-link  " href="../pages/rtl.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-           <i class="far fa-comment-alt-dots"></i>
+          <i class="fas fa-newspaper"></i>
             </div>
-            <span class="nav-link-text ms-1">Chat</span>
+            <span class="nav-link-text ms-1">Blog</span>
           </a>
         </li>
         <li class="nav-item mt-3">

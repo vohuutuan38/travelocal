@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\clients;
 
 use App\Http\Controllers\Controller;
+use App\Models\Guide;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Guid\Guid;
 
 class ContactController extends Controller
 {
@@ -12,8 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-          $title = "Liên hệ";
-        return view('clients.contact',compact('title'));
+        $guides = Guide::all();
+        return view('clients.contact',compact('guides'));
     }
 
     /**

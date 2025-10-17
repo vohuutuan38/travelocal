@@ -57,6 +57,60 @@ class BlogController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+    public function category(Request $request, CategoryPost $category)
+    {
+        // --- Lấy dữ liệu cho danh sách bài viết chính (đã lọc theo category) ---
+        $postsQuery = $category->posts() // Bắt đầu từ relationship của category
+            ->with(['category', 'author'])
+            ->where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->latest('published_at');
+
+        // Vẫn cho phép tìm kiếm trong trang category
+        if ($request->filled('search')) {
+            $postsQuery->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        $posts = $postsQuery->paginate(5)->withQueryString();
+
+        // --- Lấy dữ liệu cho SIDEBAR (tương tự như hàm index) ---
+        $categories = CategoryPost::withCount('posts')
+            ->having('posts_count', '>', 0)
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $recentPosts = Post::where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+            
+        $galleryImages = Post::where('status', 'published')
+            ->whereNotNull('thumbnail')
+            ->latest()
+            ->take(9)
+            ->pluck('thumbnail');
+
+        // Trả về cùng một view 'clients.blog' nhưng với dữ liệu đã được lọc
+        return view('clients.blog', compact('posts', 'category', 'categories', 'recentPosts', 'galleryImages'));
+    }
+    public function show(Post $post)
+    {
+        // Lấy dữ liệu cho sidebar
+        $categories = CategoryPost::withCount('posts')->having('posts_count', '>', 0)->get();
+        $recentPosts = Post::where('status', 'published')->where('published_at', '<=', now())->where('id', '!=', $post->id)->latest('published_at')->take(3)->get();
+         $galleryImages = Post::where('status', 'published')
+            ->whereNotNull('thumbnail')
+            ->latest()
+            ->take(9)->pluck('thumbnail');
+        // Kiểm tra bài viết có được phép xem không
+        if ($post->status !== 'published' || $post->published_at > now()) {
+            abort(404);
+        }
+        
+        return view('clients.blog-detail', compact('post', 'categories', 'recentPosts','galleryImages'));
+    }
     public function create()
     {
         //
@@ -77,11 +131,7 @@ class BlogController extends Controller
     // {
     //     return view('clients.blog-detail');
     // }
-    public function show(string $id)
-    {
-        return view('clients.blog-detail');
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      */

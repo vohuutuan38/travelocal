@@ -177,3 +177,77 @@ document.querySelectorAll('.guide-edit-image').forEach(input => {
             }
         });
     });
+
+
+    // image post
+ document.querySelectorAll('.post-image-input').forEach(input => {
+        input.addEventListener('change', function() {
+            const previewId = this.getAttribute('data-preview');
+            const previewContainer = document.getElementById(previewId);
+            const img = previewContainer.querySelector('img');
+
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    // image edir post
+document.querySelectorAll('.post-edit-image').forEach(input => {
+        input.addEventListener('change', function() {
+            const previewId = this.getAttribute('data-preview');
+            const preview = document.getElementById(previewId);
+            let img = preview.querySelector('img');
+
+            if (!img) {
+                img = document.createElement('img');
+                img.className = 'img-fluid rounded border mt-2';
+                img.style.maxWidth = '200px';
+                preview.appendChild(img);
+            }
+
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+
+    // TinyMCE editor trong post
+    tinymce.init({
+    selector: 'textarea',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Oct 31, 2025:
+      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+   height: 400,
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    uploadcare_public_key: 'ea16239de69b3e728cfa',
+  });
+    // tinymce.init({
+    //     selector: 'textarea#content-editor', // Target textarea có id là content-editor
+    //     plugins: 'code table lists image link media', // Các plugin bạn muốn sử dụng
+    //     toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image link media', // Thanh công cụ
+    //     height: 400, // Chiều cao của editor
+       
+    // });

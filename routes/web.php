@@ -25,6 +25,7 @@ use App\Http\Controllers\clients\BookingController;
 use App\Http\Controllers\clients\ContactController;
 use App\Http\Controllers\clients\GelleryController;
 use App\Http\Controllers\admins\ListBookingCheckout;
+use App\Http\Controllers\admins\ListPostController;
 use App\Http\Controllers\admins\ListReviewController;
 use App\Http\Controllers\clients\AuthClientController;
 use App\Http\Controllers\clients\DestinationController;
@@ -50,7 +51,8 @@ Route::get('/tour-guide', [TravelGuidesController::class, 'index'])->name('tour-
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-Route::get('/blog-detail/{id}', [BlogController::class, 'show'])->name('blog-detail');
+Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/destination', [DestinationController::class, 'index'])->name('destination');
 Route::get('/destination-detail', [DestinationController::class, 'show'])->name('destination-detail');
 Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs');
@@ -142,16 +144,27 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('admin/review/{review}', [ListReviewController::class, 'destroy'])->name('admin.deleteReview');
     Route::get('admin/review/trash', [ListReviewController::class, 'trash'])->name('admin.trashReview');
     Route::put('admin/review/{review}/restore', [ListReviewController::class, 'restore'])->name('admin.restoreReview')->withTrashed();
+   
+    // Route cho quản lý bài viết
+    Route::get('admin/posts', [ListPostController::class, 'index'])->name('admin.listPost');
+    Route::get('admin/posts/create', [ListPostController::class, 'create'])->name('admin.createPost');
+    Route::post('admin/posts/store', [ListPostController::class, 'store'])->name('admin.storePost');
+    Route::get('admin/posts/{post}/edit', [ListPostController::class, 'edit'])->name('admin.editPost');
+    Route::put('admin/posts/{post}/update', [ListPostController::class, 'update'])->name('admin.updatePost');
+    Route::delete('admin/posts/{post}', [ListPostController::class, 'destroy'])->name('admin.deletePost');
+    Route::get('admin/posts/trash', [ListPostController::class, 'trash'])->name('admin.trashPost');
+    Route::put('admin/posts/{post}/restore', [ListPostController::class, 'restore'])->name('admin.restorePost')->withTrashed();
+    Route::delete('admin/posts/{post}/force-delete', [ListPostController::class, 'forceDelete'])->name('admin.forceDeletePost')->withTrashed();
 
     // booking
     Route::get('admin/booking', [ListBookingCheckout::class, 'index'])->name('admin.listBooking');
     Route::get('admin/{booking}', [ListBookingCheckout::class, 'show'])->name('admin.showBooking');
     Route::put('admin/booking/{booking}/update-status', [ListBookingCheckout::class, 'updateStatus'])->name('admin.updateStatusBooking');
-    
     Route::get('admin/booking/trash', [ListBookingCheckout::class, 'trash'])->name('admin.trashBooking');
     Route::delete('admin/{booking}', [ListBookingCheckout::class, 'destroy'])->name('admin.deleteBooking');
     Route::put('admin/booking/{booking}/restore', [ListBookingCheckout::class, 'restore'])->name('admin.restoreBooking')->withTrashed();
 
+    
    
 
 

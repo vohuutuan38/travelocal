@@ -52,6 +52,7 @@
     <!--   Core JS Files   -->
     @livewireScripts
        @stack('scripts')
+      <script src="https://cdn.tiny.cloud/1/rhx9ozfev5fr5s97ngolbzcq3wdye75y8x3wmbe5xe295s1n/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
     <script src="{{ asset('admins/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admins/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admins/js/plugins/perfect-scrollbar.min.js') }}"></script>

@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     /**
      * Tên bảng trong cơ sở dữ liệu.
@@ -38,7 +39,9 @@ class Post extends Model
         'content',
         'status',
         'published_at',
+        'deleted_at'
     ];
+    protected $dates = ['deleted_at'];
 
     /**
      * Các thuộc tính nên được chuyển đổi kiểu dữ liệu.
