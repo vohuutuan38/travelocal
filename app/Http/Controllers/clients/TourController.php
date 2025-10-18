@@ -40,11 +40,13 @@ class TourController extends Controller
             $query->whereBetween('priceAdult', [$request->min_price, $request->max_price]);
         }
 
-        // Lọc theo điểm đến (b, t, n)
-        // Lọc theo domain
-        if ($request->domain) {
-            $query->where('domain', $request->domain);
-        }
+      // Lọc theo điểm đến (domain b, t, n) - ĐÃ SỬA
+    if ($request->filled('domain')) {
+        // Dùng whereHas để lọc qua relationship 'city'
+        $query->whereHas('city', function ($cityQuery) use ($request) {
+            $cityQuery->where('domain', $request->domain);
+        });
+    }
 
 
         // Lọc theo sao (review >= x)

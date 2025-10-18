@@ -70,6 +70,7 @@
    
     
     <!-- Jquery -->
+   
     <script src="{{ asset('clients/js/jquery-3.6.0.min.js')}}"></script>
     <!-- Bootstrap -->
     <script src="{{ asset('clients/js/bootstrap.min.js')}}"></script>

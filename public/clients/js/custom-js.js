@@ -135,39 +135,37 @@ $(document).ready(function () {
         }
     });
 
+    // check email tồn tại
+    $("#email").on("blur", function () {
+        let email = $(this).val();
+        if (email !== "") {
+            $.post(
+                checkEmailUrl,
+                {
+                    email: email,
+                    _token: csrfToken,
+                },
+                function (res) {
+                    if (res.exists) {
+                        $("#validate_email_register").text("Email đã tồn tại!");
+                    } else {
+                        $("#validate_email_register").text("");
+                    }
+                }
+            );
+        }
+    });
 
-
-// check email tồn tại
- $('#email').on('blur', function() {
-    let email = $(this).val();
-    if(email !== '') {
-        $.post(checkEmailUrl, {
-            email: email,
-            _token: csrfToken
-        }, function(res) {
-            if(res.exists) {
-                $('#validate_email_register').text('Email đã tồn tại!');
-            } else {
-                $('#validate_email_register').text('');
-            }
-        });
-    }
-});
-
-
-setTimeout(() => {
-    let alert = document.getElementById("flash-message");
-    if (alert) {
-        alert.classList.add("hide"); // chạy animation slideOut
-        setTimeout(() => {
-            let bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
-        }, 500); // đợi animation xong
-    }
-}, 3000);
-
-  
-   
+    setTimeout(() => {
+        let alert = document.getElementById("flash-message");
+        if (alert) {
+            alert.classList.add("hide"); // chạy animation slideOut
+            setTimeout(() => {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 500); // đợi animation xong
+        }
+    }, 3000);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -187,184 +185,199 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 let bsAlert = new bootstrap.Alert(alert);
                 bsAlert.close();
-            }, 500); 
+            }, 500);
         }, 3000);
     }
 });
 
-
 // booking page js
 document.addEventListener("DOMContentLoaded", () => {
-  // Lấy giá từ tour data (cần truyền từ Laravel)
-  const priceAdult = Number.parseFloat(document.querySelector("[data-price-adult]")?.dataset.priceAdult || 0)
-  const priceChild = Number.parseFloat(document.querySelector("[data-price-child]")?.dataset.priceChild || 0)
+    // Lấy giá từ tour data (cần truyền từ Laravel)
+    const priceAdult = Number.parseFloat(
+        document.querySelector("[data-price-adult]")?.dataset.priceAdult || 0
+    );
+    const priceChild = Number.parseFloat(
+        document.querySelector("[data-price-child]")?.dataset.priceChild || 0
+    );
 
-  // Lấy các elements
-  const numAdultsInput = document.getElementById("numAdults")
-  const numChildrenInput = document.getElementById("numChildren")
-  const quantityAdultsDisplay = document.querySelector(".quantity_adults")
-  const quantityChildrenDisplay = document.querySelector(".quantity_children")
-  const agreeCheckbox = document.getElementById("agree")
-  const submitButton = document.querySelector('.booking-btn[type="submit"]')
-  const officePaymentRadio = document.querySelector('input[value="office-payment"]')
+    // Lấy các elements
+    const numAdultsInput = document.getElementById("numAdults");
+    const numChildrenInput = document.getElementById("numChildren");
+    const quantityAdultsDisplay = document.querySelector(".quantity_adults");
+    const quantityChildrenDisplay =
+        document.querySelector(".quantity_children");
+    const agreeCheckbox = document.getElementById("agree");
+    const submitButton = document.querySelector('.booking-btn[type="submit"]');
+    const officePaymentRadio = document.querySelector(
+        'input[value="office-payment"]'
+    );
 
-  // Disable các phương thức thanh toán khác
-  const otherPaymentMethods = document.querySelectorAll('input[name="payment"]:not([value="office-payment"])')
-  otherPaymentMethods.forEach((method) => {
-    method.disabled = true
-    method.closest(".payment-option").style.opacity = "0.5"
-    method.closest(".payment-option").style.pointerEvents = "none"
-  })
+    // Disable các phương thức thanh toán khác
+    const otherPaymentMethods = document.querySelectorAll(
+        'input[name="payment"]:not([value="office-payment"])'
+    );
+    otherPaymentMethods.forEach((method) => {
+        method.disabled = true;
+        method.closest(".payment-option").style.opacity = "0.5";
+        method.closest(".payment-option").style.pointerEvents = "none";
+    });
 
-  // Mặc định chọn thanh toán tại văn phòng
-  if (officePaymentRadio) {
-    officePaymentRadio.checked = true
-  }
-
-  // Xử lý nút cộng/trừ
-  const quantityButtons = document.querySelectorAll(".quantity-btn")
-
-  quantityButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const input = this.parentElement.querySelector(".quantity-input")
-      const isIncrement = this.textContent === "+"
-      const isDecrement = this.textContent === "-"
-
-      let currentValue = Number.parseInt(input.value)
-      const minValue = Number.parseInt(input.getAttribute("min"))
-
-      if (isIncrement) {
-        currentValue++
-      } else if (isDecrement && currentValue > minValue) {
-        currentValue--
-      }
-
-      input.value = currentValue
-      updateSummary()
-    })
-  })
-
-  // Cập nhật tóm tắt đơn hàng
-  function updateSummary() {
-    const numAdults = Number.parseInt(numAdultsInput.value)
-    const numChildren = Number.parseInt(numChildrenInput.value)
-
-    // Cập nhật số lượng hiển thị
-    quantityAdultsDisplay.textContent = numAdults
-    quantityChildrenDisplay.textContent = numChildren
-
-    // Tính toán giá
-    const adultTotal = numAdults * priceAdult
-    const childTotal = numChildren * priceChild
-    const totalPrice = adultTotal + childTotal
-
-    // Cập nhật giá hiển thị
-    const summaryItems = document.querySelectorAll(".summary-item")
-
-    // Cập nhật giá người lớn
-    const adultPriceElement = summaryItems[0].querySelector(".total-price")
-    if (adultPriceElement) {
-      adultPriceElement.textContent = formatPrice(adultTotal) + " VNĐ"
+    // Mặc định chọn thanh toán tại văn phòng
+    if (officePaymentRadio) {
+        officePaymentRadio.checked = true;
     }
 
-    // Cập nhật giá trẻ em
-    const childPriceElement = summaryItems[1].querySelector(".total-price")
-    if (childPriceElement) {
-      childPriceElement.textContent = formatPrice(childTotal) + " VNĐ"
+    // Xử lý nút cộng/trừ
+    const quantityButtons = document.querySelectorAll(".quantity-btn");
+
+    quantityButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const input = this.parentElement.querySelector(".quantity-input");
+            const isIncrement = this.textContent === "+";
+            const isDecrement = this.textContent === "-";
+
+            let currentValue = Number.parseInt(input.value);
+            const minValue = Number.parseInt(input.getAttribute("min"));
+
+            if (isIncrement) {
+                currentValue++;
+            } else if (isDecrement && currentValue > minValue) {
+                currentValue--;
+            }
+
+            input.value = currentValue;
+            updateSummary();
+        });
+    });
+
+    // Cập nhật tóm tắt đơn hàng
+    function updateSummary() {
+        const numAdults = Number.parseInt(numAdultsInput.value);
+        const numChildren = Number.parseInt(numChildrenInput.value);
+
+        // Cập nhật số lượng hiển thị
+        quantityAdultsDisplay.textContent = numAdults;
+        quantityChildrenDisplay.textContent = numChildren;
+
+        // Tính toán giá
+        const adultTotal = numAdults * priceAdult;
+        const childTotal = numChildren * priceChild;
+        const totalPrice = adultTotal + childTotal;
+
+        // Cập nhật giá hiển thị
+        const summaryItems = document.querySelectorAll(".summary-item");
+
+        // Cập nhật giá người lớn
+        const adultPriceElement = summaryItems[0].querySelector(".total-price");
+        if (adultPriceElement) {
+            adultPriceElement.textContent = formatPrice(adultTotal) + " VNĐ";
+        }
+
+        // Cập nhật giá trẻ em
+        const childPriceElement = summaryItems[1].querySelector(".total-price");
+        if (childPriceElement) {
+            childPriceElement.textContent = formatPrice(childTotal) + " VNĐ";
+        }
+
+        // Cập nhật tổng cộng
+        const totalPriceElement = document.querySelector(
+            ".summary-item.total-price span:last-child"
+        );
+        if (totalPriceElement) {
+            totalPriceElement.textContent = formatPrice(totalPrice) + " VNĐ";
+        }
+
+        // Cập nhật hidden inputs cho form submit
+        updateHiddenInputs(numAdults, numChildren, totalPrice);
     }
 
-    // Cập nhật tổng cộng
-    const totalPriceElement = document.querySelector(".summary-item.total-price span:last-child")
-    if (totalPriceElement) {
-      totalPriceElement.textContent = formatPrice(totalPrice) + " VNĐ"
+    // Tạo hidden inputs để gửi dữ liệu
+    function updateHiddenInputs(numAdults, numChildren, totalPrice) {
+        // Xóa các hidden inputs cũ
+        const oldInputs = document.querySelectorAll(
+            'input[name="numAdults"], input[name="numChildren"], input[name="totalPrice"]'
+        );
+        oldInputs.forEach((input) => input.remove());
+
+        // Tạo hidden inputs mới
+        const form = document.querySelector(".booking-container");
+
+        const adultInput = document.createElement("input");
+        adultInput.type = "hidden";
+        adultInput.name = "numAdults";
+        adultInput.value = numAdults;
+        form.appendChild(adultInput);
+
+        const childInput = document.createElement("input");
+        childInput.type = "hidden";
+        childInput.name = "numChildren";
+        childInput.value = numChildren;
+        form.appendChild(childInput);
+
+        const priceInput = document.createElement("input");
+        priceInput.type = "hidden";
+        priceInput.name = "totalPrice";
+        priceInput.value = totalPrice;
+        form.appendChild(priceInput);
     }
 
-    // Cập nhật hidden inputs cho form submit
-    updateHiddenInputs(numAdults, numChildren, totalPrice)
-  }
-
-  // Tạo hidden inputs để gửi dữ liệu
-  function updateHiddenInputs(numAdults, numChildren, totalPrice) {
-    // Xóa các hidden inputs cũ
-    const oldInputs = document.querySelectorAll(
-      'input[name="numAdults"], input[name="numChildren"], input[name="totalPrice"]',
-    )
-    oldInputs.forEach((input) => input.remove())
-
-    // Tạo hidden inputs mới
-    const form = document.querySelector(".booking-container")
-
-    const adultInput = document.createElement("input")
-    adultInput.type = "hidden"
-    adultInput.name = "numAdults"
-    adultInput.value = numAdults
-    form.appendChild(adultInput)
-
-    const childInput = document.createElement("input")
-    childInput.type = "hidden"
-    childInput.name = "numChildren"
-    childInput.value = numChildren
-    form.appendChild(childInput)
-
-    const priceInput = document.createElement("input")
-    priceInput.type = "hidden"
-    priceInput.name = "totalPrice"
-    priceInput.value = totalPrice
-    form.appendChild(priceInput)
-  }
-
-  // Format giá tiền
-  function formatPrice(price) {
-    return new Intl.NumberFormat("vi-VN").format(price)
-  }
-
-  // Validation checkbox và enable/disable submit button
-  function toggleSubmitButton() {
-    const isAgreed = agreeCheckbox.checked
-    const isPaymentSelected = document.querySelector('input[name="payment"]:checked')
-
-    if (isAgreed && isPaymentSelected) {
-      submitButton.disabled = false
-      submitButton.style.opacity = "1"
-      submitButton.style.cursor = "pointer"
-    } else {
-      submitButton.disabled = true
-      submitButton.style.opacity = "0.5"
-      submitButton.style.cursor = "not-allowed"
-    }
-  }
-
-  // Event listeners cho validation
-  agreeCheckbox.addEventListener("change", toggleSubmitButton)
-
-  const paymentRadios = document.querySelectorAll('input[name="payment"]')
-  paymentRadios.forEach((radio) => {
-    radio.addEventListener("change", toggleSubmitButton)
-  })
-
-  // Xử lý submit form
-  const form = document.querySelector(".booking-container")
-  form.addEventListener("submit", (e) => {
-    if (!agreeCheckbox.checked) {
-      e.preventDefault()
-      alert("Vui lòng đồng ý với điều khoản thanh toán để tiếp tục!")
-      return false
+    // Format giá tiền
+    function formatPrice(price) {
+        return new Intl.NumberFormat("vi-VN").format(price);
     }
 
-    const selectedPayment = document.querySelector('input[name="payment"]:checked')
-    if (!selectedPayment) {
-      e.preventDefault()
-      alert("Vui lòng chọn phương thức thanh toán!")
-      return false
+    // Validation checkbox và enable/disable submit button
+    function toggleSubmitButton() {
+        const isAgreed = agreeCheckbox.checked;
+        const isPaymentSelected = document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+        if (isAgreed && isPaymentSelected) {
+            submitButton.disabled = false;
+            submitButton.style.opacity = "1";
+            submitButton.style.cursor = "pointer";
+        } else {
+            submitButton.disabled = true;
+            submitButton.style.opacity = "0.5";
+            submitButton.style.cursor = "not-allowed";
+        }
     }
 
-    // Hiển thị loading
-    submitButton.textContent = "Đang xử lý..."
-    submitButton.disabled = true
-  })
+    // Event listeners cho validation
+    agreeCheckbox.addEventListener("change", toggleSubmitButton);
 
-  // Khởi tạo
-  toggleSubmitButton()
-  updateSummary()
-})
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+    paymentRadios.forEach((radio) => {
+        radio.addEventListener("change", toggleSubmitButton);
+    });
+
+    // Xử lý submit form
+    const form = document.querySelector(".booking-container");
+    form.addEventListener("submit", (e) => {
+        if (!agreeCheckbox.checked) {
+            e.preventDefault();
+            alert("Vui lòng đồng ý với điều khoản thanh toán để tiếp tục!");
+            return false;
+        }
+
+        const selectedPayment = document.querySelector(
+            'input[name="payment"]:checked'
+        );
+        if (!selectedPayment) {
+            e.preventDefault();
+            alert("Vui lòng chọn phương thức thanh toán!");
+            return false;
+        }
+
+        // Hiển thị loading
+        submitButton.textContent = "Đang xử lý...";
+        submitButton.disabled = true;
+    });
+
+    // Khởi tạo
+    toggleSubmitButton();
+    updateSummary();
+});
+
 

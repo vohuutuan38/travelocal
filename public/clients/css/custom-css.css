@@ -553,4 +553,12 @@
     border-radius: 12px;       /* Bo tròn nhẹ 4 góc */
 }
 
-/* logo footer */
+/* trang destination tour */
+.text-tour-destination {
+    min-height: 65px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

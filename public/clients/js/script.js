@@ -425,25 +425,25 @@
         
         
         // ## Destinations Filter
-        $('.destinations-active').imagesLoaded(function () {
-			var items = $('.destinations-active').isotope({
-				itemSelector: '.item',
-				percentPosition: true,
-			});
-			// items on button click
-			$('.destinations-nav').on('click', 'li', function () {
-				var filterValue = $(this).attr('data-filter');
-				items.isotope({
-					filter: filterValue
-				});
-			});
-			// menu active class
-			$('.destinations-nav li').on('click', function (event) {
-				$(this).siblings('.active').removeClass('active');
-				$(this).addClass('active');
-				event.preventDefault();
-			});
-		});
+        // $('.destinations-active').imagesLoaded(function () {
+		// 	var items = $('.destinations-active').isotope({
+		// 		itemSelector: '.item',
+		// 		percentPosition: true,
+		// 	});
+		// 	// items on button click
+		// 	$('.destinations-nav').on('click', 'li', function () {
+		// 		var filterValue = $(this).attr('data-filter');
+		// 		items.isotope({
+		// 			filter: filterValue
+		// 		});
+		// 	});
+		// 	// menu active class
+		// 	$('.destinations-nav li').on('click', function (event) {
+		// 		$(this).siblings('.active').removeClass('active');
+		// 		$(this).addClass('active');
+		// 		event.preventDefault();
+		// 	});
+		// });
         
         
         // ## Price Range Fliter jQuery UI

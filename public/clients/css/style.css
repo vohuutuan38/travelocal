@@ -4535,7 +4535,7 @@ h6, .h6, blockquote {
     position: relative;
     border-radius: 10px; }
     .destination-item .image img {
-   min-height: 165px;
+   min-height: 278px;
       -webkit-transition: 0.5s;
       -o-transition: 0.5s;
       transition: 0.5s; }
@@ -4996,6 +4996,10 @@ h6, .h6, blockquote {
     .destinations-nav li.active {
       color: white;
       background: var(--primary-color); }
+      .destinations-nav li.active a{
+    color: white;
+  
+}
   .destinations-nav.style-two li {
     font-size: 16px;
     padding: 1px 15px; }

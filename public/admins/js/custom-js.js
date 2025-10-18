@@ -225,7 +225,7 @@ document.querySelectorAll('.post-edit-image').forEach(input => {
 
     // TinyMCE editor trong post
     tinymce.init({
-    selector: 'textarea',
+    selector: '#content-editor',
     plugins: [
       // Core editing features
       'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
