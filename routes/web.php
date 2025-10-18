@@ -49,7 +49,10 @@ Route::get('/tour', [TourController::class, 'index'])->name('tour');
 Route::get('/tour-detail/{id}', [TourController::class, 'show'])->name('tour-detail');
 Route::get('/tour-guide', [TravelGuidesController::class, 'index'])->name('tour-guide');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+// Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');

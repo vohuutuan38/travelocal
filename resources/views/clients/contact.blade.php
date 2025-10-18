@@ -105,9 +105,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <div class="comment-form bgc-lighter z-1 rel mb-30 rmb-55">
-                        <form id="contactForm" class="contactForm" name="contactForm"
-                            action="https://webtendtheme.net/html/2024/ravelo/assets/php/form-process.php" method="post"
-                            data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
+                        <form id="contactForm" class="contactForm" name="contactForm" action="{{ route('contact.send') }}"
+                            method="post" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
+                            @csrf 
                             <div class="section-title">
                                 <h2>Liên hệ</h2>
                             </div>
@@ -117,52 +117,47 @@
                                     <div class="form-group">
                                         <label for="name">Tên đầy đủ</label>
                                         <input type="text" id="name" name="name" class="form-control"
-                                            placeholder="Randy J. Thomas" value="" required
-                                            data-error="Please enter your Name">
-                                        <div class="help-block with-errors"></div>
+                                            value="{{ old('name') }}" required>
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone_number">Số điện thoại</label>
                                         <input type="text" id="phone_number" name="phone_number" class="form-control"
-                                            placeholder="Phone" value="" required
-                                            data-error="Please enter your Phone">
-                                        <div class="help-block with-errors"></div>
+                                            value="{{ old('phone_number') }}" required>
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="email">Địa chỉ email</label>
                                         <input type="email" id="email" name="email" class="form-control"
-                                            placeholder="enter email" value="" required
-                                            data-error="Please enter your Email">
-                                        <div class="help-block with-errors"></div>
+                                            value="{{ old('email') }}" required>
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="message">Tin nhắn của bạn</label>
-                                        <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message" required
-                                            data-error="Please enter your Message"></textarea>
-                                        <div class="help-block with-errors"></div>
+                                        <textarea name="message" id="message" class="form-control" rows="5" required>{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <ul class="radio-filter mb-25">
-                                            <li>
-                                                <input class="form-check-input" type="radio" name="terms-condition"
-                                                    id="terms-condition">
-                                                <label for="terms-condition">Lưu tên, email và trang web của tôi trong
-                                                    trình duyệt này cho lần bình luận tiếp theo của tôi.</label>
-                                            </li>
-                                        </ul>
                                         <button type="submit" class="theme-btn style-two">
-                                            <span data-hover="Gửi bình luận">Gửi bình luận</span>
+                                            <span data-hover="Gửi">Gửi</span>
                                             <i class="fal fa-arrow-right"></i>
                                         </button>
-                                        <div id="msgSubmit" class="hidden"></div>
                                     </div>
                                 </div>
                             </div>
